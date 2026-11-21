@@ -1,0 +1,3145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Tabuada da Mariana — Aventura dos Bichinhos da Multiplicação</title>
+
+  <!-- Fontes lúdicas e arredondadas (Fredoka + Nunito com fallback sans-serif) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Fredoka', 'Nunito', 'sans-serif'],
+            body: ['Nunito', 'sans-serif'],
+          },
+          colors: {
+            cream: '#FFFDF6',
+            skysoft: '#EBF8FF',
+            sunshine: '#FFD166',
+            mint: '#38D9A9',
+            coral: '#FF7B7B',
+            lilac: '#A78BFA',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Estilos globais lúdicos, acolhedores e táteis */
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Nunito', sans-serif;
+      background-color: #FFFDF6;
+      background-image:
+        radial-gradient(circle at 10% 14%, rgba(56, 189, 248, 0.16) 0%, transparent 34%),
+        radial-gradient(circle at 90% 10%, rgba(255, 209, 102, 0.24) 0%, transparent 32%),
+        radial-gradient(circle at 86% 86%, rgba(56, 217, 169, 0.16) 0%, transparent 36%),
+        radial-gradient(circle at 14% 88%, rgba(244, 114, 182, 0.13) 0%, transparent 32%);
+      color: #2D3748;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, .font-display {
+      font-family: 'Fredoka', 'Nunito', sans-serif;
+    }
+
+    /* Botões táteis 3D estilo aplicativo infantil */
+    .btn-3d {
+      transition: transform 0.11s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.11s ease, filter 0.15s ease;
+      touch-action: manipulation;
+      user-select: none;
+    }
+
+    .btn-3d:active:not(:disabled) {
+      transform: translateY(3px) scale(0.98);
+    }
+
+    .btn-3d-blue {
+      background: linear-gradient(180deg, #38BDF8 0%, #0EA5E9 100%);
+      box-shadow: 0 5px 0 #0284C7, 0 8px 16px rgba(14, 165, 233, 0.26);
+    }
+    .btn-3d-blue:active:not(:disabled) {
+      box-shadow: 0 2px 0 #0284C7, 0 4px 8px rgba(14, 165, 233, 0.20);
+    }
+
+    .btn-3d-green {
+      background: linear-gradient(180deg, #4ADE80 0%, #22C55E 100%);
+      box-shadow: 0 5px 0 #15803D, 0 8px 16px rgba(34, 197, 94, 0.26);
+    }
+    .btn-3d-green:active:not(:disabled) {
+      box-shadow: 0 2px 0 #15803D, 0 4px 8px rgba(34, 197, 94, 0.20);
+    }
+
+    .btn-3d-yellow {
+      background: linear-gradient(180deg, #FDE047 0%, #FACC15 100%);
+      box-shadow: 0 5px 0 #CA8A04, 0 8px 16px rgba(234, 179, 8, 0.24);
+    }
+    .btn-3d-yellow:active:not(:disabled) {
+      box-shadow: 0 2px 0 #CA8A04, 0 4px 8px rgba(234, 179, 8, 0.18);
+    }
+
+    .btn-3d-coral {
+      background: linear-gradient(180deg, #FF8E8E 0%, #F87171 100%);
+      box-shadow: 0 5px 0 #DC2626, 0 8px 16px rgba(248, 113, 113, 0.24);
+    }
+    .btn-3d-coral:active:not(:disabled) {
+      box-shadow: 0 2px 0 #DC2626, 0 4px 8px rgba(248, 113, 113, 0.18);
+    }
+
+    .btn-3d-lilac {
+      background: linear-gradient(180deg, #C084FC 0%, #A855F7 100%);
+      box-shadow: 0 5px 0 #7E22CE, 0 8px 16px rgba(168, 85, 247, 0.26);
+    }
+    .btn-3d-lilac:active:not(:disabled) {
+      box-shadow: 0 2px 0 #7E22CE, 0 4px 8px rgba(168, 85, 247, 0.20);
+    }
+
+    .btn-3d-pink {
+      background: linear-gradient(180deg, #F472B6 0%, #EC4899 100%);
+      box-shadow: 0 5px 0 #BE185D, 0 8px 16px rgba(236, 72, 153, 0.25);
+    }
+    .btn-3d-pink:active:not(:disabled) {
+      box-shadow: 0 2px 0 #BE185D, 0 4px 8px rgba(236, 72, 153, 0.18);
+    }
+
+    .btn-3d-white {
+      background: #FFFFFF;
+      box-shadow: 0 4px 0 #CBD5E1, 0 5px 10px rgba(15, 23, 42, 0.07);
+      border: 2px solid #E2E8F0;
+    }
+    .btn-3d-white:active:not(:disabled) {
+      box-shadow: 0 1px 0 #CBD5E1, 0 2px 5px rgba(15, 23, 42, 0.05);
+    }
+
+    /* Teclas coloridas suaves para o teclado infantil */
+    .key-num {
+      background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+      border: 2px solid #BAE6FD;
+      box-shadow: 0 4px 0 #7DD3FC, 0 5px 10px rgba(14, 165, 233, 0.12);
+    }
+    .key-num:active:not(:disabled) {
+      box-shadow: 0 1px 0 #7DD3FC, 0 2px 5px rgba(14, 165, 233, 0.10);
+    }
+
+    /* Animações suaves para mascotes e comemoração */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+    }
+
+    @keyframes bounceHappy {
+      0%, 100% { transform: translateY(0) scale(1); }
+      30% { transform: translateY(-13px) scale(1.07) rotate(-3deg); }
+      60% { transform: translateY(-5px) scale(1.03) rotate(3deg); }
+    }
+
+    @keyframes gentleShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px) rotate(-2deg); }
+      75% { transform: translateX(5px) rotate(2deg); }
+    }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.9) translateY(6px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    @keyframes confettiFall {
+      0% { transform: translateY(-12px) rotate(0deg) scale(1); opacity: 1; }
+      100% { transform: translateY(112vh) rotate(540deg) scale(0.7); opacity: 0; }
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.8); }
+    }
+
+    .animate-float { animation: floatSlow 3.2s ease-in-out infinite; }
+    .animate-happy { animation: bounceHappy 0.72s cubic-bezier(0.34, 1.56, 0.64, 1) 2; }
+    .animate-shake { animation: gentleShake 0.45s ease-in-out; }
+    .animate-pop { animation: popIn 0.26s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+    .animate-sync-dot { animation: pulseDot 1.1s ease-in-out infinite; }
+
+    /* Barra de rolagem limpa */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #F1F5F9; border-radius: 999px; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+    /* Camada de confetes sem bloquear cliques */
+    #confetti-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 60;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body class="pb-16 md:pb-10">
+
+  <!-- Camada de confetes e estrelinhas -->
+  <div id="confetti-layer" aria-hidden="true"></div>
+
+  <!-- Avisos rápidos (Toasts) -->
+  <div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 max-w-xs w-full pointer-events-none"></div>
+
+  <!-- Modal customizado (substitui alert/confirm) -->
+  <div id="custom-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+    <div id="custom-modal-card" class="bg-white rounded-3xl shadow-2xl border-4 border-sky-200 max-w-md w-full p-6 animate-pop">
+      <div class="flex items-start gap-3">
+        <div id="modal-icon" class="shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center bg-sky-100 text-sky-600"></div>
+        <div class="flex-1">
+          <h3 id="modal-title" class="text-xl font-display font-bold text-slate-800"></h3>
+          <div id="modal-body" class="mt-2 text-sm text-slate-600 leading-relaxed"></div>
+        </div>
+      </div>
+      <div id="modal-actions" class="mt-6 flex flex-wrap justify-end gap-3"></div>
+    </div>
+  </div>
+
+  <!-- Cabeçalho Principal -->
+  <header id="app-header" class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b-2 border-sky-100 shadow-sm">
+    <div class="max-w-5xl mx-auto px-3 sm:px-5 py-2 sm:py-2.5">
+      <div class="flex items-center justify-between gap-2">
+        <!-- Logo Personalizada: Tabuada da Mariana -->
+        <button onclick="navigate('tabuadas')" class="flex items-center gap-2 sm:gap-2.5 text-left group focus:outline-none min-w-0">
+          <div id="header-logo-mascot" class="w-10 h-10 sm:w-11 sm:h-11 shrink-0 rounded-2xl bg-gradient-to-br from-amber-100 to-pink-100 border-2 border-amber-300 flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform"></div>
+          <div class="min-w-0">
+            <div class="font-display font-bold text-base sm:text-xl leading-tight text-slate-800 truncate">
+              Tabuada da <span class="text-pink-500">Mariana</span>
+            </div>
+            <div class="text-[11px] font-extrabold text-sky-600/80 hidden sm:block truncate">
+              Aventura dos Bichinhos da Multiplicação
+            </div>
+          </div>
+        </button>
+
+        <!-- 4 Abas Principais (Desktop) -->
+        <nav class="hidden lg:flex items-center gap-1 bg-sky-50/90 p-1 rounded-2xl border border-sky-200/80" aria-label="Abas principais">
+          <button data-nav="tabuadas" onclick="navigate('tabuadas')" class="nav-btn"></button>
+          <button data-nav="estudo" onclick="openStudyTab()" class="nav-btn"></button>
+          <button data-nav="album_mapa" onclick="navigate('album_mapa')" class="nav-btn"></button>
+          <button data-nav="opcoes" onclick="navigate('opcoes')" class="nav-btn"></button>
+        </nav>
+
+        <!-- Indicadores: Sync + Ofensiva + Estrelas + Som -->
+        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <!-- Status discreto da nuvem -->
+          <button id="header-sync-pill" onclick="handleSyncBadgeClick()" title="Status da sincronização na nuvem" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl border text-[11px] font-extrabold transition-all">
+            <span id="header-sync-dot" class="w-2 h-2 rounded-full"></span>
+            <span id="header-sync-text" class="hidden sm:inline">Salvo neste aparelho</span>
+          </button>
+
+          <!-- Ofensiva (dias seguidos) -->
+          <div title="Dias seguidos da Mariana" class="flex items-center gap-1 bg-orange-50 border-2 border-orange-200 text-orange-600 px-2 py-1 rounded-xl font-display font-bold text-xs sm:text-sm">
+            <span id="icon-streak" class="w-3.5 h-3.5 sm:w-4 sm:h-4 inline-flex"></span>
+            <span id="header-streak">0</span>
+          </div>
+
+          <!-- Estrelinhas da Mariana -->
+          <div title="Estrelinhas da Mariana" class="flex items-center gap-1 bg-amber-50 border-2 border-amber-200 text-amber-600 px-2 py-1 rounded-xl font-display font-bold text-xs sm:text-sm">
+            <span id="icon-star" class="w-3.5 h-3.5 sm:w-4 sm:h-4 inline-flex"></span>
+            <span id="header-stars">0</span>
+          </div>
+
+          <!-- Ligar / Desligar som -->
+          <button id="btn-sound-toggle" onclick="toggleSound()" title="Ligar ou desligar sons" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-sky-50 hover:bg-sky-100 border-2 border-sky-200 text-sky-600 flex items-center justify-center transition-colors"></button>
+        </div>
+      </div>
+
+      <!-- 4 Abas Principais no Topo (Celular/Tablet — fica compacta no estudo) -->
+      <nav id="top-mobile-tabs" class="lg:hidden grid grid-cols-4 gap-1 mt-2 bg-sky-50/90 p-1 rounded-2xl border border-sky-200/80" aria-label="Abas principais mobile">
+        <button data-nav-mobile="tabuadas" onclick="navigate('tabuadas')" class="nav-btn-mobile"></button>
+        <button data-nav-mobile="estudo" onclick="openStudyTab()" class="nav-btn-mobile"></button>
+        <button data-nav-mobile="album_mapa" onclick="navigate('album_mapa')" class="nav-btn-mobile"></button>
+        <button data-nav-mobile="opcoes" onclick="navigate('opcoes')" class="nav-btn-mobile"></button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main id="app-main" class="max-w-5xl mx-auto px-3 sm:px-5 pt-3 sm:pt-6 pb-6"></main>
+
+  <!-- Input oculto para importar arquivo JSON -->
+  <input type="file" id="import-file-input" accept="application/json,.json" class="hidden" />
+
+  <script>
+    /*************************************************************************
+     * 0. CONFIGURAÇÃO DE SINCRONIZAÇÃO NA NUVEM (GOOGLE APPS SCRIPT / DRIVE)
+     *
+     * COMO USAR EM VÁRIOS CELULARES E NOTEBOOKS SEM CONFIGURAR UM POR UM:
+     * Cole abaixo a URL do seu Google Apps Script Web App (terminada em /exec).
+     * Exemplo: const CLOUD_SYNC_URL = "https://script.google.com/macros/s/AKfycbyE-LGKiDiPeI5PNJVvA4P91Mj3_t87GvUcZduOf6evicHDKGy3BKldXUAvQouEHvnC/exec";
+     *
+     * Se deixar vazio (""), você também pode colar a URL diretamente na aba
+     * "Opções (Pais)" dentro do próprio aplicativo.
+     *************************************************************************/
+    const CLOUD_SYNC_URL = "";
+
+    /*************************************************************************
+     * 1. CONSTANTES, PARÂMETROS ANKI CLONADOS E OS 10 MASCOTES DA MARIANA
+     *************************************************************************/
+    const STORAGE_KEY = 'tabuada_da_mariana_anki_v2';
+    const CLOUD_URL_STORAGE_KEY = 'tabuada_da_mariana_cloud_url_v2';
+
+    // Parâmetros exatos clonados do Anki (SEM botão Fácil)
+    const DEFAULT_CONFIG = {
+      novosPorDia: 9999,          // Limite diário de novos cartões
+      revisoesPorDia: 9999,       // Limite diário de revisões
+      etapasAprendizagem: '1m 10m', // Etapas de aprendizagem (1m, depois 10m)
+      etapaReaprendizagemMin: 10, // Etapa ao errar revisão graduada (10m)
+      intervaloGraduacao: 1,      // Intervalo de graduação (1 dia)
+      intervaloMaximo: 36500,     // Intervalo máximo (dias)
+      facilidadeInicial: 2.50,    // Facilidade inicial
+      modificadorIntervalo: 1.00, // Modificador de intervalo
+      intervaloArduo: 1.20,       // Intervalo árduo (Difícil)
+      novoIntervaloLapso: 0.50,   // Novo intervalo ao errar revisão (50% do anterior, mín. 1 dia)
+      limiteBomSegundos: 5.0,     // Cronômetro oculto: <= 5.0s = Bom; > 5.0s = Difícil
+      learnAheadMin: 20           // Learn Ahead (20 min) para não travar a fila
+    };
+
+    // 10 Mascotes exclusivos da Mariana (1 por tabuada)
+    const MASCOTS = [
+      {
+        table: 1,
+        name: 'Pipoca',
+        species: 'Pintinho',
+        bgSoft: 'bg-amber-50',
+        borderSoft: 'border-amber-200',
+        badgeBg: 'bg-amber-100 text-amber-800',
+        phrases: {
+          waiting: ['Oi, Mariana! Essa é bem gostosa de fazer, quanto dá?', 'Piu piu! Vamos lá, Mariana! Você consegue!', 'Mariana, estou batendo as asinhas torcendo por você!'],
+          good: ['Arrasou, Mariana! Foi mais rápida que um foguete!', 'Piu-perfeito! Muito rápido, Mariana!', 'Mandou bem demais, Mariana! Estrelinha garantida!'],
+          hard: ['Acertou, Mariana! Logo fica bem rapidinho!', 'Boa, Mariana! Mais um pouquinho de treino e vira moleza!'],
+          again: ['Quase lá, Mariana! Olha a dica do Pipoca:', 'Tudo bem errar, Mariana! Vamos lembrar juntinhos:']
+        }
+      },
+      {
+        table: 2,
+        name: 'Algodão',
+        species: 'Coelhinho',
+        bgSoft: 'bg-pink-50',
+        borderSoft: 'border-pink-200',
+        badgeBg: 'bg-pink-100 text-pink-800',
+        phrases: {
+          waiting: ['Oi, Mariana! Na do 2 é só fazer o dobro! Quanto é?', 'Orelhinhas em pé, Mariana! Vamos lá!', 'Você consegue, Mariana! Dá um pulão nessa conta!'],
+          good: ['Arrasou, Mariana! Pulou direto na resposta certa!', 'Muito rápido, Mariana! Algodão está dando pulinhos!', 'Mandou bem demais, Mariana! Você domina o dobro!'],
+          hard: ['Acertou, Mariana! Logo fica bem rapidinho!', 'Boa, Mariana! Mais um pouquinho de treino e vira moleza!'],
+          again: ['Quase lá, Mariana! Olha a dica do Algodão:', 'Tudo bem errar, Mariana! Vamos lembrar direitinho:']
+        }
+      },
+      {
+        table: 3,
+        name: 'Mimi',
+        species: 'Gatinha',
+        bgSoft: 'bg-yellow-50',
+        borderSoft: 'border-yellow-200',
+        badgeBg: 'bg-yellow-100 text-yellow-800',
+        phrases: {
+          waiting: ['Miau! Oi, Mariana! Quanto é essa conta?', 'Vamos lá, Mariana! A Mimi sabe que você é fera!', 'Você consegue, Mariana! Mostra como você é esperta!'],
+          good: ['Miauravilhoso! Arrasou, Mariana!', 'Muito rápido, Mariana! A Mimi está ronronando de orgulho!', 'Mandou bem demais, Mariana! Que rapidez!'],
+          hard: ['Acertou, Mariana! Logo fica bem rapidinho!', 'Boa, Mariana! Mais um pouquinho de treino e vira moleza!'],
+          again: ['Quase lá, Mariana! Olha a dica da Mimi:', 'Tudo bem errar, Mariana! Vamos lembrar com calma:']
+        }
+      },
+      {
+        table: 4,
+        name: 'Bambu',
+        species: 'Panda',
+        bgSoft: 'bg-emerald-50',
+        borderSoft: 'border-emerald-200',
+        badgeBg: 'bg-emerald-100 text-emerald-800',
+        phrases: {
+          waiting: ['Oi, Mariana! Lembra: vezes 4 é o dobro do dobro!', 'Vamos lá, Mariana! Estou mastigando bambu e torcendo!', 'Você consegue, Mariana! Quanto dá essa?'],
+          good: ['Arrasou, Mariana! O Bambu bateu palmas!', 'Muito rápido, Mariana! Você é super craque!', 'Mandou bem demais, Mariana! Brilhou na do 4!'],
+          hard: ['Acertou, Mariana! Logo fica bem rapidinho!', 'Boa, Mariana! Mais um pouquinho de treino e vira moleza!'],
+          again: ['Quase lá, Mariana! Olha a dica do Bambu:', 'Tudo bem errar, Mariana! Vamos lembrar esse truque:']
+        }
+      },
+      {
+        table: 5,
+        name: 'Lola',
+        species: 'Cachorrinha',
+        bgSoft: 'bg-orange-50',
+        borderSoft: 'border-orange-200',
+        badgeBg: 'bg-orange-100 text-orange-800',
+        phrases: {
+          waiting: ['Au au! Oi, Mariana! Na do 5 sempre termina em 0 ou 5!', 'Abanando o rabinho para você, Mariana! Quanto é?', 'Vamos lá, Mariana! Você consegue!'],
+          good: ['Au-mazing! Arrasou, Mariana!', 'Muito rápido, Mariana! A Lola adorou!', 'Mandou bem demais, Mariana! Que campeã!'],
+          hard: ['Acertou, Mariana! Logo fica bem rapidinho!', 'Boa, Mariana! Mais um pouquinho de treino e vira moleza!'],
+          again: ['Quase lá, Mariana! Olha a dica da Lola:', 'Tudo bem errar, Mariana! Vamos lembrar na próxima:']
+        }
+      },
+      {
+        table: 6,
+        name: 'Mel',
+        species: 'Ursinha',
+        bgSoft: 'bg-amber-50',
+        borderSoft: 'border-amber-300',
+        badgeBg: 'bg-amber-100 text-amber-900',
+        phrases: {
+          waiting: ['Oi, Mariana! Abraço de ursinha para dar sorte!', 'Vamos lá, Mariana! Quanto é essa da tabuada do 6?', 'Você consegue, Mariana! Com calma você brilha!'],
+          good: ['Doce vitória! Arrasou, Mariana!', 'Muito rápido, Mariana! Abraço gigante da Mel!', 'Mandou bem demais, Mariana! Estrela brilhante!'],
+          hard: ['Acertou, Mariana! Logo fica bem rapidinho!', 'Boa, Mariana! Mais um pouquinho de treino e vira moleza!'],
+          again: ['Quase lá, Mariana! Olha a dica da Mel:', 'Tudo bem errar, Mariana! Vamos lembrar juntinhas:']
+        }
+      },
+      {
+        table: 7,
+        name: 'Sábia',
+        species: 'Corujinha',
+        bgSoft: 'bg-violet-50',
+        borderSoft: 'border-violet-200',
+        badgeBg: 'bg-violet-100 text-violet-800',
+        phrases: {
+          waiting: ['Uhuu! Oi, Mariana! A do 7 é para grandes campeãs!', 'Vamos lá, Mariana! Olhinhos atentos, quanto dá?', 'Você consegue, Mariana! Estou orgulhosa de você!'],
+          good: ['Sabedoria pura! Arrasou, Mariana!', 'Muito rápido, Mariana! A Sábia bateu as asas!', 'Mandou bem demais, Mariana! Nota mil!'],
+          hard: ['Acertou, Mariana! A do 7 exige atenção e logo fica bem rapidinho!', 'Boa, Mariana! Mais um pouquinho de treino e vira moleza!'],
+          again: ['Quase lá, Mariana! A do 7 é desafiadora mesmo, olha a dica:', 'Tudo bem errar, Mariana! Vamos lembrar esse segredo:']
+        }
+      },
+      {
+        table: 8,
+        name: 'Kiko',
+        species: 'Macaquinho',
+        bgSoft: 'bg-orange-50',
+        borderSoft: 'border-orange-300',
+        badgeBg: 'bg-orange-100 text-orange-900',
+        phrases: {
+          waiting: ['U-u á-á! Oi, Mariana! Quanto é essa conta?', 'Vamos lá, Mariana! O Kiko deu um salto torcendo!', 'Você consegue, Mariana! Vai ser moleza!'],
+          good: ['Arrasou, Mariana! O Kiko até deu cambalhota!', 'Muito rápido, Mariana! Que agilidade incrível!', 'Mandou bem demais, Mariana! Campeã da do 8!'],
+          hard: ['Acertou, Mariana! Logo fica bem rapidinho!', 'Boa, Mariana! Mais um pouquinho de treino e vira moleza!'],
+          again: ['Quase lá, Mariana! Olha a dica do Kiko:', 'Tudo bem errar, Mariana! Vamos lembrar com esse atalho:']
+        }
+      },
+      {
+        table: 9,
+        name: 'Pingo',
+        species: 'Pinguim',
+        bgSoft: 'bg-sky-50',
+        borderSoft: 'border-sky-200',
+        badgeBg: 'bg-sky-100 text-sky-800',
+        phrases: {
+          waiting: ['Oi, Mariana! Lembra do truque da do 9: vezes 10 menos o número!', 'Vamos lá, Mariana! Deslizando no gelo, quanto dá?', 'Você consegue, Mariana! O Pingo acredita em você!'],
+          good: ['Arrasou, Mariana! Deslizou direto no acerto!', 'Muito rápido, Mariana! Gênio da tabuada do 9!', 'Mandou bem demais, Mariana! Que velocidade!'],
+          hard: ['Acertou, Mariana! Logo fica bem rapidinho!', 'Boa, Mariana! Mais um pouquinho de treino e vira moleza!'],
+          again: ['Quase lá, Mariana! Olha a dica mágica do Pingo:', 'Tudo bem errar, Mariana! Vamos lembrar esse truque do 9:']
+        }
+      },
+      {
+        table: 10,
+        name: 'Léo',
+        species: 'Leãozinho',
+        bgSoft: 'bg-amber-50',
+        borderSoft: 'border-amber-300',
+        badgeBg: 'bg-amber-100 text-amber-800',
+        phrases: {
+          waiting: ['Oi, Mariana! Na do 10 é só colocar um 0 no final!', 'Vamos lá, Mariana! Rugido de coragem, quanto é?', 'Você consegue, Mariana! Mostra quem é a rainha da tabuada!'],
+          good: ['RUGIDO DE CAMPEÃ! Arrasou, Mariana!', 'Muito rápido, Mariana! O Léo te deu a coroa!', 'Mandou bem demais, Mariana! Sensacional!'],
+          hard: ['Acertou, Mariana! Logo fica bem rapidinho!', 'Boa, Mariana! Mais um pouquinho de treino e vira moleza!'],
+          again: ['Quase lá, Mariana! Olha a dica do Léo:', 'Tudo bem errar, Mariana! Vamos lembrar que é só pôr um 0:']
+        }
+      }
+    ];
+
+    /*************************************************************************
+     * 2. ÍCONES SVG VETORIAIS DA INTERFACE
+     *************************************************************************/
+    const UI_ICONS = {
+      star: `<svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full"><path d="M12 2.4l2.85 5.78 6.38.93-4.62 4.5 1.09 6.35L12 16.96l-5.7 3 1.09-6.35-4.62-4.5 6.38-.93L12 2.4z"/></svg>`,
+      streak: `<svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full"><path d="M13.5 2.2c.4 2.8-1.1 4.8-2.4 6.2-1.2 1.3-2.1 2.4-2.1 4.1 0 1.6 1.2 2.9 2.9 2.9 2 0 3.4-1.6 3.4-3.7 0-.9-.3-1.8-.8-2.5 2.7 1.3 4.5 4.1 4.5 7.2 0 4.2-3.3 7.4-7.5 7.4S4 20.6 4 16.4c0-3.5 1.8-6.4 4.1-8.7 1.8-1.8 3.8-3.4 5.4-5.5z"/></svg>`,
+      soundOn: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" fill-opacity="0.2"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`,
+      soundOff: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" fill-opacity="0.15"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`,
+      grid: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/></svg>`,
+      study: `<svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M7.5 5.2c0-1.2 1.3-1.9 2.3-1.3l10.2 6.8c.9.6.9 2 0 2.6L9.8 20.1c-1 .6-2.3-.1-2.3-1.3V5.2z"/></svg>`,
+      album: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M12 7.2l1.2 2.4 2.6.4-1.9 1.8.5 2.6L12 13.1l-2.4 1.3.5-2.6-1.9-1.8 2.6-.4L12 7.2z" fill="currentColor"/></svg>`,
+      settings: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
+      lock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="4" y="11" width="16" height="10" rx="3" fill="currentColor" fill-opacity="0.16"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><circle cx="12" cy="16" r="1.4" fill="currentColor"/></svg>`,
+      unlock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="4" y="11" width="16" height="10" rx="3" fill="currentColor" fill-opacity="0.16"/><path d="M8 11V7a4 4 0 0 1 7.6-1.7"/><circle cx="12" cy="16" r="1.4" fill="currentColor"/></svg>`,
+      play: `<svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M7.5 5.2c0-1.2 1.3-1.9 2.3-1.3l10.2 6.8c.9.6.9 2 0 2.6L9.8 20.1c-1 .6-2.3-.1-2.3-1.3V5.2z"/></svg>`,
+      back: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M15 18l-6-6 6-6"/></svg>`,
+      backspace: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M21 6H9l-6 6 6 6h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2z"/><line x1="17" y1="10" x2="13" y2="14"/><line x1="13" y1="10" x2="17" y2="14"/></svg>`,
+      check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><polyline points="20 6 9 17 4 12"/></svg>`,
+      sparkle: `<svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M12 2l2.1 6.4L20.5 10.5l-6.4 2.1L12 19l-2.1-6.4-6.4-2.1 6.4-2.1L12 2z"/></svg>`,
+      trophy: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z" fill="currentColor" fill-opacity="0.18"/></svg>`,
+      bulb: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z" fill="currentColor" fill-opacity="0.18"/></svg>`,
+      clock: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>`,
+      cloud: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" fill="currentColor" fill-opacity="0.14"/></svg>`,
+      sync: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>`,
+      download: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,
+      upload: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>`,
+      trash: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>`,
+      copy: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`,
+      arrowRight: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`
+    };
+
+    /*************************************************************************
+     * 3. ILUSTRAÇÕES SVG DOS 10 MASCOTES (COM EXPRESSÕES REATIVAS)
+     * 1: Pipoca (Pintinho), 2: Algodão (Coelhinho), 3: Mimi (Gatinha),
+     * 4: Bambu (Panda), 5: Lola (Cachorrinha), 6: Mel (Ursinha),
+     * 7: Sábia (Corujinha), 8: Kiko (Macaquinho), 9: Pingo (Pinguim),
+     * 10: Léo (Leãozinho)
+     *************************************************************************/
+    function renderMascotSVG(table, mood = 'waiting', className = 'w-24 h-24') {
+      function renderEyes(cx1, cx2, cy, eyeColor = '#1E293B') {
+        if (mood === 'good') {
+          return `
+            <path d="M${cx1 - 7} ${cy + 2} Q${cx1} ${cy - 7} ${cx1 + 7} ${cy + 2}" fill="none" stroke="${eyeColor}" stroke-width="3.6" stroke-linecap="round"/>
+            <path d="M${cx2 - 7} ${cy + 2} Q${cx2} ${cy - 7} ${cx2 + 7} ${cy + 2}" fill="none" stroke="${eyeColor}" stroke-width="3.6" stroke-linecap="round"/>
+          `;
+        }
+        if (mood === 'again') {
+          return `
+            <circle cx="${cx1}" cy="${cy}" r="6.4" fill="${eyeColor}"/>
+            <circle cx="${cx1 - 2}" cy="${cy - 2.2}" r="2.3" fill="#FFFFFF"/>
+            <circle cx="${cx1 + 2}" cy="${cy + 2}" r="1.1" fill="#FFFFFF"/>
+            <circle cx="${cx2}" cy="${cy}" r="6.4" fill="${eyeColor}"/>
+            <circle cx="${cx2 - 2}" cy="${cy - 2.2}" r="2.3" fill="#FFFFFF"/>
+            <circle cx="${cx2 + 2}" cy="${cy + 2}" r="1.1" fill="#FFFFFF"/>
+            <path d="M${cx1 - 7} ${cy - 9} Q${cx1} ${cy - 11.5} ${cx1 + 5} ${cy - 8.5}" fill="none" stroke="${eyeColor}" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+            <path d="M${cx2 - 5} ${cy - 8.5} Q${cx2} ${cy - 11.5} ${cx2 + 7} ${cy - 9}" fill="none" stroke="${eyeColor}" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+          `;
+        }
+        const shift = mood === 'hard' ? 1 : 0;
+        return `
+          <circle cx="${cx1}" cy="${cy}" r="6.4" fill="${eyeColor}"/>
+          <circle cx="${cx1 - 2 + shift}" cy="${cy - 2.2}" r="2.3" fill="#FFFFFF"/>
+          <circle cx="${cx1 + 2}" cy="${cy + 2}" r="1.1" fill="#FFFFFF"/>
+          <circle cx="${cx2}" cy="${cy}" r="6.4" fill="${eyeColor}"/>
+          <circle cx="${cx2 - 2 + shift}" cy="${cy - 2.2}" r="2.3" fill="#FFFFFF"/>
+          <circle cx="${cx2 + 2}" cy="${cy + 2}" r="1.1" fill="#FFFFFF"/>
+        `;
+      }
+
+      function renderMouth(cx, cy, stroke = '#475569') {
+        if (mood === 'good') {
+          return `
+            <path d="M${cx - 10} ${cy - 1} Q${cx} ${cy + 13} ${cx + 10} ${cy - 1} Z" fill="#FB7185" stroke="${stroke}" stroke-width="2.2" stroke-linejoin="round"/>
+            <path d="M${cx - 5} ${cy + 6} Q${cx} ${cy + 2} ${cx + 5} ${cy + 6}" fill="#FDA4AF"/>
+          `;
+        }
+        if (mood === 'hard') {
+          return `<path d="M${cx - 8} ${cy + 1} Q${cx} ${cy + 7} ${cx + 8} ${cy + 1}" fill="none" stroke="${stroke}" stroke-width="2.8" stroke-linecap="round"/>`;
+        }
+        if (mood === 'again') {
+          return `<path d="M${cx - 6} ${cy + 4} Q${cx} ${cy + 1} ${cx + 6} ${cy + 4}" fill="none" stroke="${stroke}" stroke-width="2.6" stroke-linecap="round"/>`;
+        }
+        return `<path d="M${cx - 8} ${cy + 1} Q${cx - 4} ${cy + 6} ${cx} ${cy + 2} Q${cx + 4} ${cy + 6} ${cx + 8} ${cy + 1}" fill="none" stroke="${stroke}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+      }
+
+      function renderMoodOverlay() {
+        if (mood === 'good') {
+          return `
+            <g fill="#FACC15">
+              <path d="M18 20l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>
+              <path d="M102 18l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z"/>
+              <circle cx="104" cy="44" r="3" fill="#38BDF8"/>
+              <circle cx="16" cy="46" r="2.8" fill="#4ADE80"/>
+            </g>
+          `;
+        }
+        if (mood === 'hard') {
+          return `
+            <g>
+              <path d="M98 18 Q105 26 98 32 Q91 26 98 18 Z" fill="#7DD3FC" stroke="#0284C7" stroke-width="1.5"/>
+              <path d="M19 22l1.5 3.5 3.5 1.5-3.5 1.5-1.5 3.5-1.5-3.5-3.5-1.5 3.5-1.5z" fill="#FBBF24"/>
+            </g>
+          `;
+        }
+        if (mood === 'again') {
+          return `<path d="M97 22c-2.5-3-7-1.8-7 2 0 3.6 7 8 7 8s7-4.4 7-8c0-3.8-4.5-5-7-2z" fill="#FDA4AF"/>`;
+        }
+        return '';
+      }
+
+      let body = '';
+      switch (table) {
+        case 1: // Pipoca — Pintinho amarelinho
+          body = `
+            <!-- Topetinho de penas -->
+            <path d="M56 26 Q52 13 60 22 Q66 10 66 25 Q73 16 70 28" fill="none" stroke="#F59E0B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Asinhas fofas -->
+            <ellipse cx="22" cy="70" rx="12" ry="16" transform="rotate(24 22 70)" fill="#FACC15" stroke="#EAB308" stroke-width="2"/>
+            <ellipse cx="98" cy="70" rx="12" ry="16" transform="rotate(-24 98 70)" fill="#FACC15" stroke="#EAB308" stroke-width="2"/>
+            <!-- Corpinho/cabeça redondinho -->
+            <ellipse cx="60" cy="66" rx="36" ry="35" fill="#FDE047" stroke="#EAB308" stroke-width="2.4"/>
+            <!-- Barriguinha clarinha -->
+            <ellipse cx="60" cy="84" rx="22" ry="13" fill="#FEF9C3"/>
+            <!-- Bochechas rosadas -->
+            <ellipse cx="35" cy="68" rx="6.5" ry="4" fill="#FB7185" opacity="0.5"/>
+            <ellipse cx="85" cy="68" rx="6.5" ry="4" fill="#FB7185" opacity="0.5"/>
+            ${renderEyes(45, 75, 58)}
+            <!-- Biquinho laranja -->
+            <polygon points="51,67 69,67 60,77" fill="#FB923C" stroke="#EA580C" stroke-width="1.8" stroke-linejoin="round"/>
+            ${mood === 'good' ? `<path d="M54 71 Q60 80 66 71 Z" fill="#FB7185"/>` : ''}
+            <!-- Pezinhos fofos -->
+            <path d="M46 100 L42 108 M46 100 L47 109 M46 100 L52 107" stroke="#F97316" stroke-width="3.2" stroke-linecap="round"/>
+            <path d="M74 100 L68 107 M74 100 L73 109 M74 100 L78 108" stroke="#F97316" stroke-width="3.2" stroke-linecap="round"/>
+          `;
+          break;
+
+        case 2: // Algodão — Coelhinho branco
+          body = `
+            <ellipse cx="42" cy="28" rx="11" ry="25" transform="rotate(-10 42 28)" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2.5"/>
+            <ellipse cx="42" cy="30" rx="5.5" ry="16" transform="rotate(-10 42 30)" fill="#FBCFE8"/>
+            <ellipse cx="78" cy="28" rx="11" ry="25" transform="rotate(10 78 28)" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2.5"/>
+            <ellipse cx="78" cy="30" rx="5.5" ry="16" transform="rotate(10 78 30)" fill="#FBCFE8"/>
+            <ellipse cx="60" cy="70" rx="35" ry="31" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2.5"/>
+            <ellipse cx="36" cy="75" rx="7" ry="4.5" fill="#F472B6" opacity="0.45"/>
+            <ellipse cx="84" cy="75" rx="7" ry="4.5" fill="#F472B6" opacity="0.45"/>
+            ${renderEyes(46, 74, 65)}
+            <polygon points="56,72 64,72 60,77" fill="#F472B6"/>
+            ${renderMouth(60, 79, '#64748B')}
+            <circle cx="60" cy="99" r="4" fill="#F472B6"/>
+            <path d="M56 99 L47 94 L47 104 Z" fill="#EC4899"/>
+            <path d="M64 99 L73 94 L73 104 Z" fill="#EC4899"/>
+          `;
+          break;
+
+        case 3: // Mimi — Gatinha creme
+          body = `
+            <polygon points="28,54 34,24 54,42" fill="#FDE047" stroke="#EAB308" stroke-width="2.2" stroke-linejoin="round"/>
+            <polygon points="34,48 37,31 48,43" fill="#FDA4AF"/>
+            <polygon points="92,54 86,24 66,42" fill="#FDE047" stroke="#EAB308" stroke-width="2.2" stroke-linejoin="round"/>
+            <polygon points="86,48 83,31 72,43" fill="#FDA4AF"/>
+            <ellipse cx="60" cy="68" rx="36" ry="31" fill="#FEF08A" stroke="#EAB308" stroke-width="2.2"/>
+            <path d="M54 39 L54 47 M60 38 L60 48 M66 39 L66 47" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+            <path d="M22 68 L34 70 M21 75 L34 75 M98 68 L86 70 M99 75 L86 75" stroke="#B45309" stroke-width="2" stroke-linecap="round"/>
+            <ellipse cx="36" cy="74" rx="6.5" ry="4" fill="#FB7185" opacity="0.5"/>
+            <ellipse cx="84" cy="74" rx="6.5" ry="4" fill="#FB7185" opacity="0.5"/>
+            ${renderEyes(45, 75, 64)}
+            <polygon points="56.5,70 63.5,70 60,74.5" fill="#F472B6"/>
+            ${renderMouth(60, 77, '#92400E')}
+          `;
+          break;
+
+        case 4: // Bambu — Panda
+          body = `
+            <circle cx="32" cy="38" r="13" fill="#1E293B"/>
+            <circle cx="88" cy="38" r="13" fill="#1E293B"/>
+            <ellipse cx="60" cy="66" rx="36" ry="33" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2.5"/>
+            <ellipse cx="44" cy="63" rx="12" ry="14" transform="rotate(14 44 63)" fill="#1E293B"/>
+            <ellipse cx="76" cy="63" rx="12" ry="14" transform="rotate(-14 76 63)" fill="#1E293B"/>
+            ${mood === 'good' ? `
+              <path d="M39 64 Q44 57 49 64" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round"/>
+              <path d="M71 64 Q76 57 81 64" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round"/>
+            ` : `
+              <circle cx="44" cy="62" r="4.5" fill="#FFFFFF"/>
+              <circle cx="44.5" cy="62.5" r="2.2" fill="#0F172A"/>
+              <circle cx="43" cy="61" r="1.2" fill="#FFFFFF"/>
+              <circle cx="76" cy="62" r="4.5" fill="#FFFFFF"/>
+              <circle cx="75.5" cy="62.5" r="2.2" fill="#0F172A"/>
+              <circle cx="74" cy="61" r="1.2" fill="#FFFFFF"/>
+            `}
+            <ellipse cx="33" cy="76" rx="6" ry="3.8" fill="#FB7185" opacity="0.55"/>
+            <ellipse cx="87" cy="76" rx="6" ry="3.8" fill="#FB7185" opacity="0.55"/>
+            <ellipse cx="60" cy="72" rx="6" ry="4" fill="#1E293B"/>
+            ${renderMouth(60, 79, '#1E293B')}
+            <path d="M88 26 Q102 18 106 28 Q96 34 88 26 Z" fill="#22C55E"/>
+          `;
+          break;
+
+        case 5: // Lola — Cachorrinha caramelo com lacinho rosa
+          body = `
+            <ellipse cx="26" cy="56" rx="14" ry="24" transform="rotate(16 26 56)" fill="#B45309"/>
+            <ellipse cx="94" cy="56" rx="14" ry="24" transform="rotate(-16 94 56)" fill="#B45309"/>
+            <ellipse cx="60" cy="64" rx="36" ry="34" fill="#F59E0B"/>
+            <ellipse cx="44" cy="59" rx="13" ry="12" fill="#D97706" opacity="0.55"/>
+            <ellipse cx="60" cy="74" rx="18" ry="13" fill="#FEF3C7"/>
+            <ellipse cx="35" cy="70" rx="6.5" ry="4" fill="#FB7185" opacity="0.5"/>
+            <ellipse cx="85" cy="70" rx="6.5" ry="4" fill="#FB7185" opacity="0.5"/>
+            ${renderEyes(45, 75, 58)}
+            <ellipse cx="60" cy="68" rx="6.5" ry="4.5" fill="#3B2314"/>
+            <ellipse cx="58.5" cy="66.8" rx="2" ry="1" fill="#FFFFFF" opacity="0.6"/>
+            ${renderMouth(60, 76, '#5C3A21')}
+            <!-- Lacinho fofo na orelhinha -->
+            <circle cx="82" cy="36" r="4.5" fill="#F472B6"/>
+            <path d="M79 36 L70 29 L72 41 Z" fill="#EC4899"/>
+            <path d="M85 36 L95 31 L91 43 Z" fill="#EC4899"/>
+            <!-- Coleirinha rosa com pingente -->
+            <path d="M36 93 Q60 103 84 93" fill="none" stroke="#EC4899" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="60" cy="100" r="4.5" fill="#FACC15" stroke="#B45309" stroke-width="1.2"/>
+          `;
+          break;
+
+        case 6: // Mel — Ursinha marrom com florzinha
+          body = `
+            <circle cx="31" cy="39" r="13" fill="#92400E"/>
+            <circle cx="31" cy="39" r="7" fill="#FDE68A"/>
+            <circle cx="89" cy="39" r="13" fill="#92400E"/>
+            <circle cx="89" cy="39" r="7" fill="#FDE68A"/>
+            <ellipse cx="60" cy="66" rx="36" ry="33" fill="#B45309"/>
+            <ellipse cx="60" cy="75" rx="17" ry="13" fill="#FDE68A"/>
+            <ellipse cx="35" cy="72" rx="6.5" ry="4" fill="#FB7185" opacity="0.5"/>
+            <ellipse cx="85" cy="72" rx="6.5" ry="4" fill="#FB7185" opacity="0.5"/>
+            ${renderEyes(45, 75, 59)}
+            <ellipse cx="60" cy="69" rx="6.5" ry="4.5" fill="#451A03"/>
+            <ellipse cx="58.5" cy="67.8" rx="2" ry="1" fill="#FFFFFF" opacity="0.5"/>
+            ${renderMouth(60, 77, '#451A03')}
+            <!-- Florzinha fofa perto da orelha -->
+            <g transform="translate(81,34)">
+              <circle cx="0" cy="-5" r="4" fill="#F472B6"/>
+              <circle cx="5" cy="0" r="4" fill="#F472B6"/>
+              <circle cx="0" cy="5" r="4" fill="#F472B6"/>
+              <circle cx="-5" cy="0" r="4" fill="#F472B6"/>
+              <circle cx="0" cy="0" r="3.2" fill="#FDE047"/>
+            </g>
+          `;
+          break;
+
+        case 7: // Sábia — Corujinha lilás
+          body = `
+            <polygon points="28,44 25,24 44,34" fill="#7C3AED"/>
+            <polygon points="92,44 95,24 76,34" fill="#7C3AED"/>
+            <ellipse cx="60" cy="66" rx="36" ry="34" fill="#8B5CF6"/>
+            <ellipse cx="60" cy="85" rx="22" ry="14" fill="#EDE9FE"/>
+            <path d="M50 84 Q53 88 56 84 M64 84 Q67 88 70 84 M57 90 Q60 94 63 90" fill="none" stroke="#A78BFA" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="44" cy="58" r="15" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2.5"/>
+            <circle cx="76" cy="58" r="15" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2.5"/>
+            ${renderEyes(44, 76, 58)}
+            <polygon points="54,67 66,67 60,78" fill="#F59E0B" stroke="#B45309" stroke-width="1.5" stroke-linejoin="round"/>
+            ${mood === 'good' ? `<path d="M55 71 Q60 76 65 71" fill="none" stroke="#92400E" stroke-width="1.8" stroke-linecap="round"/>` : ''}
+            <ellipse cx="31" cy="70" rx="5.5" ry="3.5" fill="#F472B6" opacity="0.5"/>
+            <ellipse cx="89" cy="70" rx="5.5" ry="3.5" fill="#F472B6" opacity="0.5"/>
+          `;
+          break;
+
+        case 8: // Kiko — Macaquinho fofinho
+          body = `
+            <!-- Orelhas redondas grandes -->
+            <circle cx="24" cy="58" r="15" fill="#9A3412"/>
+            <circle cx="25" cy="58" r="9.5" fill="#FED7AA"/>
+            <circle cx="96" cy="58" r="15" fill="#9A3412"/>
+            <circle cx="95" cy="58" r="9.5" fill="#FED7AA"/>
+            <!-- Topetinho bagunçado -->
+            <path d="M56 32 Q60 20 67 30 Q72 24 72 34" fill="none" stroke="#9A3412" stroke-width="5" stroke-linecap="round"/>
+            <!-- Cabeça marrom -->
+            <ellipse cx="60" cy="64" rx="34" ry="32" fill="#B45309"/>
+            <!-- Rosto bege formato macaquinho -->
+            <circle cx="47" cy="56" r="14" fill="#FED7AA"/>
+            <circle cx="73" cy="56" r="14" fill="#FED7AA"/>
+            <ellipse cx="60" cy="74" rx="26" ry="18" fill="#FED7AA"/>
+            <!-- Bochechas -->
+            <ellipse cx="37" cy="71" rx="6" ry="3.8" fill="#FB7185" opacity="0.45"/>
+            <ellipse cx="83" cy="71" rx="6" ry="3.8" fill="#FB7185" opacity="0.45"/>
+            ${renderEyes(47, 73, 57)}
+            <!-- Narinas delicadas -->
+            <circle cx="57" cy="68" r="1.8" fill="#7C2D12"/>
+            <circle cx="63" cy="68" r="1.8" fill="#7C2D12"/>
+            ${renderMouth(60, 76, '#7C2D12')}
+          `;
+          break;
+
+        case 9: // Pingo — Pinguim
+          body = `
+            <ellipse cx="60" cy="66" rx="36" ry="35" fill="#1E293B"/>
+            <path d="M55 32 Q60 22 65 32" fill="none" stroke="#38BDF8" stroke-width="4" stroke-linecap="round"/>
+            <path d="M32 64 C32 45 52 44 60 54 C68 44 88 45 88 64 C88 86 75 97 60 97 C45 97 32 86 32 64 Z" fill="#FFFFFF"/>
+            <ellipse cx="38" cy="73" rx="6.5" ry="4" fill="#FB7185" opacity="0.5"/>
+            <ellipse cx="82" cy="73" rx="6.5" ry="4" fill="#FB7185" opacity="0.5"/>
+            ${renderEyes(46, 74, 62)}
+            <ellipse cx="60" cy="73" rx="9" ry="5.5" fill="#F97316"/>
+            <path d="M53 73 Q60 78 67 73" fill="none" stroke="#C2410C" stroke-width="1.8" stroke-linecap="round"/>
+            ${mood === 'good' ? `<path d="M55 75 Q60 82 65 75" fill="#FB7185"/>` : ''}
+            <path d="M34 94 Q60 103 86 94" fill="none" stroke="#38BDF8" stroke-width="7" stroke-linecap="round"/>
+            <rect x="70" y="94" width="8" height="14" rx="3" fill="#0EA5E9"/>
+          `;
+          break;
+
+        case 10: // Léo — Leãozinho dourado
+        default:
+          body = `
+            <g fill="#D97706">
+              <circle cx="60" cy="28" r="14"/>
+              <circle cx="82" cy="34" r="14"/>
+              <circle cx="94" cy="55" r="14"/>
+              <circle cx="91" cy="78" r="14"/>
+              <circle cx="74" cy="94" r="14"/>
+              <circle cx="46" cy="94" r="14"/>
+              <circle cx="29" cy="78" r="14"/>
+              <circle cx="26" cy="55" r="14"/>
+              <circle cx="38" cy="34" r="14"/>
+            </g>
+            <circle cx="36" cy="41" r="9" fill="#FBBF24"/>
+            <circle cx="36" cy="41" r="4.5" fill="#FDE68A"/>
+            <circle cx="84" cy="41" r="9" fill="#FBBF24"/>
+            <circle cx="84" cy="41" r="4.5" fill="#FDE68A"/>
+            <circle cx="60" cy="64" r="29" fill="#FCD34D"/>
+            <ellipse cx="60" cy="73" rx="14" ry="10" fill="#FEF3C7"/>
+            <ellipse cx="40" cy="70" rx="5.5" ry="3.5" fill="#FB7185" opacity="0.5"/>
+            <ellipse cx="80" cy="70" rx="5.5" ry="3.5" fill="#FB7185" opacity="0.5"/>
+            ${renderEyes(48, 72, 59)}
+            <polygon points="54.5,67 65.5,67 60,73" fill="#92400E"/>
+            ${renderMouth(60, 76, '#78350F')}
+            <polygon points="48,25 51,14 57,20 60,11 63,20 69,14 72,25" fill="#FACC15" stroke="#B45309" stroke-width="1.6" stroke-linejoin="round"/>
+          `;
+          break;
+      }
+
+      return `
+        <svg viewBox="0 0 120 116" class="${className} select-none overflow-visible" aria-hidden="true">
+          ${body}
+          ${renderMoodOverlay()}
+        </svg>
+      `;
+    }
+
+    /*************************************************************************
+     * 4. EFEITOS SONOROS SUAVES (WEB AUDIO API — ZERO ARQUIVOS EXTERNOS)
+     *************************************************************************/
+    const SoundFX = {
+      ctx: null,
+      ensureContext() {
+        if (!state.soundEnabled) return null;
+        try {
+          if (!this.ctx) {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return null;
+            this.ctx = new AudioCtx();
+          }
+          if (this.ctx.state === 'suspended') this.ctx.resume();
+          return this.ctx;
+        } catch (e) {
+          return null;
+        }
+      },
+      playTone(freq, duration, type = 'sine', volume = 0.13, delay = 0) {
+        const ctx = this.ensureContext();
+        if (!ctx) return;
+        const start = ctx.currentTime + delay;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, start);
+        gain.gain.setValueAtTime(0.001, start);
+        gain.gain.exponentialRampToValueAtTime(volume, start + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(start);
+        osc.stop(start + duration + 0.02);
+      },
+      tap() { this.playTone(540, 0.05, 'sine', 0.065); },
+      good() {
+        this.playTone(523.25, 0.13, 'triangle', 0.13, 0);
+        this.playTone(659.25, 0.13, 'triangle', 0.13, 0.075);
+        this.playTone(783.99, 0.20, 'triangle', 0.15, 0.15);
+        this.playTone(1046.5, 0.28, 'sine', 0.12, 0.23);
+      },
+      hard() {
+        this.playTone(493.88, 0.16, 'sine', 0.11, 0);
+        this.playTone(659.25, 0.24, 'sine', 0.11, 0.11);
+      },
+      again() {
+        this.playTone(392.0, 0.15, 'sine', 0.10, 0);
+        this.playTone(329.63, 0.22, 'sine', 0.10, 0.11);
+      },
+      unlock() {
+        this.playTone(440, 0.11, 'triangle', 0.12, 0);
+        this.playTone(554.37, 0.11, 'triangle', 0.12, 0.08);
+        this.playTone(659.25, 0.13, 'triangle', 0.13, 0.16);
+        this.playTone(880, 0.30, 'triangle', 0.14, 0.25);
+      },
+      fanfare() {
+        const notes = [
+          [523.25, 0.13, 0],
+          [659.25, 0.13, 0.10],
+          [783.99, 0.13, 0.20],
+          [1046.5, 0.32, 0.31],
+          [783.99, 0.11, 0.48],
+          [1046.5, 0.42, 0.59]
+        ];
+        notes.forEach(([f, d, t]) => this.playTone(f, d, 'triangle', 0.14, t));
+      }
+    };
+
+    /*************************************************************************
+     * 5. DICAS MENTAIS ESPECÍFICAS PARA CADA CONTA (1×1 ATÉ 10×10)
+     *************************************************************************/
+    function getMentalHint(a, b) {
+      const res = a * b;
+      const key = `${Math.min(a, b)}x${Math.max(a, b)}`;
+
+      const specialHints = {
+        '6x6': 'Pense em 6 × 5 = 30, mais 6 = 36!',
+        '6x7': 'Pense em 6 × 6 = 36, mais 6 = 42!',
+        '6x8': 'Pense em 5 × 8 = 40, mais 8 = 48!',
+        '7x7': 'Pense em 7 × 5 = 35 e 7 × 2 = 14. Somando: 35 + 14 = 49!',
+        '7x8': 'Pense em 7 × 7 = 49, mais 7 = 56! (E olha a sequência: 5, 6, 7, 8 → 56 = 7 × 8!)',
+        '8x8': 'Pense no dobro de 4 × 8: 32 + 32 = 64!',
+        '3x7': 'Pense em 3 × 5 = 15, mais 3 × 2 = 6 → 15 + 6 = 21!',
+        '3x8': 'Pense no dobro de 8 (16), mais 8 = 24!',
+        '4x6': 'Dobro do dobro: dobro de 6 é 12, e o dobro de 12 é 24!',
+        '4x7': 'Dobro do dobro: dobro de 7 é 14, e o dobro de 14 é 28!',
+        '4x8': 'Dobro do dobro: dobro de 8 é 16, e o dobro de 16 é 32!'
+      };
+      if (specialHints[key]) return specialHints[key];
+
+      if (a === 1 || b === 1) {
+        const other = a === 1 ? b : a;
+        return `Todo número vezes 1 continua igualzinho: dá ${other}!`;
+      }
+      if (a === 10 || b === 10) {
+        const other = a === 10 ? b : a;
+        return `Multiplicar por 10 é só colocar um 0 no final do ${other}, virando ${res}!`;
+      }
+      if (a === 2 || b === 2) {
+        const other = a === 2 ? b : a;
+        return `Vezes 2 é sempre o dobro: ${other} + ${other} = ${res}!`;
+      }
+      if (a === 5 || b === 5) {
+        const other = a === 5 ? b : a;
+        return `Vezes 5 é a metade de ${other} × 10 (${other * 10} ÷ 2 = ${res}). Sempre termina em 0 ou 5!`;
+      }
+      if (a === 9 || b === 9) {
+        const other = a === 9 ? b : a;
+        return `Regra do ×9: faça ${other} × 10 = ${other * 10} e tire ${other}: ${other * 10} − ${other} = ${res}!`;
+      }
+      if (a === 4 || b === 4) {
+        const other = a === 4 ? b : a;
+        return `Dobro do dobro: dobro de ${other} é ${other * 2}, e o dobro de ${other * 2} é ${res}!`;
+      }
+      if (a === 3 || b === 3) {
+        const other = a === 3 ? b : a;
+        return `Faça o dobro de ${other} (${other * 2}) e some mais ${other}: ${other * 2} + ${other} = ${res}!`;
+      }
+
+      return `Pense em ${a} × ${b - 1} = ${a * (b - 1)} e some mais ${a}: ${a * (b - 1)} + ${a} = ${res}!`;
+    }
+
+    /*************************************************************************
+     * 6. ESTADO DO APP, LOCALSTORAGE E ARQUITETURA HÍBRIDA DE NUVEM
+     *************************************************************************/
+    function getTodayDateStr() {
+      const d = new Date();
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    }
+
+    function getStartOfTodayMs() {
+      const d = new Date();
+      d.setHours(0, 0, 0, 0);
+      return d.getTime();
+    }
+
+    function getEndOfTodayMs() {
+      const d = new Date();
+      d.setHours(23, 59, 59, 999);
+      return d.getTime();
+    }
+
+    function addDaysToTodayMs(days) {
+      const d = new Date();
+      d.setHours(0, 0, 0, 0);
+      d.setDate(d.getDate() + days);
+      return d.getTime();
+    }
+
+    function parseLearningSteps(str) {
+      if (!str || typeof str !== 'string') return [1, 10];
+      const parts = str.trim().split(/[\s,;]+/);
+      const mins = [];
+      for (const p of parts) {
+        const m = p.toLowerCase().match(/^(\d+(?:\.\d+)?)(m|min|h|d)?$/);
+        if (m) {
+          let v = parseFloat(m[1]);
+          const u = m[2] || 'm';
+          if (u === 'h') v *= 60;
+          if (u === 'd') v *= 1440;
+          if (v > 0) mins.push(v);
+        }
+      }
+      return mins.length > 0 ? mins : [1, 10];
+    }
+
+    // Gera os 100 cartões em ordem sequencial (1×1 até 10×10)
+    function createInitialCards() {
+      const cards = [];
+      let order = 1;
+      for (let table = 1; table <= 10; table++) {
+        for (let mult = 1; mult <= 10; mult++) {
+          cards.push({
+            id: `mult_${table}_${mult}`,
+            order: order++,
+            table,
+            multiplier: mult,
+            answer: table * mult,
+            state: 'new',              // 'new' | 'learning' | 'relearning' | 'review'
+            stepIndex: 0,
+            intervalDays: 0,
+            postLapseInterval: 1,
+            ease: DEFAULT_CONFIG.facilidadeInicial,
+            dueTimestamp: 0,
+            totalCorrect: 0,
+            totalWrong: 0,
+            totalReviews: 0,
+            totalTimeMs: 0,
+            avgTimeMs: 0,
+            lastRating: null,          // 'good' | 'hard' | 'again' | null
+            lastTimeMs: 0
+          });
+        }
+      }
+      return cards;
+    }
+
+    function createInitialState() {
+      return {
+        version: 2,
+        updatedAt: 0, // Começa em 0 para priorizar dados mais recentes vindos da nuvem no 1º acesso
+        config: { ...DEFAULT_CONFIG },
+        unlockedTables: [1], // Apenas Tabuada do 1 começa desbloqueada
+        cards: createInitialCards(),
+        soundEnabled: true,
+        stars: 0,
+        streakDays: 0,
+        lastStudyDate: null,
+        dailyStats: {
+          date: getTodayDateStr(),
+          newStudied: 0,
+          reviewsStudied: 0,
+          totalAnswered: 0
+        }
+      };
+    }
+
+    let state = createInitialState();
+
+    // Estado volátil de UI e sincronização
+    const uiState = {
+      view: 'tabuadas',        // 'tabuadas' | 'estudo' | 'album_mapa' | 'opcoes'
+      studyScope: 'all',       // 'all' ou 1..10
+      currentCardId: null,
+      cardStartTime: 0,        // Cronômetro 100% oculto
+      typedAnswer: '',
+      phase: 'asking',         // 'asking' | 'feedback' | 'done'
+      lastFeedback: null,
+      mascotPhrase: '',
+      selectedMapCardId: 'mult_1_1',
+      sessionStars: 0,
+      sessionCount: 0,
+      syncStatus: 'local',     // 'local' | 'syncing' | 'synced' | 'error'
+      lastSyncTime: null,
+      syncProvider: null       // 'gas' | 'firebase' | null
+    };
+
+    // Normaliza qualquer objeto de estado (vindo do localStorage, JSON ou nuvem)
+    function normalizeState(rawObj) {
+      const base = createInitialState();
+      if (!rawObj || typeof rawObj !== 'object') return base;
+
+      const merged = {
+        ...base,
+        ...rawObj,
+        updatedAt: Number(rawObj.updatedAt) || 0,
+        config: { ...DEFAULT_CONFIG, ...(rawObj.config || {}) },
+        unlockedTables: Array.isArray(rawObj.unlockedTables) && rawObj.unlockedTables.length > 0
+          ? [...new Set(rawObj.unlockedTables.map(Number).filter(n => n >= 1 && n <= 10))].sort((a, b) => a - b)
+          : [1],
+        dailyStats: rawObj.dailyStats || base.dailyStats
+      };
+
+      const mapById = new Map((rawObj.cards || []).map(c => [c.id, c]));
+      merged.cards = base.cards.map(def => {
+        const saved = mapById.get(def.id);
+        return saved ? { ...def, ...saved } : def;
+      });
+
+      return merged;
+    }
+
+    function loadLocalState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          state = createInitialState();
+          return;
+        }
+        state = normalizeState(JSON.parse(raw));
+        ensureDailyRollover();
+      } catch (e) {
+        console.warn('Falha ao ler localStorage:', e);
+        state = createInitialState();
+      }
+    }
+
+    function saveLocalOnly() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {
+        console.warn('Falha ao gravar localStorage:', e);
+      }
+    }
+
+    /**
+     * Salva imediatamente no localStorage com novo timestamp updatedAt
+     * e dispara envio em segundo plano para a nuvem (Apps Script e/ou Firebase)
+     */
+    function saveStateAndSync() {
+      state.updatedAt = Date.now();
+      saveLocalOnly();
+      scheduleCloudPush();
+    }
+
+    function ensureDailyRollover() {
+      const today = getTodayDateStr();
+      if (!state.dailyStats || state.dailyStats.date !== today) {
+        state.dailyStats = {
+          date: today,
+          newStudied: 0,
+          reviewsStudied: 0,
+          totalAnswered: 0
+        };
+      }
+      if (state.lastStudyDate) {
+        const last = new Date(state.lastStudyDate + 'T00:00:00');
+        const now = new Date(today + 'T00:00:00');
+        const diffDays = Math.round((now - last) / 86400000);
+        if (diffDays > 1) state.streakDays = 0;
+      }
+    }
+
+    function registerStudyActivityToday() {
+      ensureDailyRollover();
+      const today = getTodayDateStr();
+      if (state.lastStudyDate !== today) {
+        if (state.lastStudyDate) {
+          const last = new Date(state.lastStudyDate + 'T00:00:00');
+          const now = new Date(today + 'T00:00:00');
+          const diffDays = Math.round((now - last) / 86400000);
+          state.streakDays = diffDays === 1 ? state.streakDays + 1 : 1;
+        } else {
+          state.streakDays = 1;
+        }
+        state.lastStudyDate = today;
+      }
+    }
+
+    /*************************************************************************
+     * 7. MÓDULO DE SINCRONIZAÇÃO HÍBRIDA (GOOGLE APPS SCRIPT + FIREBASE SILENCIOSO)
+     *************************************************************************/
+    function getSavedCloudUrl() {
+      try {
+        return (localStorage.getItem(CLOUD_URL_STORAGE_KEY) || '').trim();
+      } catch (e) {
+        return '';
+      }
+    }
+
+    function getEffectiveCloudUrl() {
+      const hardcoded = (CLOUD_SYNC_URL || '').trim();
+      if (hardcoded) return hardcoded;
+      return getSavedCloudUrl();
+    }
+
+    function updateSyncBadgeUI() {
+      const pill = document.getElementById('header-sync-pill');
+      const dot = document.getElementById('header-sync-dot');
+      const text = document.getElementById('header-sync-text');
+      if (!pill || !dot || !text) return;
+
+      if (uiState.syncStatus === 'syncing') {
+        pill.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl border border-sky-200 bg-sky-50 text-sky-700 text-[11px] font-extrabold transition-all';
+        dot.className = 'w-2 h-2 rounded-full bg-sky-500 animate-sync-dot';
+        text.textContent = 'Sincronizando...';
+      } else if (uiState.syncStatus === 'synced') {
+        pill.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 text-[11px] font-extrabold transition-all';
+        dot.className = 'w-2 h-2 rounded-full bg-emerald-500';
+        text.textContent = 'Salvo na nuvem';
+      } else if (uiState.syncStatus === 'error') {
+        pill.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl border border-amber-200 bg-amber-50 text-amber-700 text-[11px] font-extrabold transition-all';
+        dot.className = 'w-2 h-2 rounded-full bg-amber-500';
+        text.textContent = 'Salvo neste aparelho';
+      } else {
+        pill.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl border border-slate-200 bg-slate-50 text-slate-600 text-[11px] font-extrabold transition-all';
+        dot.className = 'w-2 h-2 rounded-full bg-slate-400';
+        text.textContent = 'Salvo neste aparelho';
+      }
+
+      // Atualiza também o horário na tela de Opções se estiver visível
+      const optTime = document.getElementById('opt-last-sync-time');
+      if (optTime) {
+        optTime.textContent = formatLastSyncTime();
+      }
+    }
+
+    function formatLastSyncTime() {
+      if (!uiState.lastSyncTime) return 'Ainda não sincronizado';
+      return new Date(uiState.lastSyncTime).toLocaleTimeString('pt-BR', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+    }
+
+    function handleSyncBadgeClick() {
+      const url = getEffectiveCloudUrl();
+      if (url || fbSync.ready) {
+        syncNow(true);
+      } else {
+        navigate('opcoes');
+        showToast('Configure a nuvem em Opções (Pais) para sincronizar em vários celulares.', 'info');
+      }
+    }
+
+    // --- 7A. Sincronização via Google Apps Script Web App (Google Drive) ---
+    async function pullFromAppsScript(url) {
+      const sep = url.includes('?') ? '&' : '?';
+      const resp = await fetch(`${url}${sep}t=${Date.now()}`, {
+        method: 'GET',
+        cache: 'no-store'
+      });
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      const text = await resp.text();
+      if (!text || !text.trim()) return null;
+      const parsed = JSON.parse(text);
+      if (parsed && parsed.cards && Array.isArray(parsed.cards)) {
+        return parsed;
+      }
+      if (parsed && parsed.data && Array.isArray(parsed.data.cards)) {
+        return parsed.data;
+      }
+      return null;
+    }
+
+    async function pushToAppsScript(url, payloadState) {
+      // Usa text/plain;charset=utf-8 para evitar CORS preflight no Google Apps Script!
+      const resp = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payloadState)
+      });
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      return true;
+    }
+
+    // --- 7B. Sincronização silenciosa com Firebase/Firestore (somente se __firebase_config existir) ---
+    const fbSync = {
+      ready: false,
+      user: null,
+      db: null,
+      docRef: null,
+      setDocFn: null,
+      getDocFn: null
+    };
+
+    async function initSilentFirebase() {
+      // Nunca tenta carregar nem gera erro se estiver fora de um ambiente Firebase
+      if (typeof __firebase_config === 'undefined' || !__firebase_config) return;
+      try {
+        const firebaseConfig = typeof __firebase_config === 'string'
+          ? JSON.parse(__firebase_config)
+          : __firebase_config;
+        if (!firebaseConfig || !firebaseConfig.apiKey) return;
+
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'tabuada-da-mariana';
+        const [appMod, authMod, fsMod] = await Promise.all([
+          import('https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js'),
+          import('https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js'),
+          import('https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js')
+        ]);
+
+        const fbApp = appMod.initializeApp(firebaseConfig);
+        const auth = authMod.getAuth(fbApp);
+        const db = fsMod.getFirestore(fbApp);
+
+        // REGRA 3: Autentica ANTES de qualquer operação no Firestore
+        let cred;
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+          cred = await authMod.signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+          cred = await authMod.signInAnonymously(auth);
+        }
+
+        const user = cred?.user || auth.currentUser;
+        if (!user) return;
+
+        // REGRA 1: Caminho estrito /artifacts/{appId}/users/{userId}/{collection}/{doc}
+        const docRef = fsMod.doc(db, 'artifacts', appId, 'users', user.uid, 'tabuada_mariana', 'progresso');
+
+        fbSync.user = user;
+        fbSync.db = db;
+        fbSync.docRef = docRef;
+        fbSync.setDocFn = fsMod.setDoc;
+        fbSync.getDocFn = fsMod.getDoc;
+        fbSync.ready = true;
+
+        // Escuta atualizações em tempo real com error callback obrigatório
+        fsMod.onSnapshot(
+          docRef,
+          (snap) => {
+            if (!fbSync.user) return;
+            if (snap.exists()) {
+              const data = snap.data();
+              if (data && data.payloadJson) {
+                try {
+                  const remote = JSON.parse(data.payloadJson);
+                  if ((Number(remote.updatedAt) || 0) > (Number(state.updatedAt) || 0)) {
+                    applyRemoteState(remote, 'firebase');
+                  }
+                } catch (_) {}
+              }
+            } else if (state.updatedAt > 0) {
+              pushToFirebaseSilent();
+            }
+          },
+          () => {
+            // Falha silenciosa para nunca atrapalhar a experiência da Mariana
+          }
+        );
+
+        // Se não houver Apps Script configurado, marca como nuvem ativa
+        if (!getEffectiveCloudUrl()) {
+          uiState.syncProvider = 'firebase';
+          uiState.syncStatus = 'synced';
+          uiState.lastSyncTime = Date.now();
+          updateSyncBadgeUI();
+        }
+      } catch (_) {
+        // Silencioso: fora do ambiente Firebase ou offline, funciona 100% normal
+      }
+    }
+
+    async function pushToFirebaseSilent() {
+      if (!fbSync.ready || !fbSync.user || !fbSync.docRef) return;
+      try {
+        await fbSync.setDocFn(fbSync.docRef, {
+          updatedAt: state.updatedAt,
+          payloadJson: JSON.stringify(state)
+        });
+        if (!getEffectiveCloudUrl()) {
+          uiState.syncProvider = 'firebase';
+          uiState.syncStatus = 'synced';
+          uiState.lastSyncTime = Date.now();
+          updateSyncBadgeUI();
+        }
+      } catch (_) {
+        // Silencioso
+      }
+    }
+
+    function applyRemoteState(remoteRaw, provider) {
+      state = normalizeState(remoteRaw);
+      ensureDailyRollover();
+      saveLocalOnly();
+      uiState.syncProvider = provider;
+      uiState.syncStatus = 'synced';
+      uiState.lastSyncTime = Date.now();
+      // Se estiver no meio de uma tela de estudo e o cartão atual foi alterado, mantém consistência
+      renderApp();
+    }
+
+    let pushTimer = null;
+    function scheduleCloudPush() {
+      const url = getEffectiveCloudUrl();
+      if (!url && !fbSync.ready) {
+        uiState.syncStatus = 'local';
+        updateSyncBadgeUI();
+        return;
+      }
+
+      uiState.syncStatus = 'syncing';
+      updateSyncBadgeUI();
+
+      if (pushTimer) clearTimeout(pushTimer);
+      pushTimer = setTimeout(async () => {
+        try {
+          if (url) {
+            await pushToAppsScript(url, state);
+            uiState.syncProvider = 'gas';
+            uiState.syncStatus = 'synced';
+            uiState.lastSyncTime = Date.now();
+          }
+          if (fbSync.ready) {
+            await pushToFirebaseSilent();
+          }
+        } catch (err) {
+          console.warn('Erro ao enviar para nuvem:', err);
+          uiState.syncStatus = 'error';
+        }
+        updateSyncBadgeUI();
+      }, 350);
+    }
+
+    /**
+     * Sincronização completa (GET -> compara updatedAt -> atualiza local ou envia para nuvem)
+     */
+    async function syncNow(showFeedback = false) {
+      const url = getEffectiveCloudUrl();
+
+      if (!url && !fbSync.ready) {
+        uiState.syncStatus = 'local';
+        updateSyncBadgeUI();
+        if (showFeedback) {
+          showToast('Cole a URL do Google Apps Script nas Opções (Pais) para ativar a nuvem.', 'warn');
+        }
+        return;
+      }
+
+      uiState.syncStatus = 'syncing';
+      updateSyncBadgeUI();
+
+      try {
+        if (url) {
+          const remote = await pullFromAppsScript(url);
+          const remoteTs = remote ? (Number(remote.updatedAt) || 0) : 0;
+          const localTs = Number(state.updatedAt) || 0;
+
+          if (remote && remoteTs > localTs) {
+            // A nuvem está mais recente -> baixa e aplica aqui
+            applyRemoteState(remote, 'gas');
+            if (showFeedback) showToast('Progresso da Mariana baixado da nuvem!', 'success');
+          } else if (localTs > remoteTs) {
+            // Este aparelho está mais recente -> envia para a nuvem
+            await pushToAppsScript(url, state);
+            uiState.syncProvider = 'gas';
+            uiState.syncStatus = 'synced';
+            uiState.lastSyncTime = Date.now();
+            if (showFeedback) showToast('Progresso da Mariana salvo na nuvem!', 'success');
+          } else {
+            uiState.syncProvider = 'gas';
+            uiState.syncStatus = 'synced';
+            uiState.lastSyncTime = Date.now();
+            if (showFeedback) showToast('Tudo já está sincronizado na nuvem!', 'success');
+          }
+        } else if (fbSync.ready && fbSync.user) {
+          const snap = await fbSync.getDocFn(fbSync.docRef);
+          if (snap.exists() && snap.data()?.payloadJson) {
+            const remote = JSON.parse(snap.data().payloadJson);
+            if ((Number(remote.updatedAt) || 0) > (Number(state.updatedAt) || 0)) {
+              applyRemoteState(remote, 'firebase');
+            } else {
+              await pushToFirebaseSilent();
+            }
+          } else {
+            await pushToFirebaseSilent();
+          }
+          uiState.syncStatus = 'synced';
+          uiState.lastSyncTime = Date.now();
+          if (showFeedback) showToast('Sincronizado com sucesso!', 'success');
+        }
+      } catch (err) {
+        console.warn('Falha na sincronização:', err);
+        uiState.syncStatus = 'error';
+        if (showFeedback) {
+          showToast('Não foi possível conectar à nuvem agora. Os dados continuam salvos neste aparelho.', 'warn');
+        }
+      }
+
+      updateSyncBadgeUI();
+    }
+
+    /*************************************************************************
+     * 8. MOTOR SM-2 CLONADO DO ANKI (EXATAS REGRAS, SEM BOTÃO FÁCIL)
+     *************************************************************************/
+    function formatIntervalLabel(val, isDays = false) {
+      if (isDays) {
+        const d = Math.max(1, Math.round(val));
+        if (d === 1) return '1 dia';
+        if (d < 30) return `${d} dias`;
+        if (d < 365) {
+          const m = (d / 30).toFixed(1).replace('.0', '').replace('.', ',');
+          return `${m} ${d < 45 ? 'mês' : 'meses'}`;
+        }
+        const y = (d / 365).toFixed(1).replace('.0', '').replace('.', ',');
+        return `${y} ${d < 540 ? 'ano' : 'anos'}`;
+      }
+      const totalSec = Math.max(1, Math.round(val / 1000));
+      if (totalSec < 60) return `${totalSec}s`;
+      const mins = Math.floor(totalSec / 60);
+      const secs = totalSec % 60;
+      return secs === 0 ? `${mins} min` : `${mins}m ${secs}s`;
+    }
+
+    function applyAnkiSM2(card, isCorrect, elapsedMs) {
+      const cfg = state.config;
+      const now = Date.now();
+      const steps = parseLearningSteps(cfg.etapasAprendizagem);
+      const thresholdMs = (Number(cfg.limiteBomSegundos) || 5.0) * 1000;
+
+      // Avaliação 100% automática: Novamente (erro), Difícil (> limite), Bom (<= limite). SEM FÁCIL!
+      let rating = 'again';
+      if (isCorrect) {
+        rating = elapsedMs <= thresholdMs ? 'good' : 'hard';
+      }
+
+      if (card.state === 'new') {
+        state.dailyStats.newStudied += 1;
+      } else if (card.state === 'review') {
+        state.dailyStats.reviewsStudied += 1;
+      }
+      state.dailyStats.totalAnswered += 1;
+
+      card.totalReviews += 1;
+      card.lastRating = rating;
+      card.lastTimeMs = elapsedMs;
+      card.totalTimeMs += elapsedMs;
+      card.avgTimeMs = Math.round(card.totalTimeMs / card.totalReviews);
+      if (isCorrect) card.totalCorrect += 1;
+      else card.totalWrong += 1;
+
+      let nextIntervalLabel = '';
+      let starsEarned = 0;
+
+      // 1) NOVAMENTE (Errou)
+      if (rating === 'again') {
+        if (card.state === 'new' || card.state === 'learning') {
+          card.state = 'learning';
+          card.stepIndex = 0;
+          const waitMs = steps[0] * 60000;
+          card.dueTimestamp = now + waitMs;
+          nextIntervalLabel = formatIntervalLabel(waitMs, false);
+        } else if (card.state === 'relearning') {
+          const waitMs = Math.max(1, Number(cfg.etapaReaprendizagemMin) || 10) * 60000;
+          card.dueTimestamp = now + waitMs;
+          nextIntervalLabel = formatIntervalLabel(waitMs, false);
+        } else if (card.state === 'review') {
+          // Lapso: facilidade cai 0.20 (piso 1.30), novo intervalo = 50% (0.50), mínimo 1 dia
+          card.ease = Math.max(1.30, Number((card.ease - 0.20).toFixed(2)));
+          card.postLapseInterval = Math.max(1, Math.round(card.intervalDays * Number(cfg.novoIntervaloLapso)));
+          card.state = 'relearning';
+          card.stepIndex = 0;
+          const waitMs = Math.max(1, Number(cfg.etapaReaprendizagemMin) || 10) * 60000;
+          card.dueTimestamp = now + waitMs;
+          nextIntervalLabel = `${formatIntervalLabel(waitMs, false)} (depois ${formatIntervalLabel(card.postLapseInterval, true)})`;
+        }
+      }
+      // 2) DIFÍCIL (Acertou devagar > limiteBomSegundos)
+      else if (rating === 'hard') {
+        starsEarned = 1;
+        if (card.state === 'new' || card.state === 'learning') {
+          card.state = 'learning';
+          let waitMin;
+          if (card.stepIndex === 0) {
+            waitMin = steps.length >= 2 ? (steps[0] + steps[1]) / 2 : steps[0] * 1.5;
+          } else {
+            waitMin = steps[Math.min(card.stepIndex, steps.length - 1)];
+          }
+          const waitMs = Math.round(waitMin * 60000);
+          card.dueTimestamp = now + waitMs;
+          nextIntervalLabel = formatIntervalLabel(waitMs, false);
+        } else if (card.state === 'relearning') {
+          const waitMs = Math.max(1, Number(cfg.etapaReaprendizagemMin) || 10) * 60000;
+          card.dueTimestamp = now + waitMs;
+          nextIntervalLabel = formatIntervalLabel(waitMs, false);
+        } else if (card.state === 'review') {
+          card.ease = Math.max(1.30, Number((card.ease - 0.15).toFixed(2)));
+          const newInt = Math.min(
+            Number(cfg.intervaloMaximo),
+            Math.max(card.intervalDays + 1, Math.round(card.intervalDays * Number(cfg.intervaloArduo) * Number(cfg.modificadorIntervalo)))
+          );
+          card.intervalDays = newInt;
+          card.dueTimestamp = addDaysToTodayMs(newInt);
+          nextIntervalLabel = formatIntervalLabel(newInt, true);
+        }
+      }
+      // 3) BOM (Acertou rápido <= limiteBomSegundos)
+      else if (rating === 'good') {
+        starsEarned = 2;
+        if (card.state === 'new' || card.state === 'learning') {
+          const nextStep = card.state === 'new' ? 1 : card.stepIndex + 1;
+          if (nextStep < steps.length) {
+            card.state = 'learning';
+            card.stepIndex = nextStep;
+            const waitMs = steps[nextStep] * 60000;
+            card.dueTimestamp = now + waitMs;
+            nextIntervalLabel = formatIntervalLabel(waitMs, false);
+          } else {
+            // Gradua para Revisão (1 dia, facilidade inicial 2.50)
+            card.state = 'review';
+            card.stepIndex = 0;
+            card.intervalDays = Math.max(1, Math.round(Number(cfg.intervaloGraduacao) || 1));
+            card.ease = Number(cfg.facilidadeInicial) || 2.50;
+            card.dueTimestamp = addDaysToTodayMs(card.intervalDays);
+            nextIntervalLabel = formatIntervalLabel(card.intervalDays, true);
+          }
+        } else if (card.state === 'relearning') {
+          card.state = 'review';
+          card.stepIndex = 0;
+          card.intervalDays = Math.max(1, card.postLapseInterval || 1);
+          card.dueTimestamp = addDaysToTodayMs(card.intervalDays);
+          nextIntervalLabel = formatIntervalLabel(card.intervalDays, true);
+        } else if (card.state === 'review') {
+          const newInt = Math.min(
+            Number(cfg.intervaloMaximo),
+            Math.max(card.intervalDays + 1, Math.round(card.intervalDays * card.ease * Number(cfg.modificadorIntervalo)))
+          );
+          card.intervalDays = newInt;
+          card.dueTimestamp = addDaysToTodayMs(newInt);
+          nextIntervalLabel = formatIntervalLabel(newInt, true);
+        }
+      }
+
+      state.stars += starsEarned;
+      uiState.sessionStars += starsEarned;
+      uiState.sessionCount += 1;
+      registerStudyActivityToday();
+      saveStateAndSync();
+
+      return {
+        rating,
+        isCorrect,
+        elapsedMs,
+        nextIntervalLabel,
+        starsEarned,
+        correctAnswer: card.answer,
+        hint: getMentalHint(card.table, card.multiplier)
+      };
+    }
+
+    /*************************************************************************
+     * 9. FILA DO ANKI (ORDEM SEQUENCIAL + LEARN AHEAD DE 20 MINUTOS)
+     *************************************************************************/
+    function getScopedCards(scope) {
+      if (scope === 'all') {
+        const unlockedSet = new Set(state.unlockedTables);
+        return state.cards.filter(c => unlockedSet.has(c.table));
+      }
+      return state.cards.filter(c => c.table === Number(scope));
+    }
+
+    function getDeckCounts(scope) {
+      ensureDailyRollover();
+      const cards = getScopedCards(scope);
+      const endToday = getEndOfTodayMs();
+      const cfg = state.config;
+
+      const remNew = Math.max(0, Number(cfg.novosPorDia) - state.dailyStats.newStudied);
+      const remRev = Math.max(0, Number(cfg.revisoesPorDia) - state.dailyStats.reviewsStudied);
+
+      let rawNew = 0, learning = 0, rawReview = 0;
+      for (const c of cards) {
+        if (c.state === 'new') rawNew++;
+        else if (c.state === 'learning' || c.state === 'relearning') learning++;
+        else if (c.state === 'review' && c.dueTimestamp <= endToday) rawReview++;
+      }
+
+      return {
+        newCount: Math.min(rawNew, remNew),
+        learningCount: learning,
+        reviewCount: Math.min(rawReview, remRev),
+        totalDue: Math.min(rawNew, remNew) + learning + Math.min(rawReview, remRev)
+      };
+    }
+
+    function pickNextCard(scope) {
+      ensureDailyRollover();
+      const cards = getScopedCards(scope);
+      const now = Date.now();
+      const endToday = getEndOfTodayMs();
+      const cfg = state.config;
+
+      const remNew = Math.max(0, Number(cfg.novosPorDia) - state.dailyStats.newStudied);
+      const remRev = Math.max(0, Number(cfg.revisoesPorDia) - state.dailyStats.reviewsStudied);
+
+      // 1) Cartões em aprendizagem/reaprendizagem vencidos agora
+      const dueLearning = cards
+        .filter(c => (c.state === 'learning' || c.state === 'relearning') && c.dueTimestamp <= now)
+        .sort((a, b) => a.dueTimestamp - b.dueTimestamp);
+      if (dueLearning.length > 0) return dueLearning[0];
+
+      // 2) Revisões vencidas hoje
+      if (remRev > 0) {
+        const dueReviews = cards
+          .filter(c => c.state === 'review' && c.dueTimestamp <= endToday)
+          .sort((a, b) => a.dueTimestamp - b.dueTimestamp || a.order - b.order);
+        if (dueReviews.length > 0) return dueReviews[0];
+      }
+
+      // 3) Novos cartões em ordem sequencial (1×1 até 10×10)
+      if (remNew > 0) {
+        const newCards = cards
+          .filter(c => c.state === 'new')
+          .sort((a, b) => a.order - b.order);
+        if (newCards.length > 0) return newCards[0];
+      }
+
+      // 4) Learn Ahead (20 min): adianta cartões de 1m/10m para não travar a sessão da Mariana
+      const aheadLimit = now + (Number(cfg.learnAheadMin) || 20) * 60000;
+      const aheadLearning = cards
+        .filter(c => (c.state === 'learning' || c.state === 'relearning') && c.dueTimestamp <= aheadLimit)
+        .sort((a, b) => a.dueTimestamp - b.dueTimestamp);
+      if (aheadLearning.length > 0) return aheadLearning[0];
+
+      return null;
+    }
+
+    function getTableMastery(table) {
+      const isUnlocked = state.unlockedTables.includes(table);
+      const cards = state.cards.filter(c => c.table === table);
+      const thresholdMs = (Number(state.config.limiteBomSegundos) || 5.0) * 1000;
+
+      let graduated = 0, fastMastered = 0, seen = 0, totalAvgMs = 0, countTime = 0;
+      for (const c of cards) {
+        if (c.state !== 'new') seen++;
+        if (c.state === 'review') {
+          graduated++;
+          if (c.lastRating === 'good' && c.avgTimeMs > 0 && c.avgTimeMs <= thresholdMs) fastMastered++;
+        }
+        if (c.avgTimeMs > 0) {
+          totalAvgMs += c.avgTimeMs;
+          countTime++;
+        }
+      }
+
+      const percent = Math.round(((graduated * 0.7 + fastMastered * 0.3) / 10) * 100);
+      const avgSpeedSec = countTime > 0 ? (totalAvgMs / countTime / 1000) : null;
+
+      let medal = { label: 'Bloqueado', color: 'bg-slate-100 text-slate-400', stars: 0 };
+      if (isUnlocked) {
+        if (graduated === 10 && fastMastered >= 8) {
+          medal = { label: 'Medalha de Ouro', color: 'bg-amber-100 text-amber-800 border border-amber-300', stars: 4 };
+        } else if (graduated >= 7) {
+          medal = { label: 'Medalha de Prata', color: 'bg-emerald-100 text-emerald-800 border border-emerald-300', stars: 3 };
+        } else if (graduated >= 3 || seen >= 5) {
+          medal = { label: 'Medalha de Bronze', color: 'bg-sky-100 text-sky-800 border border-sky-300', stars: 2 };
+        } else {
+          medal = { label: 'Novo Amiguinho', color: 'bg-pink-100 text-pink-800 border border-pink-300', stars: 1 };
+        }
+      }
+
+      return { isUnlocked, graduated, fastMastered, seen, percent, avgSpeedSec, medal };
+    }
+
+    function getCardHeatStatus(card) {
+      const isUnlocked = state.unlockedTables.includes(card.table);
+      const thresholdMs = (Number(state.config.limiteBomSegundos) || 5.0) * 1000;
+
+      if (!isUnlocked || card.state === 'new') {
+        return {
+          key: 'new',
+          label: isUnlocked ? 'Nova (ainda não vista)' : 'Tabuada bloqueada',
+          cellClass: 'bg-slate-100 text-slate-400 border-slate-200 hover:bg-slate-200'
+        };
+      }
+      if (card.state === 'learning' || card.state === 'relearning' || card.lastRating === 'again') {
+        return {
+          key: 'needs_help',
+          label: 'Errando / em reforço',
+          cellClass: 'bg-rose-200 text-rose-900 border-rose-300 hover:bg-rose-300'
+        };
+      }
+      if (card.lastRating === 'hard' || card.lastTimeMs > thresholdMs) {
+        return {
+          key: 'slow',
+          label: 'Devagar (Difícil)',
+          cellClass: 'bg-amber-200 text-amber-900 border-amber-300 hover:bg-amber-300'
+        };
+      }
+      return {
+        key: 'mastered',
+        label: 'Dominada e rápida!',
+        cellClass: 'bg-emerald-300 text-emerald-950 border-emerald-400 hover:bg-emerald-400'
+      };
+    }
+
+    /*************************************************************************
+     * 10. CONFETES, TOASTS, MODAL E CÓPIA PARA ÁREA DE TRANSFERÊNCIA
+     *************************************************************************/
+    function launchConfetti(intensity = 22) {
+      const layer = document.getElementById('confetti-layer');
+      if (!layer) return;
+      const colors = ['#38BDF8', '#4ADE80', '#FACC15', '#F472B6', '#A78BFA', '#FB923C'];
+
+      for (let i = 0; i < intensity; i++) {
+        const el = document.createElement('div');
+        const size = 8 + Math.random() * 8;
+        const left = 8 + Math.random() * 84;
+        const duration = 1.3 + Math.random() * 1.3;
+        const delay = Math.random() * 0.22;
+        const isStar = i % 3 === 0;
+        const color = colors[i % colors.length];
+
+        el.style.position = 'absolute';
+        el.style.left = `${left}%`;
+        el.style.top = `-20px`;
+        el.style.width = `${size}px`;
+        el.style.height = `${size}px`;
+        el.style.animation = `confettiFall ${duration}s ease-out ${delay}s forwards`;
+
+        if (isStar) {
+          el.innerHTML = `<svg viewBox="0 0 24 24" fill="${color}" width="${size + 4}" height="${size + 4}"><path d="M12 2l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 16.9 6.1 20l1.2-6.5L2.5 8.9 9.1 8z"/></svg>`;
+        } else {
+          el.style.backgroundColor = color;
+          el.style.borderRadius = Math.random() > 0.5 ? '999px' : '3px';
+        }
+
+        layer.appendChild(el);
+        setTimeout(() => el.remove(), (duration + delay) * 1000 + 120);
+      }
+    }
+
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const styles = {
+        info: 'bg-sky-600 text-white border-sky-400',
+        success: 'bg-emerald-600 text-white border-emerald-400',
+        warn: 'bg-amber-400 text-amber-950 border-amber-300',
+        error: 'bg-rose-600 text-white border-rose-400'
+      };
+      const toast = document.createElement('div');
+      toast.className = `pointer-events-auto px-4 py-3 rounded-2xl border-2 shadow-lg font-display font-semibold text-sm animate-pop ${styles[type] || styles.info}`;
+      toast.textContent = message;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(-8px)';
+        toast.style.transition = 'all 0.25s ease';
+        setTimeout(() => toast.remove(), 260);
+      }, 3200);
+    }
+
+    function showModal({ title, bodyHtml, iconSvg = UI_ICONS.sparkle, iconBg = 'bg-sky-100 text-sky-600', actions = [] }) {
+      const modal = document.getElementById('custom-modal');
+      document.getElementById('modal-title').textContent = title;
+      document.getElementById('modal-body').innerHTML = bodyHtml;
+      const iconEl = document.getElementById('modal-icon');
+      iconEl.className = `shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center p-2.5 ${iconBg}`;
+      iconEl.innerHTML = iconSvg;
+
+      const actionsEl = document.getElementById('modal-actions');
+      actionsEl.innerHTML = '';
+      actions.forEach(act => {
+        const btn = document.createElement('button');
+        btn.className = act.className || 'btn-3d btn-3d-blue text-white px-5 py-2.5 rounded-2xl font-display font-bold text-sm';
+        btn.textContent = act.label;
+        btn.onclick = () => {
+          closeModal();
+          if (act.onClick) act.onClick();
+        };
+        actionsEl.appendChild(btn);
+      });
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('custom-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function copyTextFallback(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast('Código copiado!', 'success');
+      } catch (e) {
+        showToast('Selecione e copie o código manualmente.', 'warn');
+      }
+      ta.remove();
+    }
+
+    /*************************************************************************
+     * 11. AÇÕES DE NAVEGAÇÃO E SESSÃO DE ESTUDO
+     *************************************************************************/
+    function toggleSound() {
+      state.soundEnabled = !state.soundEnabled;
+      saveStateAndSync();
+      updateHeader();
+      if (state.soundEnabled) {
+        SoundFX.good();
+        showToast('Sons ligados!', 'success');
+      } else {
+        showToast('Sons desligados', 'info');
+      }
+    }
+
+    function navigate(view) {
+      SoundFX.tap();
+      uiState.view = view;
+      renderApp();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openStudyTab() {
+      if (uiState.view === 'estudo') return;
+      startStudy(uiState.studyScope || 'all');
+    }
+
+    function unlockTable(tableNum) {
+      const num = Number(tableNum);
+      if (!state.unlockedTables.includes(num)) {
+        state.unlockedTables.push(num);
+        state.unlockedTables.sort((a, b) => a - b);
+        saveStateAndSync();
+        SoundFX.unlock();
+        launchConfetti(26);
+        const mascot = MASCOTS[num - 1];
+        showToast(`Mariana desbloqueou a Tabuada do ${num}! ${mascot.name} chegou!`, 'success');
+        renderApp();
+      }
+    }
+
+    function toggleTableLockFromOptions(tableNum) {
+      const num = Number(tableNum);
+      if (state.unlockedTables.includes(num)) {
+        if (state.unlockedTables.length === 1) {
+          showToast('Pelo menos uma tabuada precisa ficar desbloqueada.', 'warn');
+          return;
+        }
+        state.unlockedTables = state.unlockedTables.filter(t => t !== num);
+      } else {
+        state.unlockedTables.push(num);
+        state.unlockedTables.sort((a, b) => a - b);
+      }
+      saveStateAndSync();
+      SoundFX.tap();
+      renderApp();
+    }
+
+    function unlockAllTables() {
+      state.unlockedTables = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      saveStateAndSync();
+      SoundFX.unlock();
+      launchConfetti(28);
+      showToast('Todas as 10 tabuadas desbloqueadas para a Mariana!', 'success');
+      renderApp();
+    }
+
+    function startStudy(scope = 'all') {
+      SoundFX.tap();
+      uiState.studyScope = scope;
+      uiState.view = 'estudo';
+      uiState.sessionStars = 0;
+      uiState.sessionCount = 0;
+      loadNextCardInStudy();
+      renderApp();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function pickRandomPhrase(table, mood) {
+      const mascot = MASCOTS[table - 1];
+      const list = mascot.phrases[mood] || mascot.phrases.waiting;
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
+    function loadNextCardInStudy() {
+      const next = pickNextCard(uiState.studyScope);
+      if (!next) {
+        uiState.currentCardId = null;
+        uiState.phase = 'done';
+        uiState.lastFeedback = null;
+        uiState.typedAnswer = '';
+        SoundFX.fanfare();
+        launchConfetti(42);
+        return;
+      }
+
+      uiState.currentCardId = next.id;
+      uiState.typedAnswer = '';
+      uiState.phase = 'asking';
+      uiState.lastFeedback = null;
+      uiState.mascotPhrase = pickRandomPhrase(next.table, 'waiting');
+      // Inicia cronômetro 100% oculto
+      uiState.cardStartTime = performance.now();
+    }
+
+    function handleDigitInput(digit) {
+      if (uiState.view !== 'estudo' || uiState.phase !== 'asking') return;
+      if (uiState.typedAnswer.length >= 3) return;
+      SoundFX.tap();
+      uiState.typedAnswer += String(digit);
+      updateAnswerDisplay();
+    }
+
+    function handleBackspace() {
+      if (uiState.view !== 'estudo' || uiState.phase !== 'asking') return;
+      if (uiState.typedAnswer.length === 0) return;
+      SoundFX.tap();
+      uiState.typedAnswer = uiState.typedAnswer.slice(0, -1);
+      updateAnswerDisplay();
+    }
+
+    function updateAnswerDisplay() {
+      const box = document.getElementById('study-answer-box');
+      if (box) {
+        box.innerHTML = uiState.typedAnswer === ''
+          ? `<span class="text-slate-300">?</span>`
+          : uiState.typedAnswer;
+      }
+      const btn = document.getElementById('btn-submit-answer');
+      if (btn) {
+        btn.disabled = uiState.typedAnswer.length === 0;
+        btn.classList.toggle('opacity-50', uiState.typedAnswer.length === 0);
+      }
+    }
+
+    function submitCurrentAnswer() {
+      if (uiState.view !== 'estudo' || uiState.phase !== 'asking') return;
+      if (uiState.typedAnswer.trim() === '') return;
+
+      const card = state.cards.find(c => c.id === uiState.currentCardId);
+      if (!card) return;
+
+      const elapsedMs = Math.max(150, Math.round(performance.now() - uiState.cardStartTime));
+      const userNumber = parseInt(uiState.typedAnswer, 10);
+      const isCorrect = userNumber === card.answer;
+
+      const result = applyAnkiSM2(card, isCorrect, elapsedMs);
+      uiState.lastFeedback = {
+        ...result,
+        userNumber,
+        table: card.table,
+        multiplier: card.multiplier
+      };
+      uiState.phase = 'feedback';
+      uiState.mascotPhrase = pickRandomPhrase(card.table, result.rating);
+
+      if (result.rating === 'good') {
+        SoundFX.good();
+        launchConfetti(20);
+      } else if (result.rating === 'hard') {
+        SoundFX.hard();
+      } else {
+        SoundFX.again();
+      }
+
+      renderApp();
+    }
+
+    function goToNextCard() {
+      if (uiState.view !== 'estudo' || uiState.phase !== 'feedback') return;
+      SoundFX.tap();
+      loadNextCardInStudy();
+      renderApp();
+    }
+
+    // Atalhos do teclado físico (números, Backspace, Enter)
+    document.addEventListener('keydown', (e) => {
+      const modalOpen = !document.getElementById('custom-modal').classList.contains('hidden');
+      if (modalOpen) {
+        if (e.key === 'Escape') closeModal();
+        return;
+      }
+      const tag = (e.target && e.target.tagName) || '';
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+
+      if (uiState.view === 'estudo') {
+        if (uiState.phase === 'asking') {
+          if (e.key >= '0' && e.key <= '9') {
+            e.preventDefault();
+            handleDigitInput(e.key);
+          } else if (e.key === 'Backspace') {
+            e.preventDefault();
+            handleBackspace();
+          } else if (e.key === 'Enter') {
+            e.preventDefault();
+            submitCurrentAnswer();
+          }
+        } else if (uiState.phase === 'feedback') {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            goToNextCard();
+          }
+        }
+      }
+    });
+
+    /*************************************************************************
+     * 12. RENDERIZAÇÃO DO CABEÇALHO E ABAS
+     *************************************************************************/
+    function updateHeader() {
+      document.getElementById('header-logo-mascot').innerHTML = renderMascotSVG(1, 'good', 'w-9 h-9');
+      document.getElementById('icon-streak').innerHTML = UI_ICONS.streak;
+      document.getElementById('icon-star').innerHTML = UI_ICONS.star;
+      document.getElementById('header-streak').textContent = state.streakDays;
+      document.getElementById('header-stars').textContent = state.stars;
+
+      const soundBtn = document.getElementById('btn-sound-toggle');
+      soundBtn.innerHTML = state.soundEnabled ? UI_ICONS.soundOn : UI_ICONS.soundOff;
+      soundBtn.className = state.soundEnabled
+        ? 'w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-sky-50 hover:bg-sky-100 border-2 border-sky-200 text-sky-600 flex items-center justify-center transition-colors'
+        : 'w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-100 hover:bg-slate-200 border-2 border-slate-200 text-slate-400 flex items-center justify-center transition-colors';
+
+      const tabs = [
+        { id: 'tabuadas', label: 'Tabuadas', shortLabel: 'Tabuadas', icon: UI_ICONS.grid },
+        { id: 'estudo', label: 'Estudar', shortLabel: 'Estudar', icon: UI_ICONS.study },
+        { id: 'album_mapa', label: 'Álbum & Mapa', shortLabel: 'Álbum/Mapa', icon: UI_ICONS.album },
+        { id: 'opcoes', label: 'Opções (Pais)', shortLabel: 'Opções', icon: UI_ICONS.settings }
+      ];
+
+      tabs.forEach(tab => {
+        const active = uiState.view === tab.id;
+        const dBtn = document.querySelector(`[data-nav="${tab.id}"]`);
+        if (dBtn) {
+          dBtn.innerHTML = `<span class="inline-flex">${tab.icon}</span><span>${tab.label}</span>`;
+          dBtn.className = active
+            ? 'nav-btn px-3.5 py-2 rounded-xl font-display font-bold text-sm flex items-center gap-1.5 bg-white text-pink-600 shadow-sm border border-pink-200 transition-all'
+            : 'nav-btn px-3.5 py-2 rounded-xl font-display font-semibold text-sm flex items-center gap-1.5 text-slate-500 hover:text-slate-800 hover:bg-white/60 transition-all';
+        }
+        const mBtn = document.querySelector(`[data-nav-mobile="${tab.id}"]`);
+        if (mBtn) {
+          mBtn.innerHTML = `<span class="inline-flex">${tab.icon}</span><span class="truncate">${tab.shortLabel}</span>`;
+          mBtn.className = active
+            ? 'nav-btn-mobile py-1.5 px-1 rounded-xl font-display font-bold text-[11px] flex items-center justify-center gap-1 bg-white text-pink-600 shadow-sm border border-pink-200 transition-all'
+            : 'nav-btn-mobile py-1.5 px-1 rounded-xl font-display font-semibold text-[11px] flex items-center justify-center gap-1 text-slate-500 transition-all';
+        }
+      });
+
+      // No celular vertical durante o estudo, oculta a 2ª linha de abas para caber tudo sem rolar
+      const topMobileTabs = document.getElementById('top-mobile-tabs');
+      if (topMobileTabs) {
+        topMobileTabs.classList.toggle('hidden', uiState.view === 'estudo');
+      }
+
+      updateSyncBadgeUI();
+    }
+
+    function renderApp() {
+      ensureDailyRollover();
+      updateHeader();
+      const main = document.getElementById('app-main');
+
+      if (uiState.view === 'tabuadas') {
+        main.innerHTML = renderTabuadasView();
+      } else if (uiState.view === 'estudo') {
+        main.innerHTML = renderStudyView();
+      } else if (uiState.view === 'album_mapa') {
+        main.innerHTML = renderAlbumMapView();
+      } else if (uiState.view === 'opcoes') {
+        main.innerHTML = renderOptionsView();
+      }
+    }
+
+    /*************************************************************************
+     * 13. ABA 1: TABUADAS (10 BARALHOS PROGRESSIVOS + REVISÃO GERAL)
+     *************************************************************************/
+    function renderTabuadasView() {
+      const allCounts = getDeckCounts('all');
+      const highestUnlocked = Math.max(...state.unlockedTables);
+      const nextToUnlock = highestUnlocked < 10 ? highestUnlocked + 1 : null;
+
+      const deckCardsHtml = MASCOTS.map(m => {
+        const mastery = getTableMastery(m.table);
+        const counts = getDeckCounts(m.table);
+
+        if (!mastery.isUnlocked) {
+          return `
+            <div class="bg-white/85 rounded-3xl border-2 border-dashed border-slate-300 p-4 flex flex-col justify-between shadow-sm hover:border-pink-300 transition-colors">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded-xl bg-slate-100 text-slate-500 font-display font-bold text-xs">
+                  Tabuada do ${m.table}
+                </span>
+                <span class="w-8 h-8 rounded-xl bg-slate-100 text-slate-400 flex items-center justify-center">
+                  ${UI_ICONS.lock}
+                </span>
+              </div>
+
+              <div class="my-3 flex flex-col items-center text-center opacity-55 grayscale-[60%]">
+                ${renderMascotSVG(m.table, 'waiting', 'w-20 h-20')}
+                <div class="mt-1 font-display font-bold text-slate-600 text-base">${m.name}</div>
+                <div class="text-xs font-bold text-slate-400">${m.species}</div>
+              </div>
+
+              <button onclick="unlockTable(${m.table})" class="btn-3d btn-3d-lilac w-full py-2.5 px-3 rounded-2xl text-white font-display font-bold text-sm flex items-center justify-center gap-1.5">
+                ${UI_ICONS.unlock}
+                <span>Desbloquear do ${m.table}</span>
+              </button>
+            </div>
+          `;
+        }
+
+        const hasDue = counts.totalDue > 0;
+        return `
+          <div class="bg-white rounded-3xl border-2 ${m.borderSoft} p-4 flex flex-col justify-between shadow-sm hover:shadow-md transition-all">
+            <div class="flex items-center justify-between gap-2">
+              <span class="px-3 py-1 rounded-xl font-display font-bold text-xs ${m.badgeBg}">
+                Tabuada do ${m.table}
+              </span>
+              <span class="text-[11px] font-extrabold text-slate-400">
+                ${mastery.percent}% firme
+              </span>
+            </div>
+
+            <div class="my-2.5 flex items-center gap-3">
+              <div class="shrink-0 w-20 h-20 rounded-2xl ${m.bgSoft} border ${m.borderSoft} flex items-center justify-center p-1">
+                ${renderMascotSVG(m.table, mastery.percent >= 80 ? 'good' : 'waiting', 'w-18 h-18')}
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="font-display font-bold text-lg text-slate-800 truncate">${m.name}</div>
+                <div class="text-xs font-bold text-slate-400 mb-2 truncate">${m.species}</div>
+                <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200/70">
+                  <div class="h-full rounded-full transition-all duration-500" style="width: ${mastery.percent}%; background: linear-gradient(90deg, #38BDF8, #34D399);"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Contadores Anki: Azul (Novos), Vermelho (Aprendendo), Verde (Revisar) -->
+            <div class="grid grid-cols-3 gap-1.5 my-2.5 bg-slate-50 rounded-2xl p-2 border border-slate-100 text-center">
+              <div title="Cartões Novos">
+                <div class="font-display font-bold text-base text-sky-600 leading-none">${counts.newCount}</div>
+                <div class="text-[10px] font-extrabold text-sky-500 mt-0.5">Novos</div>
+              </div>
+              <div title="Em Aprendizagem (1m / 10m)">
+                <div class="font-display font-bold text-base text-rose-500 leading-none">${counts.learningCount}</div>
+                <div class="text-[10px] font-extrabold text-rose-500 mt-0.5">Aprendendo</div>
+              </div>
+              <div title="Revisões do Dia">
+                <div class="font-display font-bold text-base text-emerald-600 leading-none">${counts.reviewCount}</div>
+                <div class="text-[10px] font-extrabold text-emerald-600 mt-0.5">Revisar</div>
+              </div>
+            </div>
+
+            <button onclick="startStudy(${m.table})" class="btn-3d ${hasDue ? 'btn-3d-blue text-white' : 'btn-3d-white text-slate-600'} w-full py-2.5 px-3 rounded-2xl font-display font-bold text-sm flex items-center justify-center gap-1.5">
+              ${hasDue
+                ? `${UI_ICONS.play}<span>Estudar do ${m.table}</span>`
+                : `<span class="text-emerald-500 inline-flex w-4 h-4">${UI_ICONS.check}</span><span>Em dia hoje!</span>`
+              }
+            </button>
+          </div>
+        `;
+      }).join('');
+
+      return `
+        <!-- Banner de Boas-Vindas da Mariana -->
+        <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-sky-500 via-indigo-400 to-pink-400 text-white p-5 sm:p-7 shadow-xl border-4 border-white mb-6">
+          <div class="absolute -right-10 -top-10 w-44 h-44 rounded-full bg-white/15 pointer-events-none"></div>
+          <div class="absolute left-12 -bottom-12 w-32 h-32 rounded-full bg-amber-300/20 pointer-events-none"></div>
+
+          <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-5">
+            <div class="flex items-center gap-4 text-center sm:text-left flex-col sm:flex-row">
+              <div class="w-24 h-24 shrink-0 rounded-3xl bg-white/95 p-1.5 shadow-lg border-4 border-amber-300 animate-float">
+                ${renderMascotSVG(highestUnlocked, 'good', 'w-full h-full')}
+              </div>
+              <div>
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-xs font-extrabold tracking-wide mb-2">
+                  <span class="text-amber-200 inline-flex">${UI_ICONS.sparkle}</span>
+                  <span>${state.unlockedTables.length} de 10 tabuadas liberadas • ${state.streakDays} ${state.streakDays === 1 ? 'dia seguido' : 'dias seguidos'}</span>
+                </div>
+                <h1 class="font-display font-bold text-2xl sm:text-3xl leading-tight">
+                  Oi, Mariana! Vamos treinar a tabuada?
+                </h1>
+                <p class="text-white/95 font-semibold text-sm mt-1 max-w-md">
+                  Os bichinhos estão prontos! Responda rapidinho para ganhar estrelinhas e conquistar todas as medalhas.
+                </p>
+              </div>
+            </div>
+
+            <!-- Cartão de Revisão Geral -->
+            <div class="w-full md:w-auto min-w-[270px] bg-white/95 text-slate-800 rounded-3xl p-4 shadow-lg border-2 border-white">
+              <div class="grid grid-cols-3 gap-2 mb-3 text-center">
+                <div class="bg-sky-50 border border-sky-200 rounded-2xl py-2 px-1">
+                  <div class="font-display font-bold text-xl text-sky-600 leading-none">${allCounts.newCount}</div>
+                  <div class="text-[11px] font-extrabold text-sky-600 mt-1">Novos</div>
+                </div>
+                <div class="bg-rose-50 border border-rose-200 rounded-2xl py-2 px-1">
+                  <div class="font-display font-bold text-xl text-rose-500 leading-none">${allCounts.learningCount}</div>
+                  <div class="text-[11px] font-extrabold text-rose-500 mt-1">Aprendendo</div>
+                </div>
+                <div class="bg-emerald-50 border border-emerald-200 rounded-2xl py-2 px-1">
+                  <div class="font-display font-bold text-xl text-emerald-600 leading-none">${allCounts.reviewCount}</div>
+                  <div class="text-[11px] font-extrabold text-emerald-600 mt-1">Revisar</div>
+                </div>
+              </div>
+
+              <button onclick="startStudy('all')" class="btn-3d btn-3d-green w-full py-3.5 px-4 rounded-2xl text-white font-display font-bold text-base flex items-center justify-center gap-2">
+                ${UI_ICONS.play}
+                <span>Estudar Todas (Revisão Geral)</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Barra de Progresso do Dia + Desbloqueio da Próxima Tabuada -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div>
+            <h2 class="font-display font-bold text-xl sm:text-2xl text-slate-800">Tabuadas da Mariana (1 ao 10)</h2>
+            <p class="text-xs sm:text-sm font-bold text-slate-500">
+              Hoje a Mariana já respondeu <span class="text-pink-600">${state.dailyStats.totalAnswered}</span> contas e acumulou <span class="text-amber-600">${state.stars}</span> estrelinhas!
+            </p>
+          </div>
+          ${nextToUnlock ? `
+            <button onclick="unlockTable(${nextToUnlock})" class="btn-3d btn-3d-yellow text-amber-950 px-4 py-2.5 rounded-2xl font-display font-bold text-sm flex items-center gap-1.5">
+              ${UI_ICONS.unlock}
+              <span>Desbloquear Próxima (Tabuada do ${nextToUnlock})</span>
+            </button>
+          ` : ''}
+        </div>
+
+        <!-- Grade das 10 Tabuadas -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          ${deckCardsHtml}
+        </section>
+      `;
+    }
+
+    /*************************************************************************
+     * 14. ABA 2: ESTUDAR (COMPACTO E RESPONSIVO SEM ROLAR NO CELULAR)
+     *************************************************************************/
+    function renderStudyView() {
+      const counts = getDeckCounts(uiState.studyScope);
+      const scopeTitle = uiState.studyScope === 'all'
+        ? 'Revisão Geral'
+        : `Tabuada do ${uiState.studyScope}`;
+
+      // Fila concluída hoje!
+      if (uiState.phase === 'done' || !uiState.currentCardId) {
+        const highestUnlocked = Math.max(...state.unlockedTables);
+        const nextToUnlock = highestUnlocked < 10 ? highestUnlocked + 1 : null;
+        const mascotTable = uiState.studyScope === 'all' ? highestUnlocked : Number(uiState.studyScope);
+
+        return `
+          <div class="max-w-xl mx-auto">
+            <button onclick="navigate('tabuadas')" class="mb-3 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-white border-2 border-slate-200 font-display font-bold text-sm text-slate-600 hover:bg-slate-50">
+              ${UI_ICONS.back}
+              <span>Voltar às Tabuadas</span>
+            </button>
+
+            <div class="bg-white rounded-3xl border-4 border-emerald-200 shadow-xl p-6 sm:p-8 text-center animate-pop">
+              <div class="w-28 h-28 sm:w-32 sm:h-32 mx-auto animate-happy">
+                ${renderMascotSVG(mascotTable, 'good', 'w-full h-full')}
+              </div>
+
+              <div class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 font-display font-bold text-sm mt-3">
+                ${UI_ICONS.trophy}
+                <span>Missão Cumprida!</span>
+              </div>
+
+              <h2 class="font-display font-bold text-2xl sm:text-3xl text-slate-800 mt-3">
+                Parabéns, Mariana! Você completou todas as contas de hoje!
+              </h2>
+              <p class="text-slate-600 font-semibold text-sm sm:text-base mt-2">
+                Que orgulho! Todas as contas de <strong>${scopeTitle}</strong> já foram treinadas e agendadas para a próxima revisão.
+              </p>
+
+              <div class="grid grid-cols-2 gap-3 my-5 max-w-sm mx-auto">
+                <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-3">
+                  <div class="font-display font-bold text-2xl text-amber-600">+${uiState.sessionStars}</div>
+                  <div class="text-xs font-extrabold text-amber-700">Estrelinhas hoje</div>
+                </div>
+                <div class="bg-sky-50 border-2 border-sky-200 rounded-2xl p-3">
+                  <div class="font-display font-bold text-2xl text-sky-600">${uiState.sessionCount}</div>
+                  <div class="text-xs font-extrabold text-sky-700">Contas treinadas</div>
+                </div>
+              </div>
+
+              <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                ${nextToUnlock ? `
+                  <button onclick="unlockTable(${nextToUnlock}); startStudy(${nextToUnlock});" class="btn-3d btn-3d-yellow text-amber-950 px-5 py-3 rounded-2xl font-display font-bold text-base flex items-center justify-center gap-2">
+                    ${UI_ICONS.unlock}
+                    <span>Desbloquear Tabuada do ${nextToUnlock}</span>
+                  </button>
+                ` : ''}
+                <button onclick="navigate('tabuadas')" class="btn-3d btn-3d-blue text-white px-6 py-3 rounded-2xl font-display font-bold text-base">
+                  Voltar para o Início
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      const card = state.cards.find(c => c.id === uiState.currentCardId);
+      const mascot = MASCOTS[card.table - 1];
+      const currentMood = uiState.phase === 'feedback' ? uiState.lastFeedback.rating : 'waiting';
+      const mascotAnim = currentMood === 'good' ? 'animate-happy' : (currentMood === 'again' ? 'animate-shake' : 'animate-float');
+
+      const bubbleStyles = {
+        waiting: 'bg-sky-50 border-sky-200 text-sky-950',
+        good: 'bg-emerald-50 border-emerald-300 text-emerald-950',
+        hard: 'bg-amber-50 border-amber-300 text-amber-950',
+        again: 'bg-rose-50 border-rose-200 text-rose-950'
+      };
+
+      const stateTagMap = {
+        new: { label: 'Nova', cls: 'bg-sky-100 text-sky-700' },
+        learning: { label: 'Aprendendo', cls: 'bg-rose-100 text-rose-700' },
+        relearning: { label: 'Reforço', cls: 'bg-rose-100 text-rose-700' },
+        review: { label: 'Revisão', cls: 'bg-emerald-100 text-emerald-700' }
+      };
+      const tagInfo = stateTagMap[card.state] || stateTagMap.new;
+
+      let bottomSectionHtml = '';
+
+      if (uiState.phase === 'asking') {
+        const disabledClass = uiState.typedAnswer.length === 0 ? 'opacity-50' : '';
+        bottomSectionHtml = `
+          <!-- Teclado Numérico Grande e Colorido (otimizado para caber sem rolar no celular) -->
+          <div class="mt-3 sm:mt-4 max-w-sm mx-auto">
+            <div class="grid grid-cols-3 gap-2 sm:gap-2.5">
+              ${[1,2,3,4,5,6,7,8,9].map(n => `
+                <button type="button" onclick="handleDigitInput(${n})" class="btn-3d key-num h-[52px] sm:h-[60px] rounded-2xl font-display font-bold text-2xl sm:text-3xl text-slate-700 hover:bg-sky-50">
+                  ${n}
+                </button>
+              `).join('')}
+
+              <button type="button" onclick="handleBackspace()" aria-label="Apagar" class="btn-3d btn-3d-coral h-[52px] sm:h-[60px] rounded-2xl text-white font-display font-bold flex items-center justify-center">
+                ${UI_ICONS.backspace}
+              </button>
+
+              <button type="button" onclick="handleDigitInput(0)" class="btn-3d key-num h-[52px] sm:h-[60px] rounded-2xl font-display font-bold text-2xl sm:text-3xl text-slate-700 hover:bg-sky-50">
+                0
+              </button>
+
+              <button id="btn-submit-answer" type="button" onclick="submitCurrentAnswer()" ${uiState.typedAnswer.length === 0 ? 'disabled' : ''} class="btn-3d btn-3d-green h-[52px] sm:h-[60px] rounded-2xl text-white font-display font-bold text-lg flex items-center justify-center gap-1 ${disabledClass}">
+                <span>OK</span>
+              </button>
+            </div>
+            <p class="text-center text-[11px] font-bold text-slate-400 mt-2 hidden sm:block">
+              Dica: no notebook, você também pode digitar os números e apertar Enter
+            </p>
+          </div>
+        `;
+      } else {
+        const fb = uiState.lastFeedback;
+        const secStr = (fb.elapsedMs / 1000).toFixed(1).replace('.', ',');
+
+        if (fb.rating === 'good') {
+          bottomSectionHtml = `
+            <div class="mt-3.5 rounded-3xl bg-emerald-50 border-2 border-emerald-300 p-4 text-center animate-pop">
+              <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-500 text-white font-display font-bold text-xs sm:text-sm shadow-sm">
+                <span class="w-4 h-4 inline-flex text-amber-200">${UI_ICONS.star}</span>
+                <span>BOM! +${fb.starsEarned} estrelinhas</span>
+              </div>
+              <h3 class="font-display font-bold text-lg sm:text-2xl text-emerald-900 mt-2">
+                Arrasou, Mariana! Super rápido!
+              </h3>
+              <div class="mt-2 flex flex-wrap items-center justify-center gap-2 text-xs font-extrabold text-emerald-800">
+                <span class="px-2.5 py-1 rounded-xl bg-white/85 border border-emerald-200 inline-flex items-center gap-1">
+                  ${UI_ICONS.clock} Próxima revisão: ${fb.nextIntervalLabel}
+                </span>
+                <span class="px-2.5 py-1 rounded-xl bg-white/85 border border-emerald-200">
+                  Tempo: ${secStr}s
+                </span>
+              </div>
+              <button onclick="goToNextCard()" class="btn-3d btn-3d-green mt-3.5 w-full sm:w-auto min-w-[230px] py-3 px-6 rounded-2xl text-white font-display font-bold text-base sm:text-lg inline-flex items-center justify-center gap-2">
+                <span>Próxima Conta</span>
+                ${UI_ICONS.arrowRight}
+              </button>
+            </div>
+          `;
+        } else if (fb.rating === 'hard') {
+          bottomSectionHtml = `
+            <div class="mt-3.5 rounded-3xl bg-amber-50 border-2 border-amber-300 p-4 text-center animate-pop">
+              <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-400 text-amber-950 font-display font-bold text-xs sm:text-sm shadow-sm">
+                <span class="w-4 h-4 inline-flex">${UI_ICONS.star}</span>
+                <span>DIFÍCIL • +${fb.starsEarned} estrelinha</span>
+              </div>
+              <h3 class="font-display font-bold text-lg sm:text-2xl text-amber-950 mt-2">
+                Acertou, Mariana! Logo fica bem rapidinho!
+              </h3>
+              <div class="mt-2 flex flex-wrap items-center justify-center gap-2 text-xs font-extrabold text-amber-900">
+                <span class="px-2.5 py-1 rounded-xl bg-white/85 border border-amber-200 inline-flex items-center gap-1">
+                  ${UI_ICONS.clock} Próxima revisão: ${fb.nextIntervalLabel}
+                </span>
+                <span class="px-2.5 py-1 rounded-xl bg-white/85 border border-amber-200">
+                  Tempo: ${secStr}s
+                </span>
+              </div>
+              <button onclick="goToNextCard()" class="btn-3d btn-3d-yellow mt-3.5 w-full sm:w-auto min-w-[230px] py-3 px-6 rounded-2xl text-amber-950 font-display font-bold text-base sm:text-lg inline-flex items-center justify-center gap-2">
+                <span>Próxima Conta</span>
+                ${UI_ICONS.arrowRight}
+              </button>
+            </div>
+          `;
+        } else {
+          bottomSectionHtml = `
+            <div class="mt-3.5 rounded-3xl bg-rose-50 border-2 border-rose-200 p-3.5 sm:p-4 text-center animate-pop">
+              <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-rose-500 text-white font-display font-bold text-xs sm:text-sm shadow-sm">
+                <span>NOVAMENTE • Vamos reforçar!</span>
+              </div>
+
+              <div class="mt-2 text-xs sm:text-sm font-bold text-rose-800">
+                Você colocou <span class="line-through opacity-75">${fb.userNumber}</span>, mas o certinho é:
+              </div>
+              <div class="mt-1 inline-block px-4 py-1.5 rounded-2xl bg-white border-2 border-rose-200 font-display font-bold text-2xl sm:text-3xl text-rose-600 shadow-sm">
+                ${fb.table} × ${fb.multiplier} = ${fb.correctAnswer}
+              </div>
+
+              <!-- Dica mental específica para esta multiplicação -->
+              <div class="mt-2.5 text-left bg-amber-50 border-2 border-amber-200 rounded-2xl p-3 flex items-start gap-2 max-w-md mx-auto">
+                <span class="shrink-0 w-7 h-7 rounded-xl bg-amber-200 text-amber-800 flex items-center justify-center mt-0.5">
+                  ${UI_ICONS.bulb}
+                </span>
+                <p class="text-xs sm:text-sm font-bold text-amber-950 leading-snug">
+                  ${fb.hint}
+                </p>
+              </div>
+
+              <div class="mt-2 flex items-center justify-center text-[11px] font-extrabold text-rose-700">
+                <span class="px-2.5 py-1 rounded-xl bg-white/80 border border-rose-200 inline-flex items-center gap-1">
+                  ${UI_ICONS.clock} Volta em: ${fb.nextIntervalLabel}
+                </span>
+              </div>
+
+              <button onclick="goToNextCard()" class="btn-3d btn-3d-blue mt-3 w-full sm:w-auto min-w-[230px] py-3 px-6 rounded-2xl text-white font-display font-bold text-base sm:text-lg inline-flex items-center justify-center gap-2">
+                <span>Entendi! Próxima Conta</span>
+                ${UI_ICONS.arrowRight}
+              </button>
+            </div>
+          `;
+        }
+      }
+
+      return `
+        <div class="max-w-lg mx-auto">
+          <!-- Barra superior enxuta de estudo com contadores Azul/Vermelho/Verde -->
+          <div class="flex items-center justify-between gap-2 mb-2.5">
+            <button onclick="navigate('tabuadas')" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-2xl bg-white border-2 border-slate-200 font-display font-bold text-xs sm:text-sm text-slate-600 hover:bg-slate-50 shadow-sm">
+              ${UI_ICONS.back}
+              <span>Tabuadas</span>
+            </button>
+
+            <div class="flex items-center gap-1 bg-white px-2.5 py-1 rounded-2xl border-2 border-slate-200 shadow-sm text-[11px] sm:text-xs font-display font-bold">
+              <span class="px-2 py-0.5 rounded-lg bg-sky-100 text-sky-700">${counts.newCount} novos</span>
+              <span class="px-2 py-0.5 rounded-lg bg-rose-100 text-rose-600">${counts.learningCount} aprend.</span>
+              <span class="px-2 py-0.5 rounded-lg bg-emerald-100 text-emerald-700">${counts.reviewCount} rev.</span>
+            </div>
+          </div>
+
+          <!-- Cartão de Jogo -->
+          <div class="bg-white rounded-[1.75rem] border-4 border-sky-100 shadow-xl p-3.5 sm:p-5">
+            <!-- Mascote + Balão de Fala para a Mariana -->
+            <div class="flex items-center gap-2.5 sm:gap-3.5 mb-3">
+              <div class="shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl ${mascot.bgSoft} border-2 ${mascot.borderSoft} flex items-center justify-center p-1 ${mascotAnim}">
+                ${renderMascotSVG(card.table, currentMood, 'w-full h-full')}
+              </div>
+
+              <div class="flex-1 min-w-0">
+                <div class="flex flex-wrap items-center gap-1 mb-1">
+                  <span class="font-display font-bold text-xs sm:text-sm text-slate-700">${mascot.name}</span>
+                  <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-lg ${mascot.badgeBg}">Do ${card.table}</span>
+                  <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-lg ${tagInfo.cls}">${tagInfo.label}</span>
+                </div>
+                <div class="rounded-2xl border-2 px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-bold leading-snug ${bubbleStyles[currentMood]}">
+                  ${uiState.mascotPhrase}
+                </div>
+              </div>
+            </div>
+
+            <!-- Conta Matemática Grande -->
+            <div class="rounded-2xl bg-gradient-to-b from-sky-50/90 to-white border-2 border-sky-100 py-3.5 sm:py-5 px-3 text-center">
+              <div class="flex items-center justify-center gap-2.5 sm:gap-4 flex-wrap">
+                <span class="font-display font-bold text-4xl sm:text-6xl text-slate-800 tracking-wide">
+                  ${card.table} <span class="text-pink-500">×</span> ${card.multiplier} <span class="text-slate-400">=</span>
+                </span>
+                <div id="study-answer-box" class="min-w-[88px] sm:min-w-[116px] h-[56px] sm:h-[72px] px-3 rounded-2xl bg-white border-4 ${uiState.phase === 'feedback' ? (uiState.lastFeedback.isCorrect ? 'border-emerald-400 text-emerald-600' : 'border-rose-400 text-rose-500') : 'border-sky-300 text-sky-600'} shadow-inner flex items-center justify-center font-display font-bold text-4xl sm:text-5xl">
+                  ${uiState.typedAnswer === '' ? '<span class="text-slate-300">?</span>' : uiState.typedAnswer}
+                </div>
+              </div>
+            </div>
+
+            ${bottomSectionHtml}
+          </div>
+        </div>
+      `;
+    }
+
+    /*************************************************************************
+     * 15. ABA 3: ÁLBUM & MAPA (ÁLBUM DOS 10 BICHINHOS + MAPA DE CALOR 10×10)
+     *************************************************************************/
+    function selectMapCard(cardId) {
+      SoundFX.tap();
+      uiState.selectedMapCardId = cardId;
+      renderApp();
+    }
+
+    function renderAlbumMapView() {
+      const unlockedCount = state.unlockedTables.length;
+      const goldCount = MASCOTS.filter(m => getTableMastery(m.table).medal.stars === 4).length;
+
+      // Parte A: Álbum dos 10 Bichinhos
+      const albumCardsHtml = MASCOTS.map(m => {
+        const mastery = getTableMastery(m.table);
+        const starsHtml = [1, 2, 3, 4].map(i => `
+          <span class="w-3.5 h-3.5 inline-flex ${i <= mastery.medal.stars ? 'text-amber-400' : 'text-slate-200'}">
+            ${UI_ICONS.star}
+          </span>
+        `).join('');
+
+        return `
+          <div class="bg-white rounded-3xl border-2 ${mastery.isUnlocked ? m.borderSoft : 'border-slate-200'} p-3.5 shadow-sm flex flex-col items-center text-center">
+            <div class="w-full flex items-center justify-between mb-1.5">
+              <span class="text-[11px] font-display font-bold px-2 py-0.5 rounded-xl ${mastery.isUnlocked ? m.badgeBg : 'bg-slate-100 text-slate-400'}">
+                Do ${m.table}
+              </span>
+              <div class="flex items-center gap-0.5">${starsHtml}</div>
+            </div>
+
+            <div class="w-24 h-24 rounded-2xl ${mastery.isUnlocked ? m.bgSoft : 'bg-slate-100'} border ${mastery.isUnlocked ? m.borderSoft : 'border-slate-200'} flex items-center justify-center p-1.5 my-1 ${!mastery.isUnlocked ? 'grayscale opacity-45' : ''}">
+              ${renderMascotSVG(m.table, mastery.medal.stars >= 3 ? 'good' : 'waiting', 'w-20 h-20')}
+            </div>
+
+            <h3 class="font-display font-bold text-lg text-slate-800 leading-tight mt-1">${m.name}</h3>
+            <div class="text-[11px] font-bold text-slate-400">${m.species}</div>
+
+            <div class="mt-2 px-2.5 py-0.5 rounded-full text-[11px] font-display font-bold ${mastery.medal.color}">
+              ${mastery.medal.label}
+            </div>
+
+            <div class="w-full mt-2.5 pt-2 border-t border-slate-100 grid grid-cols-2 gap-1.5 text-[11px]">
+              <div class="bg-slate-50 rounded-xl p-1">
+                <div class="font-display font-bold text-slate-700">${mastery.graduated}/10</div>
+                <div class="text-[10px] font-bold text-slate-400">Firmes</div>
+              </div>
+              <div class="bg-slate-50 rounded-xl p-1">
+                <div class="font-display font-bold text-slate-700">${mastery.avgSpeedSec ? mastery.avgSpeedSec.toFixed(1).replace('.', ',') + 's' : '—'}</div>
+                <div class="text-[10px] font-bold text-slate-400">Média</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Parte B: Mapa de Calor 10x10
+      let countMastered = 0, countSlow = 0, countHelp = 0, countNew = 0;
+      state.cards.forEach(c => {
+        const s = getCardHeatStatus(c).key;
+        if (s === 'mastered') countMastered++;
+        else if (s === 'slow') countSlow++;
+        else if (s === 'needs_help') countHelp++;
+        else countNew++;
+      });
+
+      let gridHtml = `<div class="grid grid-cols-11 gap-1 sm:gap-1.5 min-w-[290px]">`;
+      gridHtml += `<div class="aspect-square rounded-lg sm:rounded-xl bg-pink-500 text-white font-display font-bold text-xs sm:text-base flex items-center justify-center">×</div>`;
+      for (let col = 1; col <= 10; col++) {
+        gridHtml += `<div class="aspect-square rounded-lg sm:rounded-xl bg-sky-100 text-sky-800 font-display font-bold text-xs sm:text-sm flex items-center justify-center">${col}</div>`;
+      }
+
+      for (let row = 1; row <= 10; row++) {
+        gridHtml += `<div class="aspect-square rounded-lg sm:rounded-xl bg-sky-100 text-sky-800 font-display font-bold text-xs sm:text-sm flex items-center justify-center">${row}</div>`;
+        for (let col = 1; col <= 10; col++) {
+          const card = state.cards.find(c => c.table === row && c.multiplier === col);
+          const heat = getCardHeatStatus(card);
+          const isSelected = uiState.selectedMapCardId === card.id;
+          gridHtml += `
+            <button onclick="selectMapCard('${card.id}')" title="${row} × ${col} = ${card.answer} (${heat.label})"
+              class="aspect-square rounded-lg sm:rounded-xl border-2 font-display font-bold text-[11px] sm:text-sm flex items-center justify-center transition-transform hover:scale-105 ${heat.cellClass} ${isSelected ? 'ring-4 ring-pink-400 scale-105 z-10' : ''}">
+              ${card.answer}
+            </button>
+          `;
+        }
+      }
+      gridHtml += `</div>`;
+
+      const selectedCard = state.cards.find(c => c.id === uiState.selectedMapCardId) || state.cards[0];
+      const selHeat = getCardHeatStatus(selectedCard);
+      const selMascot = MASCOTS[selectedCard.table - 1];
+      const stateNames = {
+        new: 'Nova',
+        learning: 'Aprendendo',
+        relearning: 'Em Reforço',
+        review: 'Graduada (Revisão)'
+      };
+
+      let nextDueStr = 'Ainda não agendada';
+      if (selectedCard.state === 'learning' || selectedCard.state === 'relearning') {
+        const diffMs = selectedCard.dueTimestamp - Date.now();
+        nextDueStr = diffMs <= 0 ? 'Pronta agora!' : `Em ${formatIntervalLabel(diffMs, false)}`;
+      } else if (selectedCard.state === 'review') {
+        const diffDays = Math.ceil((selectedCard.dueTimestamp - getStartOfTodayMs()) / 86400000);
+        nextDueStr = diffDays <= 0 ? 'Hoje!' : `Em ${formatIntervalLabel(diffDays, true)}`;
+      }
+
+      return `
+        <!-- Seção 1: Álbum dos Bichinhos da Mariana -->
+        <section class="mb-8">
+          <div class="mb-4 bg-white rounded-3xl border-2 border-pink-200 p-5 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <h1 class="font-display font-bold text-2xl sm:text-3xl text-slate-800">Álbum dos Bichinhos da Mariana</h1>
+              <p class="text-sm font-bold text-slate-500 mt-0.5">
+                Cada tabuada que a Mariana domina desbloqueia medalhas de Bronze, Prata e Ouro!
+              </p>
+            </div>
+            <div class="flex items-center gap-2.5 shrink-0">
+              <div class="px-4 py-2 rounded-2xl bg-pink-50 border-2 border-pink-200 text-center">
+                <div class="font-display font-bold text-xl text-pink-600">${unlockedCount}/10</div>
+                <div class="text-[11px] font-extrabold text-pink-500">Na Turma</div>
+              </div>
+              <div class="px-4 py-2 rounded-2xl bg-amber-50 border-2 border-amber-200 text-center">
+                <div class="font-display font-bold text-xl text-amber-600">${goldCount}/10</div>
+                <div class="text-[11px] font-extrabold text-amber-600">Ouro</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+            ${albumCardsHtml}
+          </div>
+        </section>
+
+        <!-- Seção 2: Mapa de Calor 10x10 Interativo -->
+        <section>
+          <div class="mb-4 bg-white rounded-3xl border-2 border-sky-100 p-5 shadow-sm">
+            <h2 class="font-display font-bold text-2xl text-slate-800">Mapa de Calor 10×10 da Mariana</h2>
+            <p class="text-sm font-bold text-slate-500 mt-1">
+              Toque em qualquer quadradinho para ver a dica e o progresso. Vamos deixar o tabuleiro todo verdinho!
+            </p>
+            <div class="mt-3.5 flex flex-wrap gap-2 text-xs font-extrabold">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-100 text-slate-600 border border-slate-200">
+                <span class="w-3 h-3 rounded-full bg-slate-300"></span> Nova (${countNew})
+              </span>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-rose-50 text-rose-700 border border-rose-200">
+                <span class="w-3 h-3 rounded-full bg-rose-400"></span> Errando / Reforço (${countHelp})
+              </span>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-amber-50 text-amber-800 border border-amber-200">
+                <span class="w-3 h-3 rounded-full bg-amber-400"></span> Devagar / Difícil (${countSlow})
+              </span>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200">
+                <span class="w-3 h-3 rounded-full bg-emerald-400"></span> Dominada / Rápida (${countMastered})
+              </span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+            <div class="lg:col-span-7 bg-white rounded-3xl border-2 border-sky-100 p-3 sm:p-5 shadow-sm">
+              ${gridHtml}
+            </div>
+
+            <div class="lg:col-span-5 bg-white rounded-3xl border-2 border-sky-200 p-5 shadow-sm">
+              <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+                <div class="w-16 h-16 rounded-2xl ${selMascot.bgSoft} border ${selMascot.borderSoft} flex items-center justify-center p-1 shrink-0">
+                  ${renderMascotSVG(selectedCard.table, selHeat.key === 'mastered' ? 'good' : (selHeat.key === 'needs_help' ? 'again' : 'waiting'), 'w-full h-full')}
+                </div>
+                <div>
+                  <div class="font-display font-bold text-3xl text-slate-800 leading-none">
+                    ${selectedCard.table} × ${selectedCard.multiplier} = <span class="text-pink-600">${selectedCard.answer}</span>
+                  </div>
+                  <div class="mt-1.5 inline-flex items-center gap-1.5 text-xs font-extrabold px-2.5 py-0.5 rounded-lg ${selHeat.cellClass} border">
+                    ${selHeat.label}
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2.5 my-4 text-xs">
+                <div class="bg-slate-50 rounded-2xl p-3 border border-slate-100">
+                  <div class="text-slate-400 font-bold">Estado no Anki</div>
+                  <div class="font-display font-bold text-sm text-slate-800 mt-0.5">${stateNames[selectedCard.state]}</div>
+                </div>
+                <div class="bg-slate-50 rounded-2xl p-3 border border-slate-100">
+                  <div class="text-slate-400 font-bold">Próxima Revisão</div>
+                  <div class="font-display font-bold text-sm text-slate-800 mt-0.5">${nextDueStr}</div>
+                </div>
+                <div class="bg-slate-50 rounded-2xl p-3 border border-slate-100">
+                  <div class="text-slate-400 font-bold">Intervalo / Facilidade</div>
+                  <div class="font-display font-bold text-sm text-slate-800 mt-0.5">
+                    ${selectedCard.intervalDays > 0 ? formatIntervalLabel(selectedCard.intervalDays, true) : '—'} • ${selectedCard.ease.toFixed(2)}
+                  </div>
+                </div>
+                <div class="bg-slate-50 rounded-2xl p-3 border border-slate-100">
+                  <div class="text-slate-400 font-bold">Tempo Médio</div>
+                  <div class="font-display font-bold text-sm text-slate-800 mt-0.5">
+                    ${selectedCard.avgTimeMs > 0 ? (selectedCard.avgTimeMs / 1000).toFixed(1).replace('.', ',') + 's' : 'Sem dados'}
+                  </div>
+                </div>
+                <div class="bg-emerald-50 rounded-2xl p-3 border border-emerald-100">
+                  <div class="text-emerald-600 font-bold">Acertos</div>
+                  <div class="font-display font-bold text-lg text-emerald-700 leading-tight">${selectedCard.totalCorrect}</div>
+                </div>
+                <div class="bg-rose-50 rounded-2xl p-3 border border-rose-100">
+                  <div class="text-rose-600 font-bold">Erros</div>
+                  <div class="font-display font-bold text-lg text-rose-700 leading-tight">${selectedCard.totalWrong}</div>
+                </div>
+              </div>
+
+              <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-3.5 flex items-start gap-2.5">
+                <span class="shrink-0 w-7 h-7 rounded-xl bg-amber-200 text-amber-800 flex items-center justify-center">
+                  ${UI_ICONS.bulb}
+                </span>
+                <div class="text-xs font-bold text-amber-950 leading-relaxed">
+                  ${getMentalHint(selectedCard.table, selectedCard.multiplier)}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    /*************************************************************************
+     * 16. ABA 4: OPÇÕES (PAIS) — ANKI SM-2 + SINCRONIZAÇÃO NA NUVEM + BACKUP
+     *************************************************************************/
+    const GOOGLE_APPS_SCRIPT_SNIPPET = `function doGet() {
+  var fileName = 'tabuada-da-mariana-progresso.json';
+  var files = DriveApp.getFilesByName(fileName);
+  var content = '{}';
+  if (files.hasNext()) {
+    content = files.next().getBlob().getDataAsString('UTF-8');
+  }
+  return ContentService.createTextOutput(content)
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function doPost(e) {
+  var fileName = 'tabuada-da-mariana-progresso.json';
+  var data = e.postData ? e.postData.contents : '{}';
+  var files = DriveApp.getFilesByName(fileName);
+  if (files.hasNext()) {
+    files.next().setContent(data);
+  } else {
+    DriveApp.createFile(fileName, data, MimeType.PLAIN_TEXT);
+  }
+  return ContentService.createTextOutput(JSON.stringify({ ok: true }))
+    .setMimeType(ContentService.MimeType.JSON);
+}`;
+
+    function saveCloudUrlFromOptions() {
+      const input = document.getElementById('cfg-cloudUrl');
+      if (!input) return;
+      const val = input.value.trim();
+      try {
+        if (val) {
+          localStorage.setItem(CLOUD_URL_STORAGE_KEY, val);
+          showToast('URL da nuvem salva! Sincronizando agora...', 'info');
+          syncNow(true);
+        } else {
+          localStorage.removeItem(CLOUD_URL_STORAGE_KEY);
+          uiState.syncStatus = fbSync.ready ? 'synced' : 'local';
+          updateSyncBadgeUI();
+          showToast('URL removida. Salvando apenas neste aparelho.', 'info');
+        }
+      } catch (e) {
+        showToast('Erro ao salvar a URL neste navegador.', 'error');
+      }
+    }
+
+    function saveOptionsForm(e) {
+      e.preventDefault();
+      const getNum = (id, fallback, min = 0) => {
+        const v = parseFloat(document.getElementById(id).value);
+        return isNaN(v) ? fallback : Math.max(min, v);
+      };
+      const stepsVal = document.getElementById('cfg-etapasAprendizagem').value.trim() || '1m 10m';
+
+      state.config = {
+        novosPorDia: Math.round(getNum('cfg-novosPorDia', 9999, 1)),
+        revisoesPorDia: Math.round(getNum('cfg-revisoesPorDia', 9999, 1)),
+        etapasAprendizagem: stepsVal,
+        etapaReaprendizagemMin: getNum('cfg-etapaReaprendizagemMin', 10, 1),
+        intervaloGraduacao: Math.round(getNum('cfg-intervaloGraduacao', 1, 1)),
+        intervaloMaximo: Math.round(getNum('cfg-intervaloMaximo', 36500, 1)),
+        facilidadeInicial: Number(getNum('cfg-facilidadeInicial', 2.50, 1.30).toFixed(2)),
+        modificadorIntervalo: Number(getNum('cfg-modificadorIntervalo', 1.00, 0.10).toFixed(2)),
+        intervaloArduo: Number(getNum('cfg-intervaloArduo', 1.20, 1.00).toFixed(2)),
+        novoIntervaloLapso: Number(Math.min(1.0, getNum('cfg-novoIntervaloLapso', 0.50, 0.00)).toFixed(2)),
+        limiteBomSegundos: Number(getNum('cfg-limiteBomSegundos', 5.0, 1.0).toFixed(1)),
+        learnAheadMin: Math.round(getNum('cfg-learnAheadMin', 20, 0))
+      };
+
+      saveStateAndSync();
+      SoundFX.good();
+      showToast('Parâmetros do Anki salvos com sucesso!', 'success');
+      renderApp();
+    }
+
+    function restoreDefaultAnkiOptions() {
+      state.config = { ...DEFAULT_CONFIG };
+      saveStateAndSync();
+      SoundFX.tap();
+      showToast('Padrões (9999 / 1m 10m / 0.50) restaurados!', 'info');
+      renderApp();
+    }
+
+    function exportBackupJSON() {
+      try {
+        const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `tabuada-da-mariana-backup-${getTodayDateStr()}.json`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        SoundFX.good();
+        showToast('Backup JSON exportado!', 'success');
+      } catch (err) {
+        showToast('Não foi possível exportar o backup.', 'error');
+      }
+    }
+
+    function triggerImportBackup() {
+      document.getElementById('import-file-input').click();
+    }
+
+    document.getElementById('import-file-input').addEventListener('change', (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const parsed = JSON.parse(reader.result);
+          if (!parsed || !Array.isArray(parsed.cards) || parsed.cards.length < 10) {
+            throw new Error('Formato inválido');
+          }
+          state = normalizeState(parsed);
+          saveStateAndSync();
+          SoundFX.unlock();
+          showToast('Backup importado e sincronizado!', 'success');
+          renderApp();
+        } catch (err) {
+          showToast('Arquivo inválido. Escolha um JSON da Tabuada da Mariana.', 'error');
+        } finally {
+          e.target.value = '';
+        }
+      };
+      reader.readAsText(file);
+    });
+
+    function askResetProgress() {
+      showModal({
+        title: 'Zerar progresso da Mariana?',
+        iconSvg: UI_ICONS.trash,
+        iconBg: 'bg-rose-100 text-rose-600',
+        bodyHtml: `
+          <p>Isso vai zerar as revisões, estrelas, ofensiva de dias e deixar apenas a <strong>Tabuada do 1</strong> desbloqueada.</p>
+          <p class="mt-2 text-xs font-bold text-slate-500">Se quiser guardar uma cópia antes, clique em "Exportar JSON".</p>
+        `,
+        actions: [
+          {
+            label: 'Cancelar',
+            className: 'btn-3d btn-3d-white text-slate-700 px-5 py-2.5 rounded-2xl font-display font-bold text-sm'
+          },
+          {
+            label: 'Sim, zerar tudo',
+            className: 'btn-3d btn-3d-coral text-white px-5 py-2.5 rounded-2xl font-display font-bold text-sm',
+            onClick: () => {
+              state = createInitialState();
+              saveStateAndSync();
+              SoundFX.tap();
+              showToast('Progresso zerado!', 'info');
+              renderApp();
+            }
+          }
+        ]
+      });
+    }
+
+    function renderOptionsView() {
+      const c = state.config;
+      const effectiveUrl = getEffectiveCloudUrl();
+      const isHardcoded = Boolean((CLOUD_SYNC_URL || '').trim());
+      const inputCls = 'w-full mt-1 px-3.5 py-2.5 rounded-xl bg-slate-50 border-2 border-slate-200 focus:border-sky-400 focus:bg-white focus:outline-none font-display font-bold text-slate-800 text-sm';
+
+      return `
+        <div class="max-w-3xl mx-auto space-y-5">
+          <!-- Cabeçalho -->
+          <div class="bg-white rounded-3xl border-2 border-sky-100 p-5 shadow-sm">
+            <h1 class="font-display font-bold text-2xl sm:text-3xl text-slate-800">Opções (Pais)</h1>
+            <p class="text-sm font-bold text-slate-500 mt-1">
+              Ajuste os parâmetros clonados do Anki, gerencie as tabuadas liberadas e configure a sincronização na nuvem para a Mariana usar em qualquer celular ou notebook.
+            </p>
+          </div>
+
+          <!-- SEÇÃO DE SINCRONIZAÇÃO NA NUVEM (GOOGLE DRIVE / APPS SCRIPT) -->
+          <div class="bg-white rounded-3xl border-2 border-emerald-200 p-5 shadow-sm">
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100 mb-4">
+              <div class="flex items-center gap-2.5">
+                <span class="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                  ${UI_ICONS.cloud}
+                </span>
+                <div>
+                  <h2 class="font-display font-bold text-lg text-slate-800 leading-tight">Sincronização na Nuvem (Google Drive)</h2>
+                  <p class="text-xs font-bold text-slate-500">
+                    Última sincronização: <span id="opt-last-sync-time" class="text-emerald-700">${formatLastSyncTime()}</span>
+                  </p>
+                </div>
+              </div>
+              <button type="button" onclick="syncNow(true)" class="btn-3d btn-3d-green text-white px-4 py-2 rounded-2xl font-display font-bold text-xs sm:text-sm inline-flex items-center gap-1.5">
+                ${UI_ICONS.sync}
+                <span>Sincronizar Agora</span>
+              </button>
+            </div>
+
+            <div class="space-y-3">
+              <label class="block">
+                <span class="text-xs font-extrabold text-slate-600">URL do Google Apps Script Web App (salva no seu Google Drive)</span>
+                <div class="mt-1 flex flex-col sm:flex-row gap-2">
+                  <input id="cfg-cloudUrl" type="url" value="${effectiveUrl}" ${isHardcoded ? 'readonly' : ''} placeholder="https://script.google.com/macros/s/.../exec" class="${inputCls} mt-0 flex-1 ${isHardcoded ? 'opacity-80' : ''}" />
+                  ${!isHardcoded ? `
+                    <button type="button" onclick="saveCloudUrlFromOptions()" class="btn-3d btn-3d-blue text-white px-5 py-2.5 rounded-xl font-display font-bold text-sm shrink-0">
+                      Salvar URL
+                    </button>
+                  ` : ''}
+                </div>
+                <span class="text-[11px] font-bold text-slate-400 mt-1 block">
+                  ${isHardcoded
+                    ? 'URL fixada diretamente na constante CLOUD_SYNC_URL do arquivo HTML — funciona automaticamente em todos os celulares!'
+                    : 'Dica: se colar essa URL também na constante CLOUD_SYNC_URL no código HTML, qualquer celular já abre sincronizado sem precisar colar aqui.'}
+                </span>
+              </label>
+
+              <!-- Passo a passo rápido + código do Google Apps Script -->
+              <details class="rounded-2xl bg-slate-50 border border-slate-200 p-3.5 text-xs">
+                <summary class="font-display font-bold text-slate-700 cursor-pointer select-none">
+                  Ver código pronto do Google Apps Script (para salvar no seu Google Drive)
+                </summary>
+                <p class="text-slate-600 font-semibold mt-2 leading-relaxed">
+                  1. Acesse <strong>script.google.com</strong> logado na sua conta Google e crie um Novo Projeto.<br/>
+                  2. Cole o código abaixo, clique em <strong>Implantar → Nova implantação → App da Web</strong>.<br/>
+                  3. Em <em>Quem pode acessar</em> escolha <strong>Qualquer pessoa</strong>, clique em Implantar e copie a URL gerada.
+                </p>
+                <div class="relative mt-2.5">
+                  <pre class="bg-slate-800 text-emerald-300 p-3 rounded-xl overflow-x-auto text-[11px] leading-relaxed font-mono">${GOOGLE_APPS_SCRIPT_SNIPPET.replace(/</g, '&lt;')}</pre>
+                  <button type="button" onclick="copyTextFallback(GOOGLE_APPS_SCRIPT_SNIPPET)" class="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-100 hover:bg-sky-200 text-sky-800 font-display font-bold text-xs">
+                    ${UI_ICONS.copy}
+                    <span>Copiar Código do Apps Script</span>
+                  </button>
+                </div>
+              </details>
+            </div>
+          </div>
+
+          <!-- PARÂMETROS CLONADOS DO ANKI -->
+          <form onsubmit="saveOptionsForm(event)" class="space-y-5">
+            <div class="bg-white rounded-3xl border-2 border-slate-200 p-5 shadow-sm">
+              <h2 class="font-display font-bold text-lg text-slate-800 pb-2 border-b border-slate-100 mb-4">Limites Diários & Aprendizagem</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <label class="block">
+                  <span class="text-xs font-extrabold text-slate-600">Novos cartões/dia</span>
+                  <input id="cfg-novosPorDia" type="number" min="1" max="99999" value="${c.novosPorDia}" class="${inputCls}" />
+                </label>
+                <label class="block">
+                  <span class="text-xs font-extrabold text-slate-600">Revisões máximas/dia</span>
+                  <input id="cfg-revisoesPorDia" type="number" min="1" max="99999" value="${c.revisoesPorDia}" class="${inputCls}" />
+                </label>
+                <label class="block">
+                  <span class="text-xs font-extrabold text-slate-600">Etapas de aprendizagem</span>
+                  <input id="cfg-etapasAprendizagem" type="text" value="${c.etapasAprendizagem}" placeholder="1m 10m" class="${inputCls}" />
+                </label>
+                <label class="block">
+                  <span class="text-xs font-extrabold text-slate-600">Reaprendizagem no lapso (min)</span>
+                  <input id="cfg-etapaReaprendizagemMin" type="number" min="1" value="${c.etapaReaprendizagemMin}" class="${inputCls}" />
+                </label>
+                <label class="block">
+                  <span class="text-xs font-extrabold text-slate-600">Intervalo de graduação (dias)</span>
+                  <input id="cfg-intervaloGraduacao" type="number" min="1" value="${c.intervaloGraduacao}" class="${inputCls}" />
+                </label>
+                <label class="block">
+                  <span class="text-xs font-extrabold text-slate-600">Learn Ahead — adiantamento (min)</span>
+                  <input id="cfg-learnAheadMin" type="number" min="0" value="${c.learnAheadMin}" class="${inputCls}" />
+                </label>
+                <label class="block sm:col-span-2 bg-sky-50 border-2 border-sky-200 rounded-2xl p-3.5">
+                  <span class="text-xs font-extrabold text-sky-800">Cronômetro oculto — tempo limite para "Bom" (segundos)</span>
+                  <input id="cfg-limiteBomSegundos" type="number" min="1" max="30" step="0.5" value="${c.limiteBomSegundos}" class="${inputCls} bg-white" />
+                  <span class="text-[11px] font-bold text-sky-700 mt-1 block">
+                    Até ${c.limiteBomSegundos}s = <strong>Bom</strong> • Acima de ${c.limiteBomSegundos}s = <strong>Difícil</strong> • Errou = <strong>Novamente</strong> (sem botão Fácil).
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-3xl border-2 border-slate-200 p-5 shadow-sm">
+              <h2 class="font-display font-bold text-lg text-slate-800 pb-2 border-b border-slate-100 mb-4">Avançado (SM-2)</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <label class="block">
+                  <span class="text-xs font-extrabold text-slate-600">Intervalo máximo (dias)</span>
+                  <input id="cfg-intervaloMaximo" type="number" min="1" value="${c.intervaloMaximo}" class="${inputCls}" />
+                </label>
+                <label class="block">
+                  <span class="text-xs font-extrabold text-slate-600">Facilidade inicial</span>
+                  <input id="cfg-facilidadeInicial" type="number" min="1.30" step="0.05" value="${c.facilidadeInicial.toFixed(2)}" class="${inputCls}" />
+                </label>
+                <label class="block">
+                  <span class="text-xs font-extrabold text-slate-600">Modificador de intervalo</span>
+                  <input id="cfg-modificadorIntervalo" type="number" min="0.10" step="0.05" value="${c.modificadorIntervalo.toFixed(2)}" class="${inputCls}" />
+                </label>
+                <label class="block">
+                  <span class="text-xs font-extrabold text-slate-600">Intervalo árduo (Difícil)</span>
+                  <input id="cfg-intervaloArduo" type="number" min="1.00" step="0.05" value="${c.intervaloArduo.toFixed(2)}" class="${inputCls}" />
+                </label>
+                <label class="block sm:col-span-2 bg-amber-50 border-2 border-amber-200 rounded-2xl p-3">
+                  <span class="text-xs font-extrabold text-amber-900">Novo intervalo (ao errar revisão / lapso)</span>
+                  <input id="cfg-novoIntervaloLapso" type="number" min="0.00" max="1.00" step="0.05" value="${c.novoIntervaloLapso.toFixed(2)}" class="${inputCls} bg-white" />
+                  <span class="text-[11px] font-bold text-amber-800 mt-1 block">Em 0.50: mantém 50% do intervalo anterior (mín. 1 dia) e reduz facilidade em 0.20 (piso 1.30).</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-3 justify-end">
+              <button type="button" onclick="restoreDefaultAnkiOptions()" class="btn-3d btn-3d-white text-slate-700 px-5 py-2.5 rounded-2xl font-display font-bold text-sm">
+                Restaurar Padrões
+              </button>
+              <button type="submit" class="btn-3d btn-3d-green text-white px-7 py-2.5 rounded-2xl font-display font-bold text-base">
+                Salvar Opções
+              </button>
+            </div>
+          </form>
+
+          <!-- GERENCIAR TABUADAS -->
+          <div class="bg-white rounded-3xl border-2 border-slate-200 p-5 shadow-sm">
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100 mb-4">
+              <div>
+                <h2 class="font-display font-bold text-lg text-slate-800">Tabuadas Liberadas</h2>
+                <p class="text-xs font-bold text-slate-500">Toque para liberar ou bloquear qualquer tabuada.</p>
+              </div>
+              <button type="button" onclick="unlockAllTables()" class="px-3.5 py-2 rounded-xl bg-violet-100 hover:bg-violet-200 text-violet-800 font-display font-bold text-xs">
+                Desbloquear Todas (1 a 10)
+              </button>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
+              ${MASCOTS.map(m => {
+                const isOpen = state.unlockedTables.includes(m.table);
+                return `
+                  <button type="button" onclick="toggleTableLockFromOptions(${m.table})"
+                    class="p-2.5 rounded-2xl border-2 font-display font-bold text-sm flex items-center justify-between transition-all ${isOpen ? 'bg-emerald-50 border-emerald-300 text-emerald-800' : 'bg-slate-50 border-slate-200 text-slate-400'}">
+                    <span>Do ${m.table}</span>
+                    <span class="inline-flex">${isOpen ? UI_ICONS.unlock : UI_ICONS.lock}</span>
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- BACKUP JSON E REINÍCIO -->
+          <div class="bg-white rounded-3xl border-2 border-slate-200 p-5 shadow-sm">
+            <h2 class="font-display font-bold text-lg text-slate-800 pb-2 border-b border-slate-100 mb-4">Backup Manual & Reinício</h2>
+            <div class="flex flex-wrap gap-3">
+              <button type="button" onclick="exportBackupJSON()" class="btn-3d btn-3d-blue text-white px-4 py-2.5 rounded-2xl font-display font-bold text-sm inline-flex items-center gap-2">
+                ${UI_ICONS.download}
+                <span>Exportar JSON</span>
+              </button>
+              <button type="button" onclick="triggerImportBackup()" class="btn-3d btn-3d-lilac text-white px-4 py-2.5 rounded-2xl font-display font-bold text-sm inline-flex items-center gap-2">
+                ${UI_ICONS.upload}
+                <span>Importar JSON</span>
+              </button>
+              <button type="button" onclick="askResetProgress()" class="btn-3d btn-3d-coral text-white px-4 py-2.5 rounded-2xl font-display font-bold text-sm inline-flex items-center gap-2 sm:ml-auto">
+                ${UI_ICONS.trash}
+                <span>Resetar Progresso</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /*************************************************************************
+     * 17. INICIALIZAÇÃO DO APLICATIVO
+     *************************************************************************/
+    window.addEventListener('DOMContentLoaded', () => {
+      loadLocalState();
+      renderApp();
+
+      // Inicializa sincronização silenciosa (Google Apps Script e/ou Firebase se disponível)
+      initSilentFirebase();
+      if (getEffectiveCloudUrl()) {
+        syncNow(false);
+      }
+    });
+  </script>
+</body>
+</html>
