@@ -3,10 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Tabuada da Mariana — Multiplicação e Divisão</title>
+  <meta name="theme-color" content="#f2f4f8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Tabuada Mariana">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Tabuada da Mariana — Aventura dos Bichinhos</title>
   <style>
     :root {
-      /* Superfícies & Hierarquia iOS */
       --bg-page: #f2f4f8;
       --surface: #ffffff;
       --surface-subtle: #f8fafc;
@@ -14,17 +18,16 @@
       --hairline: rgba(15, 23, 42, 0.08);
       --hairline-strong: rgba(15, 23, 42, 0.14);
 
-      /* Tipografia */
       --text: #0f172a;
       --text-secondary: #475569;
       --text-tertiary: #94a3b8;
 
-      /* Cores Semânticas */
       --blue: #007aff;
       --blue-soft: rgba(0, 122, 255, 0.11);
       --pink: #e11d74;
       --pink-soft: rgba(225, 29, 116, 0.10);
       --indigo: #5856d6;
+      --purple: #7c3aed;
       --green: #16a34a;
       --green-soft: rgba(22, 163, 74, 0.12);
       --amber: #d97706;
@@ -32,14 +35,13 @@
       --red: #dc2626;
       --red-soft: rgba(220, 38, 38, 0.12);
       --gold: #ca8a04;
+      --cyan: #0284c7;
 
-      /* Sombras em camadas (Apple restraint) */
       --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.05);
       --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.04);
       --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.07), 0 2px 6px rgba(15, 23, 42, 0.04);
-      --shadow-lg: 0 20px 50px rgba(15, 23, 42, 0.18), 0 4px 12px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 20px 50px rgba(15, 23, 42, 0.20), 0 4px 12px rgba(15, 23, 42, 0.08);
 
-      /* Curvas de Mola (Emil Kowalski / iOS) */
       --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
       --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
       --ease-pop: cubic-bezier(0.34, 1.45, 0.64, 1);
@@ -48,14 +50,8 @@
       --radius-sm: 12px;
     }
 
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    html {
-      -webkit-text-size-adjust: 100%;
-    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html { -webkit-text-size-adjust: 100%; }
 
     body {
       margin: 0;
@@ -71,9 +67,7 @@
       font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     }
 
-    .tabular {
-      font-variant-numeric: tabular-nums;
-    }
+    .tabular { font-variant-numeric: tabular-nums; }
 
     button, .tactile {
       touch-action: manipulation;
@@ -87,16 +81,22 @@
       will-change: transform;
     }
     .tactile-press:active,
-    .tactile-press.is-pressed {
-      transform: scale(0.96) !important;
-    }
+    .tactile-press.is-pressed { transform: scale(0.96) !important; }
+
+    /* ==================== CENÁRIOS (BACKGROUNDS) ==================== */
+    .pet-bg-default { background: var(--pet-bg, #fef9c3); }
+    .pet-bg-sky { background: linear-gradient(160deg, #bae6fd 0%, #e0f2fe 55%, #ffffff 100%); }
+    .pet-bg-candy { background: linear-gradient(145deg, #fbcfe8 0%, #e9d5ff 50%, #fef9c3 100%); }
+    .pet-bg-forest { background: linear-gradient(155deg, #bbf7d0 0%, #dcfce7 55%, #fef9c3 100%); }
+    .pet-bg-space { background: radial-gradient(circle at 30% 25%, #4338ca 0%, #1e1b4b 65%, #0f172a 100%); }
+    .pet-bg-gold { background: radial-gradient(circle at 50% 35%, #fef08a 0%, #fde047 45%, #f59e0b 100%); }
 
     /* ==================== TOPBAR ==================== */
     .topbar {
       position: sticky;
       top: 0;
       z-index: 60;
-      background: rgba(248, 250, 252, 0.84);
+      background: rgba(248, 250, 252, 0.86);
       backdrop-filter: saturate(180%) blur(20px);
       -webkit-backdrop-filter: saturate(180%) blur(20px);
       border-bottom: 1px solid var(--hairline);
@@ -105,10 +105,10 @@
     .topbar-inner {
       max-width: 1040px;
       margin: 0 auto;
-      padding: 10px 14px;
+      padding: 9px 14px;
       display: flex;
       flex-direction: column;
-      gap: 9px;
+      gap: 8px;
     }
 
     .topbar-row-1 {
@@ -118,17 +118,11 @@
       gap: 10px;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-    }
+    .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
     .brand-icon {
       width: 38px;
       height: 38px;
       border-radius: 12px;
-      background: #fef9c3;
       border: 1px solid rgba(202, 138, 4, 0.24);
       box-shadow: var(--shadow-xs);
       display: flex;
@@ -136,20 +130,11 @@
       justify-content: center;
       flex-shrink: 0;
       padding: 2px;
+      overflow: hidden;
     }
-    .brand-title {
-      font-size: 1.02rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      line-height: 1.15;
-      white-space: nowrap;
-    }
+    .brand-title { font-size: 1.02rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; white-space: nowrap; }
     .brand-title span { color: var(--pink); }
-    .brand-sub {
-      font-size: 0.72rem;
-      color: var(--text-secondary);
-      font-weight: 600;
-    }
+    .brand-sub { font-size: 0.72rem; color: var(--text-secondary); font-weight: 600; }
 
     .parent-trigger {
       display: inline-flex;
@@ -159,7 +144,7 @@
       padding: 0 11px;
       border-radius: 999px;
       border: 1px solid var(--hairline-strong);
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.88);
       color: var(--text-secondary);
       font-size: 0.76rem;
       font-weight: 700;
@@ -167,11 +152,7 @@
       box-shadow: var(--shadow-xs);
       flex-shrink: 0;
     }
-    .parent-trigger.active {
-      background: var(--text);
-      color: #ffffff;
-      border-color: var(--text);
-    }
+    .parent-trigger.active { background: var(--text); color: #ffffff; border-color: var(--text); }
 
     .topbar-row-2 {
       display: flex;
@@ -181,7 +162,6 @@
       flex-wrap: wrap;
     }
 
-    /* iOS Segmented Control com indicador deslizante */
     .segmented {
       position: relative;
       display: grid;
@@ -213,9 +193,9 @@
       background: transparent;
       color: var(--text-secondary);
       font-weight: 700;
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       height: 32px;
-      padding: 0 10px;
+      padding: 0 8px;
       border-radius: 10px;
       cursor: pointer;
       white-space: nowrap;
@@ -223,36 +203,24 @@
     }
     .seg-btn.active { color: var(--text); }
 
-    /* Status Strip Padronizado */
-    .status-strip {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: nowrap;
-    }
+    .status-strip { display: flex; align-items: center; gap: 6px; flex-wrap: nowrap; }
     .pill {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 5px;
       height: 32px;
-      padding: 0 10px;
+      padding: 0 9px;
       border-radius: 999px;
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.92);
       border: 1px solid var(--hairline);
       color: var(--text-secondary);
       white-space: nowrap;
       box-shadow: var(--shadow-xs);
     }
-    .pill-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #94a3b8;
-      flex-shrink: 0;
-    }
+    .pill-dot { width: 7px; height: 7px; border-radius: 50%; background: #94a3b8; flex-shrink: 0; }
     .pill.cloud-ok { background: #ecfdf5; border-color: rgba(22, 163, 74, 0.25); color: #166534; }
     .pill.cloud-ok .pill-dot { background: #16a34a; }
     .pill.cloud-sync { background: #eff6ff; border-color: rgba(0, 122, 255, 0.25); color: #005ecb; }
@@ -261,6 +229,7 @@
     .pill.cloud-err .pill-dot { background: var(--red); }
 
     .pill-streak { background: #fff7ed; border-color: rgba(234, 88, 12, 0.22); color: #c2410c; }
+    .pill-shield { background: #f0f9ff; border-color: rgba(2, 132, 199, 0.22); color: #0369a1; }
     .pill-stars { background: #fefce8; border-color: rgba(202, 138, 4, 0.24); color: #a16207; }
 
     .sound-btn {
@@ -268,7 +237,7 @@
       height: 32px;
       border-radius: 999px;
       border: 1px solid var(--hairline);
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.92);
       color: var(--blue);
       cursor: pointer;
       display: inline-flex;
@@ -279,46 +248,29 @@
       padding: 0;
     }
 
-    @media (min-width: 820px) {
-      .topbar-inner {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        gap: 14px;
-      }
+    @media (min-width: 840px) {
+      .topbar-inner { flex-direction: row; align-items: center; justify-content: space-between; gap: 14px; }
       .topbar-row-1 { flex: 0 0 auto; gap: 14px; }
       .topbar-row-2 { flex: 1 1 auto; justify-content: flex-end; flex-wrap: nowrap; }
-      .parent-trigger { order: 3; }
     }
-
-    @media (max-width: 520px) {
+    @media (max-width: 540px) {
       .topbar-row-2 { gap: 8px; }
       .segmented { max-width: none; width: 100%; flex-basis: 100%; }
       .status-strip { width: 100%; justify-content: space-between; }
-      .status-strip .pill:first-child { flex: 1; justify-content: flex-start; }
+      .status-strip .pill:first-child { flex: 1; justify-content: flex-start; min-width: 0; overflow: hidden; }
+      #cloudText { overflow: hidden; text-overflow: ellipsis; }
     }
 
     /* ==================== ANIMAÇÕES ==================== */
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
-
-    @keyframes viewEnter {
-      from { opacity: 0; transform: translateY(8px) scale(0.992); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
+    @keyframes viewEnter { from { opacity: 0; transform: translateY(8px) scale(0.992); } to { opacity: 1; transform: translateY(0) scale(1); } }
     @keyframes mascotCelebrate {
       0% { transform: scale(1) translateY(0); }
-      35% { transform: scale(1.12) translateY(-6px) rotate(-4deg); }
+      35% { transform: scale(1.13) translateY(-6px) rotate(-4deg); }
       70% { transform: scale(0.97) translateY(1px) rotate(2deg); }
       100% { transform: scale(1) translateY(0) rotate(0); }
     }
-
-    @keyframes mascotNudge {
-      0% { transform: scale(1); }
-      45% { transform: scale(1.06) translateY(-2px); }
-      100% { transform: scale(1); }
-    }
-
+    @keyframes mascotNudge { 0% { transform: scale(1); } 45% { transform: scale(1.06) translateY(-2px); } 100% { transform: scale(1); } }
     @keyframes iosShake {
       0%, 100% { transform: translateX(0); }
       18% { transform: translateX(-7px); }
@@ -327,40 +279,35 @@
       72% { transform: translateX(3px); }
       88% { transform: translateX(-1px); }
     }
-
-    @keyframes popIn {
-      0% { opacity: 0; transform: scale(0.92); }
-      100% { opacity: 1; transform: scale(1); }
+    @keyframes cardSwap { 0% { opacity: 0; transform: translateY(6px) scale(0.985); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes chestWobble {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      20% { transform: rotate(-7deg) scale(1.06); }
+      45% { transform: rotate(7deg) scale(1.08); }
+      70% { transform: rotate(-4deg) scale(1.04); }
     }
-
-    @keyframes cardSwap {
-      0% { opacity: 0; transform: translateY(6px) scale(0.985); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
     @keyframes sheenSweep {
       0% { transform: translateX(-130%) skewX(-22deg); opacity: 0; }
-      30% { opacity: 0.7; }
+      30% { opacity: 0.72; }
       100% { transform: translateX(230%) skewX(-22deg); opacity: 0; }
     }
+    @keyframes floatSoft {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+    @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
     .anim-celebrate { animation: mascotCelebrate 460ms var(--ease-pop); }
     .anim-nudge { animation: mascotNudge 320ms var(--ease-spring); }
     .anim-shake { animation: iosShake 380ms var(--ease-out-quint); }
-    .anim-swap { animation: cardSwap 260ms var(--ease-spring); }
+    .anim-swap { animation: cardSwap 250ms var(--ease-spring); }
+    .anim-wobble { animation: chestWobble 550ms var(--ease-spring); }
+    .anim-float { animation: floatSoft 2.6s ease-in-out infinite; }
 
     /* ==================== CONTAINER & VIEWS ==================== */
-    .container {
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 16px 14px 48px;
-    }
-
+    .container { max-width: 1040px; margin: 0 auto; padding: 14px 14px 48px; }
     .view { display: none; }
-    .view.active {
-      display: block;
-      animation: viewEnter 280ms var(--ease-spring);
-    }
+    .view.active { display: block; animation: viewEnter 280ms var(--ease-spring); }
 
     /* ==================== BOTÕES ==================== */
     .btn {
@@ -368,7 +315,7 @@
       border-radius: 14px;
       padding: 12px 16px;
       font-weight: 700;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       letter-spacing: -0.01em;
       cursor: pointer;
       display: inline-flex;
@@ -380,53 +327,73 @@
     .btn-primary { background: var(--blue); color: #ffffff; width: 100%; box-shadow: 0 4px 12px rgba(0, 122, 255, 0.26); }
     .btn-green { background: #16a34a; color: #ffffff; width: 100%; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.26); }
     .btn-soft-purple { background: rgba(88, 86, 214, 0.11); color: #4338ca; width: 100%; box-shadow: none; }
-    .btn-gold { background: linear-gradient(180deg, #fde047, #facc15); color: #422006; border: 1px solid rgba(202, 138, 4, 0.25); }
+    .btn-gold { background: linear-gradient(180deg, #fde047, #facc15); color: #422006; border: 1px solid rgba(202, 138, 4, 0.28); }
     .btn-outline { background: #ffffff; color: var(--text); border: 1px solid var(--hairline-strong); }
     .btn-danger { background: var(--red-soft); color: var(--red); border: 1px solid rgba(220, 38, 38, 0.2); box-shadow: none; }
 
-    /* ==================== HERO ==================== */
+    /* ==================== HERO & LUZ VERDE ==================== */
     .hero {
       background: linear-gradient(135deg, #1d4ed8 0%, #4f46e5 52%, #db2777 100%);
       color: #ffffff;
       border-radius: 26px;
-      padding: 20px;
+      padding: 18px;
       box-shadow: 0 14px 32px rgba(79, 70, 229, 0.22);
       display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      gap: 18px;
+      grid-template-columns: 1.32fr 1fr;
+      gap: 16px;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
-    .hero-left { display: flex; align-items: center; gap: 15px; }
+    .hero-left { display: flex; align-items: center; gap: 14px; }
     .hero-mascot {
-      width: 78px;
-      height: 78px;
+      width: 82px;
+      height: 82px;
       border-radius: 22px;
-      background: rgba(255, 255, 255, 0.94);
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.16);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+      border: 2px solid rgba(255, 255, 255, 0.55);
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 4px;
+      padding: 3px;
+      overflow: hidden;
+      cursor: pointer;
     }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
     .hero-chip {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
       background: rgba(255, 255, 255, 0.18);
       border: 1px solid rgba(255, 255, 255, 0.22);
-      padding: 4px 11px;
+      padding: 3px 10px;
       border-radius: 999px;
+      font-size: 0.73rem;
+      font-weight: 700;
+    }
+    .hero-chip.green-light {
+      background: rgba(34, 197, 94, 0.28);
+      border-color: rgba(134, 239, 172, 0.55);
+      color: #f0fdf4;
+    }
+    .hero h1 { margin: 0 0 5px; font-size: 1.42rem; letter-spacing: -0.025em; line-height: 1.15; }
+    .hero p { margin: 0; font-size: 0.86rem; opacity: 0.93; line-height: 1.35; }
+
+    .hero-mission-bar {
+      margin-top: 10px;
+      background: rgba(255, 255, 255, 0.16);
+      border-radius: 12px;
+      padding: 8px 10px;
+    }
+    .hero-mission-top {
+      display: flex;
+      justify-content: space-between;
       font-size: 0.75rem;
       font-weight: 700;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
-    .hero h1 {
-      margin: 0 0 5px;
-      font-size: 1.48rem;
-      letter-spacing: -0.025em;
-      line-height: 1.15;
-    }
-    .hero p { margin: 0; font-size: 0.88rem; opacity: 0.92; line-height: 1.38; }
+    .hero-track { height: 7px; border-radius: 999px; background: rgba(255, 255, 255, 0.24); overflow: hidden; }
+    .hero-fill { height: 100%; background: linear-gradient(90deg, #fde047, #4ade80); border-radius: 999px; transition: width 420ms var(--ease-spring); }
 
     .hero-box {
       background: rgba(255, 255, 255, 0.96);
@@ -436,35 +403,25 @@
       box-shadow: 0 10px 24px rgba(15, 23, 42, 0.14);
     }
 
-    .counts-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-    .count-card {
-      text-align: center;
-      padding: 8px 6px;
-      border-radius: 13px;
-      border: 1px solid transparent;
-    }
+    .counts-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
+    .count-card { text-align: center; padding: 7px 6px; border-radius: 13px; }
     .count-card.c-new { background: var(--blue-soft); color: #005ecb; }
     .count-card.c-lrn { background: var(--red-soft); color: #b91c1c; }
     .count-card.c-rev { background: var(--green-soft); color: #15803d; }
-    .count-num { font-size: 1.28rem; font-weight: 800; line-height: 1.05; }
-    .count-lbl { font-size: 0.7rem; font-weight: 700; opacity: 0.85; margin-top: 2px; }
+    .count-num { font-size: 1.24rem; font-weight: 800; line-height: 1.05; }
+    .count-lbl { font-size: 0.69rem; font-weight: 700; opacity: 0.85; margin-top: 2px; }
 
-    /* ==================== SECTION HEADER & MODE SWITCH ==================== */
+    /* ==================== SECTION HEADER & DECKS ==================== */
     .section-head {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      margin: 16px 0 14px;
+      gap: 10px;
+      margin: 14px 0 12px;
     }
-    .section-head h2 { margin: 0; font-size: 1.2rem; letter-spacing: -0.02em; }
-    .section-sub { font-size: 0.84rem; color: var(--text-secondary); margin-top: 2px; }
+    .section-head h2 { margin: 0; font-size: 1.18rem; letter-spacing: -0.02em; }
+    .section-sub { font-size: 0.83rem; color: var(--text-secondary); margin-top: 2px; }
 
     .mode-switcher {
       display: inline-flex;
@@ -476,48 +433,37 @@
     .mode-chip {
       border: none;
       background: transparent;
-      padding: 7px 12px;
+      padding: 7px 11px;
       border-radius: 9px;
       font-weight: 700;
-      font-size: 0.8rem;
+      font-size: 0.79rem;
       color: var(--text-secondary);
       cursor: pointer;
       transition: all 220ms var(--ease-spring);
     }
-    .mode-chip.active {
-      background: #ffffff;
-      color: var(--text);
-      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.09);
-    }
+    .mode-chip.active { background: #ffffff; color: var(--text); box-shadow: 0 2px 6px rgba(15, 23, 42, 0.09); }
 
-    /* ==================== DECK GRID ==================== */
-    .deck-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
-      gap: 14px;
-    }
+    .deck-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(275px, 1fr)); gap: 14px; }
     .deck-card {
       background: var(--surface);
       border-radius: var(--radius-lg);
-      padding: 16px;
+      padding: 15px;
       border: 1px solid var(--hairline);
       box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
-      gap: 13px;
+      gap: 11px;
       transition: transform 260ms var(--ease-spring), box-shadow 260ms var(--ease-spring);
     }
-    .deck-card.unlocked:hover {
-      box-shadow: var(--shadow-md);
+    .deck-card.legendary-card {
+      background: linear-gradient(160deg, #ffffff 0%, #fffdf0 60%, #fef9c3 100%);
+      border-color: rgba(202, 138, 4, 0.35);
+      box-shadow: 0 6px 20px rgba(202, 138, 4, 0.11);
     }
-    .deck-card.locked {
-      background: rgba(255, 255, 255, 0.62);
-      border-color: var(--hairline);
-      box-shadow: none;
-    }
+    .deck-card.locked { background: rgba(255, 255, 255, 0.62); box-shadow: none; }
     .deck-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
     .deck-tag {
-      font-size: 0.74rem;
+      font-size: 0.73rem;
       font-weight: 700;
       padding: 4px 10px;
       border-radius: 999px;
@@ -525,214 +471,201 @@
       border: 1px solid var(--hairline);
       color: var(--text-secondary);
     }
-    .deck-card.unlocked .deck-tag {
-      background: #fef9c3;
-      border-color: rgba(202, 138, 4, 0.22);
-      color: #854d0e;
-    }
-    .deck-pct { font-size: 0.76rem; font-weight: 700; color: var(--text-secondary); }
-    .deck-pct.is-gold { color: #a16207; }
+    .deck-card.unlocked .deck-tag { background: #fef9c3; border-color: rgba(202, 138, 4, 0.22); color: #854d0e; }
 
-    .deck-body { display: flex; align-items: center; gap: 13px; }
+    .stage-chip {
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .st-0 { background: #f1f5f9; color: #475569; }
+    .st-1 { background: #e0f2fe; color: #0369a1; }
+    .st-2 { background: #ffedd5; color: #9a3412; }
+    .st-3 { background: #e0e7ff; color: #3730a3; }
+    .st-4 { background: #f3e8ff; color: #6b21a8; }
+    .st-5 { background: linear-gradient(180deg, #fef08a, #facc15); color: #713f12; border: 1px solid rgba(161, 98, 7, 0.28); }
+
+    .deck-body { display: flex; align-items: center; gap: 12px; }
     .deck-avatar {
-      width: 62px;
-      height: 62px;
-      border-radius: 18px;
+      width: 68px;
+      height: 68px;
+      border-radius: 19px;
       border: 1px solid var(--hairline);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      padding: 3px;
-    }
-    .deck-card.locked .deck-avatar {
-      filter: grayscale(0.9);
-      opacity: 0.55;
-      background: #f1f5f9 !important;
-    }
-    .deck-info { flex: 1; min-width: 0; }
-    .deck-name { font-size: 1.04rem; font-weight: 800; letter-spacing: -0.015em; }
-    .deck-species { font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 7px; }
-    .progress-bar {
-      height: 6px;
-      background: rgba(15, 23, 42, 0.08);
-      border-radius: 999px;
+      padding: 2px;
       overflow: hidden;
+      cursor: pointer;
     }
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #22c55e, #10b981);
-      border-radius: 999px;
-      transition: width 480ms var(--ease-spring);
-    }
+    .deck-card.locked .deck-avatar { filter: grayscale(0.9); opacity: 0.55; background: #f1f5f9 !important; }
+    .deck-info { flex: 1; min-width: 0; }
+    .deck-name { font-size: 1.03rem; font-weight: 800; letter-spacing: -0.015em; display: flex; align-items: center; gap: 6px; }
+    .deck-species { font-size: 0.77rem; color: var(--text-secondary); margin-bottom: 6px; }
+
+    /* Barra de evolução segmentada em 5 passos de 20% */
+    .evo-segments { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+    .evo-seg { height: 6px; border-radius: 999px; background: rgba(15, 23, 42, 0.08); overflow: hidden; }
+    .evo-seg-fill { height: 100%; background: linear-gradient(90deg, #22c55e, #10b981); border-radius: 999px; transition: width 420ms var(--ease-spring); }
+    .evo-seg-fill.gold { background: linear-gradient(90deg, #f59e0b, #facc15); }
 
     /* ==================== TELA DE ESTUDO (ZERO LAYOUT SHIFT) ==================== */
-    .study-wrap {
-      max-width: 460px;
-      margin: 0 auto;
-    }
+    .study-wrap { max-width: 460px; margin: 0 auto; }
     .study-card {
       background: var(--surface);
-      border-radius: 28px;
-      padding: 16px;
+      border-radius: 26px;
+      padding: 14px;
       border: 1px solid var(--hairline);
       box-shadow: var(--shadow-md);
     }
-    .study-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
+    .study-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; }
     .back-pill {
       border: 1px solid var(--hairline-strong);
       background: var(--surface-subtle);
       color: var(--text);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 700;
-      height: 30px;
-      padding: 0 11px;
+      height: 29px;
+      padding: 0 10px;
       border-radius: 999px;
       cursor: pointer;
     }
-    .study-deck-title {
-      font-size: 0.84rem;
-      font-weight: 700;
-      color: var(--text-secondary);
-    }
-    .op-badge {
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 0.73rem;
-      font-weight: 700;
-    }
+    .study-deck-title { font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); }
+    .op-badge { padding: 4px 9px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; }
     .op-mult { background: var(--blue-soft); color: #005ecb; }
     .op-div { background: var(--pink-soft); color: #be185d; }
+
+    /* Barra de Missão (10 contas -> Baú) + Combo */
+    .mission-strip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--hairline);
+      border-radius: 13px;
+      padding: 7px 10px;
+      margin-bottom: 8px;
+    }
+    .mission-track-wrap { flex: 1; }
+    .mission-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+    .mission-track { height: 7px; border-radius: 999px; background: rgba(15, 23, 42, 0.08); overflow: hidden; }
+    .mission-fill { height: 100%; background: linear-gradient(90deg, #38bdf8, #818cf8, #f472b6); border-radius: 999px; transition: width 360ms var(--ease-spring); }
+    .combo-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 0.73rem;
+      font-weight: 800;
+      background: #f1f5f9;
+      color: var(--text-tertiary);
+      transition: all 240ms var(--ease-pop);
+      flex-shrink: 0;
+    }
+    .combo-pill.hot {
+      background: linear-gradient(135deg, #f97316, #ef4444);
+      color: #ffffff;
+      box-shadow: 0 3px 10px rgba(249, 115, 22, 0.34);
+      transform: scale(1.06);
+    }
 
     .study-mascot-row {
       display: flex;
       align-items: center;
-      gap: 11px;
+      gap: 10px;
       background: var(--surface-subtle);
-      border-radius: 16px;
-      padding: 8px 12px;
-      margin-bottom: 10px;
+      border-radius: 15px;
+      padding: 7px 10px;
+      margin-bottom: 8px;
       border: 1px solid var(--hairline);
-      min-height: 64px;
+      min-height: 60px;
     }
     .study-avatar {
-      width: 48px;
-      height: 48px;
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
       flex-shrink: 0;
+      overflow: hidden;
+      padding: 2px;
       will-change: transform;
     }
-    .speech {
-      font-size: 0.84rem;
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.3;
-    }
+    .speech { font-size: 0.82rem; font-weight: 600; color: var(--text); line-height: 1.28; }
 
     .question-box {
       text-align: center;
-      padding: 14px 12px 12px;
+      padding: 12px 12px 10px;
       border-radius: 20px;
       background: linear-gradient(180deg, #fafcff 0%, #f1f6ff 100%);
       border: 1px solid rgba(0, 122, 255, 0.14);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       will-change: transform;
     }
-    .question-text {
-      font-size: 2.5rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      line-height: 1.1;
-    }
+    .question-text { font-size: 2.38rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text); line-height: 1.08; }
     .answer-display {
-      margin: 10px auto 0;
-      max-width: 176px;
-      height: 50px;
-      border-radius: 14px;
+      margin: 8px auto 0;
+      max-width: 170px;
+      height: 46px;
+      border-radius: 13px;
       background: #ffffff;
       border: 2px solid rgba(0, 122, 255, 0.28);
-      font-size: 1.9rem;
+      font-size: 1.8rem;
       font-weight: 800;
       color: var(--blue);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease, transform 240ms var(--ease-spring);
+      transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease;
     }
     .answer-display.placeholder { color: #cbd5e1; }
     .answer-display.ok { border-color: var(--green); background: #f0fdf4; color: #15803d; }
     .answer-display.warn { border-color: #f59e0b; background: #fffbeb; color: #b45309; }
     .answer-display.err { border-color: var(--red); background: #fef2f2; color: #b91c1c; }
 
-    /* Barra fixa dos 3 níveis Anki (zero layout shift) */
-    .anki-strip {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      margin-bottom: 10px;
-    }
+    .anki-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 8px; }
     .anki-pill {
-      border-radius: 12px;
-      padding: 6px 6px;
+      border-radius: 11px;
+      padding: 5px 6px;
       text-align: center;
       background: var(--surface-subtle);
       border: 1px solid var(--hairline);
       color: var(--text-tertiary);
       transition: all 260ms var(--ease-spring);
     }
-    .anki-pill-title { font-size: 0.72rem; font-weight: 800; line-height: 1.1; }
-    .anki-pill-sub { font-size: 0.67rem; font-weight: 600; margin-top: 2px; min-height: 13px; }
-    .anki-pill.active-again {
-      background: #fef2f2;
-      border-color: rgba(220, 38, 38, 0.35);
-      color: #b91c1c;
-      transform: scale(1.03);
-      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.12);
-    }
-    .anki-pill.active-hard {
-      background: #fffbeb;
-      border-color: rgba(217, 119, 6, 0.35);
-      color: #b45309;
-      transform: scale(1.03);
-      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.12);
-    }
-    .anki-pill.active-good {
-      background: #f0fdf4;
-      border-color: rgba(22, 163, 74, 0.35);
-      color: #15803d;
-      transform: scale(1.03);
-      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.14);
-    }
+    .anki-pill-title { font-size: 0.7rem; font-weight: 800; line-height: 1.1; }
+    .anki-pill-sub { font-size: 0.66rem; font-weight: 600; margin-top: 2px; min-height: 12px; }
+    .anki-pill.active-again { background: #fef2f2; border-color: rgba(220, 38, 38, 0.35); color: #b91c1c; transform: scale(1.03); }
+    .anki-pill.active-hard { background: #fffbeb; border-color: rgba(217, 119, 6, 0.35); color: #b45309; transform: scale(1.03); }
+    .anki-pill.active-good { background: #f0fdf4; border-color: rgba(22, 163, 74, 0.35); color: #15803d; transform: scale(1.03); }
 
-    /* Palco de altura fixa: alterna Teclado <-> Feedback sem pular a tela */
-    .input-stage {
-      position: relative;
-      height: 242px;
-    }
+    /* Palco fixo sem layout shift */
+    .input-stage { position: relative; height: 242px; }
     .stage-layer {
       position: absolute;
       inset: 0;
       transition: opacity 220ms var(--ease-spring), transform 280ms var(--ease-spring);
       will-change: transform, opacity;
     }
-    .stage-layer.hidden-layer {
-      opacity: 0;
-      transform: scale(0.96);
-      pointer-events: none;
-    }
+    .stage-layer.hidden-layer { opacity: 0; transform: scale(0.96); pointer-events: none; }
 
-    /* Teclado Numérico Nativo iOS */
     .keypad {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(4, 1fr);
-      gap: 8px;
+      gap: 7px;
       height: 100%;
     }
     .key {
@@ -740,7 +673,7 @@
       border-radius: 14px;
       border: 1px solid var(--hairline-strong);
       background: #ffffff;
-      font-size: 1.42rem;
+      font-size: 1.4rem;
       font-weight: 700;
       color: var(--text);
       cursor: pointer;
@@ -748,153 +681,116 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 1px 0 rgba(15, 23, 42, 0.10), 0 2px 5px rgba(15, 23, 42, 0.04);
-      transition: transform 150ms var(--ease-spring), background-color 120ms ease, box-shadow 150ms ease;
+      transition: transform 140ms var(--ease-spring), background-color 120ms ease;
     }
-    .key:active,
-    .key.is-pressed {
-      transform: scale(0.94);
-      background: #eef2f7;
-      box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.08);
-    }
-    .key-del {
-      background: #f8fafc;
-      color: var(--text-secondary);
-      border-color: var(--hairline);
-    }
-    .key-del:active,
-    .key-del.is-pressed {
-      background: #fee2e2;
-      color: var(--red);
-    }
+    .key:active, .key.is-pressed { transform: scale(0.94); background: #eef2f7; }
+    .key-del { background: #f8fafc; color: var(--text-secondary); border-color: var(--hairline); }
+    .key-del:active, .key-del.is-pressed { background: #fee2e2; color: var(--red); }
     .key-ok {
       background: var(--blue);
       border-color: transparent;
       color: #ffffff;
-      font-size: 1.02rem;
+      font-size: 1rem;
       font-weight: 800;
       gap: 5px;
       box-shadow: 0 3px 10px rgba(0, 122, 255, 0.28);
     }
-    .key-ok:active,
-    .key-ok.is-pressed {
-      background: #0066d6;
-      color: #ffffff;
-      transform: scale(0.94);
-    }
+    .key-ok:active, .key-ok.is-pressed { background: #0066d6; color: #ffffff; transform: scale(0.94); }
 
-    /* Feedback Dock dentro do mesmo palco de 242px */
-    .feedback-dock {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 10px;
-      height: 100%;
-    }
+    .feedback-dock { display: flex; flex-direction: column; justify-content: space-between; gap: 9px; height: 100%; }
     .feedback-card {
       flex: 1;
       border-radius: 18px;
-      padding: 14px;
+      padding: 11px 13px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 8px;
-      font-size: 0.9rem;
-      line-height: 1.38;
+      gap: 6px;
+      font-size: 0.86rem;
+      line-height: 1.32;
       border: 1px solid transparent;
+      overflow: hidden;
     }
     .feedback-card.good { background: #f0fdf4; border-color: rgba(22, 163, 74, 0.24); color: #166534; }
     .feedback-card.hard { background: #fffbeb; border-color: rgba(217, 119, 6, 0.26); color: #92400e; }
     .feedback-card.again { background: #fef2f2; border-color: rgba(220, 38, 38, 0.24); color: #991b1b; }
-    .feedback-title { font-size: 0.96rem; font-weight: 800; }
-    .hint-line {
-      font-size: 0.83rem;
-      font-weight: 600;
-      background: rgba(255, 255, 255, 0.78);
-      padding: 8px 10px;
+    .feedback-title { font-size: 0.92rem; font-weight: 800; }
+
+    .fact-visual-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.84);
       border-radius: 12px;
+      padding: 6px 9px;
       color: var(--text);
     }
+    .fact-tri { width: 78px; height: 64px; flex-shrink: 0; }
+    .fact-hint-text { font-size: 0.78rem; font-weight: 600; line-height: 1.28; }
 
-    /* ==================== ÁLBUM & MAPA 10x10 ==================== */
+    /* ==================== ÁLBUM, GUARDA-ROUPA & MAPA ==================== */
     .panel {
       background: var(--surface);
       border-radius: 24px;
       padding: 18px;
       border: 1px solid var(--hairline);
       box-shadow: var(--shadow-sm);
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
-    .album-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(156px, 1fr));
-      gap: 12px;
-    }
+    .album-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(156px, 1fr)); gap: 12px; }
     .sticker {
       position: relative;
       overflow: hidden;
       border: 1px solid var(--hairline);
       border-radius: 20px;
-      padding: 14px 12px;
+      padding: 13px 10px;
       text-align: center;
       background: var(--surface-subtle);
       cursor: pointer;
     }
-    .sticker.earned {
-      background: linear-gradient(180deg, #ffffff 0%, #fffdf2 100%);
-      border-color: rgba(202, 138, 4, 0.22);
-      box-shadow: var(--shadow-xs);
-    }
+    .sticker.earned { background: linear-gradient(180deg, #ffffff 0%, #fffdf5 100%); border-color: rgba(202, 138, 4, 0.20); box-shadow: var(--shadow-xs); }
     .sticker.tier-gold {
       background: linear-gradient(155deg, #fffdf0 0%, #fef3c7 52%, #fffbeb 100%);
-      border-color: rgba(202, 138, 4, 0.42);
-      box-shadow: 0 8px 20px rgba(202, 138, 4, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      border-color: rgba(202, 138, 4, 0.45);
+      box-shadow: 0 8px 20px rgba(202, 138, 4, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.9);
     }
     .sticker::after {
       content: "";
       position: absolute;
       inset: 0;
       width: 55%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.72), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.75), transparent);
       transform: translateX(-140%) skewX(-22deg);
       pointer-events: none;
     }
-    .sticker.shine::after {
-      animation: sheenSweep 680ms var(--ease-out-quint);
+    .sticker.shine::after { animation: sheenSweep 680ms var(--ease-out-quint); }
+    .sticker-avatar {
+      width: 74px;
+      height: 74px;
+      margin: 0 auto 7px;
+      border-radius: 20px;
+      padding: 3px;
+      border: 1px solid var(--hairline);
+      overflow: hidden;
     }
 
-    .medal-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      margin-top: 8px;
-      font-size: 0.72rem;
-      font-weight: 800;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.06);
-      color: var(--text-secondary);
-    }
-    .medal-bronze { background: #ffedd5; color: #9a3412; border: 1px solid rgba(154, 52, 18, 0.16); }
-    .medal-prata { background: linear-gradient(180deg, #f8fafc, #e2e8f0); color: #334155; border: 1px solid rgba(51, 65, 85, 0.18); }
-    .medal-ouro {
-      background: linear-gradient(180deg, #fef08a, #facc15);
-      color: #713f12;
-      border: 1px solid rgba(161, 98, 7, 0.30);
-      box-shadow: 0 2px 6px rgba(202, 138, 4, 0.22);
-    }
-
-    /* Mapa de Calor 10x10 CORRIGIDO */
-    .legend {
+    /* Lojinha / Escudo */
+    .shop-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px 14px;
-      font-size: 0.76rem;
-      font-weight: 700;
-      color: var(--text-secondary);
-      margin: 10px 0 12px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #f0f9ff 0%, #fefce8 100%);
+      border: 1px solid rgba(2, 132, 199, 0.16);
+      margin-bottom: 14px;
     }
+
+    /* Mapa de Calor 10x10 */
+    .legend { display: flex; flex-wrap: wrap; gap: 10px 14px; font-size: 0.75rem; font-weight: 700; color: var(--text-secondary); margin: 10px 0 12px; }
     .legend span { display: inline-flex; align-items: center; gap: 6px; }
     .legend i { width: 12px; height: 12px; border-radius: 4px; display: inline-block; border: 1px solid rgba(15, 23, 42, 0.08); }
 
@@ -909,71 +805,39 @@
       background: var(--surface-subtle);
       border: 1px solid var(--hairline);
       margin-bottom: 12px;
-      font-size: 0.82rem;
+      font-size: 0.81rem;
       color: var(--text-secondary);
       min-height: 44px;
     }
 
-    .heatmap-wrap {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 4px;
-    }
-    .heatmap {
-      width: 100%;
-      min-width: 490px;
-      border-collapse: separate;
-      border-spacing: 4px;
-      text-align: center;
-      font-size: 0.76rem;
-      font-weight: 700;
-    }
-    .heatmap th {
-      padding: 6px 4px;
-      color: var(--text-tertiary);
-      font-weight: 800;
-      font-size: 0.74rem;
-    }
-    .heatmap tbody th {
-      position: sticky;
-      left: 0;
-      background: rgba(255, 255, 255, 0.94);
-      backdrop-filter: blur(6px);
-      z-index: 2;
-      border-radius: 8px;
-    }
-    .heatmap td {
-      padding: 8px 4px;
-      border-radius: 9px;
-      cursor: pointer;
-      transition: transform 180ms var(--ease-spring), box-shadow 180ms ease;
-    }
+    .heatmap-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+    .heatmap { width: 100%; min-width: 490px; border-collapse: separate; border-spacing: 4px; text-align: center; font-size: 0.75rem; font-weight: 700; }
+    .heatmap th { padding: 6px 4px; color: var(--text-tertiary); font-weight: 800; font-size: 0.73rem; }
+    .heatmap tbody th { position: sticky; left: 0; background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(6px); z-index: 2; border-radius: 8px; }
+    .heatmap td { padding: 8px 4px; border-radius: 9px; cursor: pointer; transition: transform 180ms var(--ease-spring), box-shadow 180ms ease; }
     .heatmap td:active { transform: scale(0.92); }
-    .heatmap td.hm-selected {
-      box-shadow: 0 0 0 2px var(--text);
-    }
-
-    /* Especificidade correta (.heatmap td.hm-*) */
+    .heatmap td.hm-selected { box-shadow: 0 0 0 2px var(--text); }
     .heatmap td.hm-locked { background: #f1f5f9; color: #94a3b8; }
     .heatmap td.hm-new { background: #dbeafe; color: #1d4ed8; }
     .heatmap td.hm-bad { background: #fee2e2; color: #b91c1c; }
     .heatmap td.hm-mid { background: #fef3c7; color: #b45309; }
     .heatmap td.hm-good { background: #bbf7d0; color: #15803d; }
 
-    /* ==================== OPÇÕES (PAIS) ==================== */
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-      gap: 12px;
-      margin: 14px 0;
+    /* ==================== OPÇÕES (PAIS) & BOLETIM ==================== */
+    .report-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin: 12px 0; }
+    .report-stat {
+      background: var(--surface-subtle);
+      border: 1px solid var(--hairline);
+      border-radius: 15px;
+      padding: 12px;
     }
-    .field label {
-      display: block;
-      font-size: 0.76rem;
-      font-weight: 700;
-      color: var(--text-secondary);
-      margin-bottom: 5px;
-    }
+    .report-val { font-size: 1.35rem; font-weight: 800; color: var(--text); }
+    .report-lbl { font-size: 0.73rem; font-weight: 700; color: var(--text-secondary); margin-top: 2px; }
+    .hard-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 12px; }
+    .hard-chip { background: #fef2f2; color: #b91c1c; border: 1px solid rgba(220, 38, 38, 0.2); padding: 4px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; }
+
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; margin: 14px 0; }
+    .field label { display: block; font-size: 0.76rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 5px; }
     .field input {
       width: 100%;
       padding: 10px 12px;
@@ -984,84 +848,130 @@
       font-weight: 700;
       color: var(--text);
       font-family: inherit;
-      transition: border-color 150ms ease, background-color 150ms ease;
     }
-    .field input:focus {
-      outline: none;
-      background: #ffffff;
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.14);
-    }
+    .field input:focus { outline: none; background: #ffffff; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.14); }
 
-    /* ==================== MODAL PIN (iOS SHEET) ==================== */
+    /* ==================== MODAIS iOS SHEET (PIN, BAÚ, GUARDA-ROUPA, EVOLUÇÃO) ==================== */
     .modal-bg {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.42);
+      background: rgba(15, 23, 42, 0.48);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 200;
-      padding: 16px;
+      padding: 14px;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 260ms var(--ease-spring);
+      transition: opacity 250ms var(--ease-spring);
     }
-    .modal-bg.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .pin-modal {
+    .modal-bg.open { opacity: 1; pointer-events: auto; }
+    .sheet-modal {
       background: var(--surface);
       border-radius: 28px;
-      padding: 22px 20px 20px;
+      padding: 20px;
       width: 100%;
-      max-width: 340px;
+      max-width: 400px;
+      max-height: 90vh;
+      overflow-y: auto;
       text-align: center;
       box-shadow: var(--shadow-lg);
       border: 1px solid var(--hairline);
-      transform: translateY(24px) scale(0.95);
+      transform: translateY(28px) scale(0.95);
       transition: transform 340ms var(--ease-spring);
     }
-    .modal-bg.open .pin-modal {
-      transform: translateY(0) scale(1);
+    .modal-bg.open .sheet-modal { transform: translateY(0) scale(1); }
+
+    .pin-dots { display: flex; justify-content: center; gap: 14px; margin: 14px 0 10px; }
+    .pin-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #cbd5e1; transition: all 180ms var(--ease-pop); }
+    .pin-dot.filled { background: var(--blue); border-color: var(--blue); transform: scale(1.15); }
+    .pin-err { color: var(--red); font-size: 0.8rem; font-weight: 700; min-height: 18px; margin-bottom: 10px; }
+    .pin-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .pin-keypad .key { height: 50px; }
+
+    /* Guarda-Roupa */
+    .wardrobe-preview {
+      width: 122px;
+      height: 122px;
+      margin: 0 auto 10px;
+      border-radius: 28px;
+      border: 2px solid var(--hairline);
+      padding: 4px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
     }
-    .pin-dots {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      margin: 16px 0 10px;
+    .evo-roadmap {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 4px;
+      margin: 10px 0 14px;
+      text-align: center;
     }
-    .pin-dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      border: 2px solid #cbd5e1;
-      background: transparent;
-      transition: transform 200ms var(--ease-pop), background-color 160ms ease, border-color 160ms ease;
+    .evo-step {
+      padding: 5px 2px;
+      border-radius: 10px;
+      font-size: 0.63rem;
+      font-weight: 800;
+      background: #f1f5f9;
+      color: var(--text-tertiary);
+      border: 1px solid transparent;
     }
-    .pin-dot.filled {
-      background: var(--blue);
-      border-color: var(--blue);
-      transform: scale(1.15);
-    }
-    .pin-err {
-      color: var(--red);
-      font-size: 0.8rem;
-      font-weight: 700;
-      min-height: 18px;
-      margin-bottom: 10px;
-    }
-    .pin-keypad {
+    .evo-step.reached { background: #dcfce7; color: #166534; }
+    .evo-step.current { background: #fef08a; color: #854d0e; border-color: rgba(202, 138, 4, 0.4); }
+
+    .item-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
+      margin: 8px 0 14px;
+      text-align: center;
     }
-    .pin-keypad .key { height: 52px; }
+    .item-tile {
+      border: 1px solid var(--hairline);
+      border-radius: 14px;
+      padding: 8px 6px;
+      background: var(--surface-subtle);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .item-tile.equipped { border: 2px solid var(--blue); background: var(--blue-soft); color: #005ecb; }
+    .item-tile.locked-item { opacity: 0.85; background: #ffffff; }
+    .item-price { font-size: 0.67rem; font-weight: 800; color: #a16207; background: #fef9c3; padding: 2px 7px; border-radius: 999px; }
 
-    /* ==================== TOAST ==================== */
+    /* Baú Surpresa */
+    .chest-btn {
+      width: 148px;
+      height: 148px;
+      margin: 10px auto 14px;
+      border-radius: 30px;
+      background: radial-gradient(circle at 50% 40%, #fef9c3, #fde047 65%, #f59e0b 100%);
+      border: 2px solid rgba(202, 138, 4, 0.35);
+      box-shadow: 0 14px 32px rgba(245, 158, 11, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .rarity-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .rar-comum { background: #e0f2fe; color: #0369a1; }
+    .rar-raro { background: #f3e8ff; color: #7e22ce; }
+    .rar-epico { background: #fce7f3; color: #be185d; }
+    .rar-lendario { background: linear-gradient(180deg, #fef08a, #facc15); color: #713f12; }
+
     .toast {
       position: fixed;
       bottom: max(20px, env(safe-area-inset-bottom));
@@ -1072,7 +982,7 @@
       color: #ffffff;
       padding: 10px 16px;
       border-radius: 999px;
-      font-size: 0.84rem;
+      font-size: 0.83rem;
       font-weight: 700;
       box-shadow: var(--shadow-md);
       opacity: 0;
@@ -1084,30 +994,20 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0) scale(1);
-    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
 
     @media (max-width: 720px) {
-      .hero { grid-template-columns: 1fr; padding: 16px; }
-      .hero h1 { font-size: 1.28rem; }
-      .hero-mascot { width: 64px; height: 64px; border-radius: 18px; }
-      .question-text { font-size: 2.25rem; }
+      .hero { grid-template-columns: 1fr; padding: 15px; }
+      .hero h1 { font-size: 1.24rem; }
+      .hero-mascot { width: 68px; height: 68px; border-radius: 18px; }
+      .question-text { font-size: 2.18rem; }
       .modal-bg { align-items: flex-end; padding: 10px; }
-      .pin-modal {
-        max-width: 100%;
-        border-radius: 26px;
-        transform: translateY(48px);
-      }
-      .modal-bg.open .pin-modal { transform: translateY(0); }
+      .sheet-modal { max-width: 100%; border-radius: 26px; transform: translateY(48px); }
+      .modal-bg.open .sheet-modal { transform: translateY(0); }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-      }
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
   </style>
 </head>
@@ -1117,7 +1017,7 @@
     <div class="topbar-inner">
       <div class="topbar-row-1">
         <div class="brand">
-          <div class="brand-icon" id="brandMascot"></div>
+          <div class="brand-icon pet-bg-default" id="brandMascot"></div>
           <div>
             <div class="brand-title">Tabuada da <span>Mariana</span></div>
             <div class="brand-sub">Multiplicação (×) e Divisão (÷)</div>
@@ -1134,8 +1034,8 @@
         <nav class="segmented" id="mainSegmented" role="tablist" aria-label="Navegação principal">
           <div class="seg-thumb" id="segThumb"></div>
           <button class="seg-btn active" role="tab" data-tab="tabuadas" onclick="openTab('tabuadas')">Tabuadas</button>
-          <button class="seg-btn" role="tab" data-tab="estudar" onclick="openTab('estudar')">Estudar</button>
-          <button class="seg-btn" role="tab" data-tab="album" onclick="openTab('album')">Álbum & Mapa</button>
+          <button class="seg-btn" role="tab" data-tab="estudar" onclick="openTab('estudar')">Missão</button>
+          <button class="seg-btn" role="tab" data-tab="album" onclick="openTab('album')">Bichinhos & Mapa</button>
         </nav>
 
         <div class="status-strip">
@@ -1144,7 +1044,8 @@
             <span id="cloudText">Sem nuvem</span>
           </div>
           <div class="pill pill-streak tabular" title="Dias seguidos estudando">🔥 <span id="topStreak">0</span></div>
-          <div class="pill pill-stars tabular" title="Estrelinhas conquistadas">⭐ <span id="topStars">0</span></div>
+          <div class="pill pill-shield tabular" title="Escudos de Gelo (protegem sua ofensiva se pular 1 dia)">❄️ <span id="topShields">1</span></div>
+          <div class="pill pill-stars tabular" title="Estrelinhas para vestir os bichinhos">⭐ <span id="topStars">0</span></div>
           <button class="sound-btn tactile-press" id="soundBtn" onclick="toggleSound()" title="Ligar/Desligar som" aria-label="Ligar ou desligar som"></button>
         </div>
       </div>
@@ -1156,11 +1057,21 @@
     <section id="view-tabuadas" class="view active">
       <div class="hero">
         <div class="hero-left">
-          <div class="hero-mascot" id="heroMascot"></div>
-          <div>
-            <div class="hero-chip tabular" id="heroChip">1 de 10 tabuadas liberadas • 0 dias seguidos</div>
-            <h1>Oi, Mariana! Vamos treinar a tabuada?</h1>
-            <p>Os bichinhos misturam contas de multiplicar (×) e dividir (÷) para você ficar craque rapidinho.</p>
+          <div class="hero-mascot tactile-press" id="heroMascot" onclick="openWardrobe(Math.max(...state.unlockedDecks))" title="Toque para vestir seu bichinho"></div>
+          <div style="flex:1; min-width:0;">
+            <div class="hero-badges">
+              <span class="hero-chip tabular" id="heroChip">1/10 liberadas • 0 dias</span>
+              <span class="hero-chip green-light" id="greenLightChip" style="display:none;">🟢 Luz Verde do Dia!</span>
+            </div>
+            <h1 id="heroTitle">Oi, Mariana! Bora evoluir seus bichinhos?</h1>
+            <p id="heroDesc">Complete 1 missão curtinha de 10 contas para abrir o Baú Surpresa e ganhar acessórios!</p>
+            <div class="hero-mission-bar">
+              <div class="hero-mission-top tabular">
+                <span id="heroMissionLabel">🎁 Missão do Baú</span>
+                <span id="heroMissionCount">0 / 10 contas</span>
+              </div>
+              <div class="hero-track"><div class="hero-fill" id="heroMissionFill" style="width:0%"></div></div>
+            </div>
           </div>
         </div>
 
@@ -1170,14 +1081,14 @@
             <div class="count-card c-lrn"><div class="count-num tabular" id="heroLrn">0</div><div class="count-lbl">Aprendendo</div></div>
             <div class="count-card c-rev"><div class="count-num tabular" id="heroRev">0</div><div class="count-lbl">Revisar</div></div>
           </div>
-          <button class="btn btn-green tactile-press" onclick="startStudy('all')">▶ Estudar Todas (× e ÷)</button>
+          <button class="btn btn-green tactile-press" onclick="startStudy('all')">▶ Jogar Missão (× e ÷)</button>
         </div>
       </div>
 
       <div class="section-head">
         <div>
-          <h2>Tabuadas da Mariana (1 ao 10)</h2>
-          <div class="section-sub tabular" id="todaySummary">Hoje a Mariana ainda não respondeu contas. Vamos começar?</div>
+          <h2>Seus Bichinhos da Tabuada (1 ao 10)</h2>
+          <div class="section-sub tabular" id="todaySummary">Hoje a Mariana ainda não começou a missão. Toque em um bichinho para vestir ou treinar!</div>
         </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
           <div class="mode-switcher">
@@ -1185,14 +1096,14 @@
             <button class="mode-chip" data-mode="mult" onclick="setOpMode('mult')">Só ×</button>
             <button class="mode-chip" data-mode="div" onclick="setOpMode('div')">Só ÷</button>
           </div>
-          <button class="btn btn-gold tactile-press" id="unlockNextBtn" onclick="unlockNextDeck()">🔓 Desbloquear Próxima</button>
+          <button class="btn btn-gold tactile-press" id="unlockNextBtn" onclick="unlockNextDeck()">🔓 Liberar Próxima</button>
         </div>
       </div>
 
       <div class="deck-grid" id="deckGrid"></div>
     </section>
 
-    <!-- ABA 2: ESTUDAR -->
+    <!-- ABA 2: MISSÃO (ESTUDAR) -->
     <section id="view-estudar" class="view">
       <div class="study-wrap">
         <div class="study-card" id="studyCard">
@@ -1202,10 +1113,21 @@
             <span class="op-badge op-mult" id="studyOpBadge">Multiplicação ×</span>
           </div>
 
-          <div class="counts-row" style="margin-bottom:10px;">
+          <div class="counts-row" style="margin-bottom:8px;">
             <div class="count-card c-new"><div class="count-num tabular" id="stNew">0</div><div class="count-lbl">Novos</div></div>
             <div class="count-card c-lrn"><div class="count-num tabular" id="stLrn">0</div><div class="count-lbl">Aprendendo</div></div>
             <div class="count-card c-rev"><div class="count-num tabular" id="stRev">0</div><div class="count-lbl">Revisar</div></div>
+          </div>
+
+          <div class="mission-strip">
+            <div class="mission-track-wrap">
+              <div class="mission-label-row tabular">
+                <span>🎁 Missão do Baú Surpresa</span>
+                <span id="stMissionText">0 / 10</span>
+              </div>
+              <div class="mission-track"><div class="mission-fill" id="stMissionFill" style="width:0%"></div></div>
+            </div>
+            <div class="combo-pill tabular" id="comboPill">🔥 0x</div>
           </div>
 
           <div id="studyActiveArea">
@@ -1219,7 +1141,6 @@
               <div class="answer-display placeholder tabular" id="answerDisplay">?</div>
             </div>
 
-            <!-- Indicadores Anki (Novamente / Difícil / Bom) sem salto de layout -->
             <div class="anki-strip" aria-live="polite">
               <div class="anki-pill" id="pillAgain">
                 <div class="anki-pill-title">Novamente</div>
@@ -1227,15 +1148,14 @@
               </div>
               <div class="anki-pill" id="pillHard">
                 <div class="anki-pill-title">Difícil</div>
-                <div class="anki-pill-sub tabular" id="pillHardSub">Devagar</div>
+                <div class="anki-pill-sub tabular" id="pillHardSub">&gt; 5s</div>
               </div>
               <div class="anki-pill" id="pillGood">
                 <div class="anki-pill-title">Bom</div>
-                <div class="anki-pill-sub tabular" id="pillGoodSub">Rápido</div>
+                <div class="anki-pill-sub tabular" id="pillGoodSub">≤ 5s</div>
               </div>
             </div>
 
-            <!-- Palco de altura fixa (zero layout shift) -->
             <div class="input-stage">
               <div class="stage-layer" id="keypadLayer">
                 <div class="keypad">
@@ -1262,30 +1182,43 @@
               <div class="stage-layer hidden-layer" id="feedbackLayer">
                 <div class="feedback-dock">
                   <div class="feedback-card" id="feedbackBox"></div>
-                  <button class="btn btn-primary tactile-press" style="height:52px;" onclick="nextCard()">Próxima Conta →</button>
+                  <button class="btn btn-primary tactile-press" id="nextActionBtn" style="height:50px;" onclick="nextCard()">Próxima Conta →</button>
                 </div>
               </div>
             </div>
           </div>
 
-          <div id="studyEmptyArea" style="display:none; text-align:center; padding:26px 10px;">
-            <div style="width:88px; height:88px; margin:0 auto 10px;" id="doneMascot"></div>
+          <div id="studyEmptyArea" style="display:none; text-align:center; padding:24px 10px;">
+            <div style="width:94px; height:94px; margin:0 auto 10px; border-radius:24px; overflow:hidden;" id="doneMascot"></div>
             <h2 style="margin:0 0 6px;">Parabéns, Mariana! 🎉</h2>
-            <p id="doneMsg" style="color:var(--text-secondary); margin:0 0 18px; font-size:0.9rem;">Você concluiu todas as contas disponíveis agora!</p>
+            <p id="doneMsg" style="color:var(--text-secondary); margin:0 0 18px; font-size:0.9rem;">Seus bichinhos estão super felizes! Todas as contas de agora foram concluídas.</p>
             <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
               <button class="btn btn-gold tactile-press" id="doneUnlockBtn" onclick="unlockNextDeck(true)">🔓 Desbloquear Próxima Tabuada</button>
-              <button class="btn btn-outline tactile-press" onclick="openTab('tabuadas')">Voltar às Tabuadas</button>
+              <button class="btn btn-outline tactile-press" onclick="openTab('album')">✨ Vestir Bichinhos</button>
+              <button class="btn btn-outline tactile-press" onclick="openTab('tabuadas')">Voltar</button>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ABA 3: ÁLBUM & MAPA -->
+    <!-- ABA 3: BICHINHOS, GUARDA-ROUPA & MAPA -->
     <section id="view-album" class="view">
       <div class="panel">
-        <h2 style="margin:0 0 4px;">Álbum dos Bichinhos da Mariana</h2>
-        <div class="section-sub" style="margin-bottom:14px;">Cada bichinho ganha medalha de Bronze (30%), Prata (70%) e Ouro (100% firme em × e ÷). Toque em um bichinho para ver o brilho!</div>
+        <div class="section-head" style="margin-top:0;">
+          <div>
+            <h2>Coleção & Guarda-Roupa da Mariana</h2>
+            <div class="section-sub">Evolua cada bichinho a cada 20% até o <b>Lendário (100%)</b>. Toque em qualquer bichinho liberado para vestir acessórios e cenários!</div>
+          </div>
+        </div>
+
+        <div class="shop-bar">
+          <div style="font-size:0.84rem; font-weight:700;">
+            ❄️ <b>Escudo de Gelo</b> (<span class="tabular" id="shopShieldCount">1</span>/3) — protege sua ofensiva de dias se você pular 1 dia sem jogar.
+          </div>
+          <button class="btn btn-outline tactile-press" style="padding:8px 13px; font-size:0.8rem;" onclick="buyIceShield()">Comprar Escudo (40 ⭐)</button>
+        </div>
+
         <div class="album-grid" id="albumGrid"></div>
       </div>
 
@@ -1293,7 +1226,7 @@
         <div class="section-head" style="margin-top:0;">
           <div>
             <h2>Mapa de Calor 10×10</h2>
-            <div class="section-sub">Toque em qualquer conta para ver detalhes de domínio e próxima revisão.</div>
+            <div class="section-sub">Toque em qualquer conta para ver o domínio, o tempo e quando ela volta.</div>
           </div>
           <div class="mode-switcher">
             <button class="mode-chip active" id="hmBtnMult" onclick="setHeatmapOp('mult')">Multiplicação (×)</button>
@@ -1305,7 +1238,7 @@
           <span><i style="background:#f1f5f9;"></i> Bloqueada</span>
           <span><i style="background:#dbeafe;"></i> Nova</span>
           <span><i style="background:#fee2e2;"></i> Precisa treinar</span>
-          <span><i style="background:#fef3c7;"></i> Acertando devagar</span>
+          <span><i style="background:#fef3c7;"></i> Aprendendo / Devagar</span>
           <span><i style="background:#bbf7d0;"></i> Firme / Automática</span>
         </div>
 
@@ -1322,11 +1255,21 @@
       <div class="panel">
         <div class="section-head" style="margin-top:0;">
           <div>
-            <h2>Área dos Pais — Configurações do Anki</h2>
-            <div class="section-sub">Padrão Mário Vergara (9999 / 1m 10m / 0.50 / sem botão Fácil) com avaliação por tempo oculto.</div>
+            <h2>Boletim da Mariana (Resumo para os Pais)</h2>
+            <div class="section-sub">Acompanhe velocidade, domínio real e onde ela precisa de mais reforço.</div>
           </div>
           <button class="btn btn-outline tactile-press" onclick="lockParentsAndExit()">🔒 Sair e Trancar</button>
         </div>
+
+        <div class="report-grid tabular" id="parentReportStats"></div>
+        <div style="font-size:0.8rem; font-weight:700; color:var(--text-secondary);">Contas que mais precisam de atenção agora:</div>
+        <div class="hard-list tabular" id="parentHardList"></div>
+        <button class="btn btn-primary tactile-press" style="width:auto;" onclick="copyParentReport()">📋 Copiar Boletim para WhatsApp</button>
+      </div>
+
+      <div class="panel">
+        <h2 style="margin:0 0 4px;">Configurações do Motor Anki</h2>
+        <div class="section-sub">Padrão Mário Vergara (9999 / 1m 10m / 0.50 / sem botão Fácil) com cronômetro oculto.</div>
 
         <div class="form-grid">
           <div class="field"><label>Novos cartões/dia</label><input class="tabular" type="number" id="cfgNewPerDay"></div>
@@ -1345,7 +1288,7 @@
 
       <div class="panel">
         <h2 style="margin:0 0 6px;">Sincronização na Nuvem (Google Drive)</h2>
-        <div class="section-sub" style="margin-bottom:10px;">Cole a URL do Web App do Google Apps Script (termina em <b>/exec</b>) e clique em Testar e Sincronizar.</div>
+        <div class="section-sub" style="margin-bottom:10px;">URL do Web App do Google Apps Script (termina em <b>/exec</b>).</div>
         <div class="field" style="margin-bottom:10px;">
           <label>URL do Google Apps Script</label>
           <input type="url" id="cfgCloudUrl" placeholder="https://script.google.com/macros/s/.../exec">
@@ -1370,13 +1313,13 @@
     </section>
   </main>
 
-  <!-- MODAL DE SENHA DOS PAIS (iOS SHEET) -->
+  <!-- MODAL 1: SENHA DOS PAIS -->
   <div class="modal-bg" id="pinModal" onclick="if(event.target===this) closePinModal()">
-    <div class="pin-modal" id="pinCard">
+    <div class="sheet-modal" id="pinCard" style="max-width:340px;">
       <div style="width:44px; height:44px; margin:0 auto 8px; border-radius:14px; background:var(--blue-soft); color:var(--blue); display:flex; align-items:center; justify-content:center;">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       </div>
-      <h3 style="margin:0 0 4px; letter-spacing:-0.02em;">Área dos Pais</h3>
+      <h3 style="margin:0 0 4px;">Área dos Pais</h3>
       <div style="font-size:0.83rem; color:var(--text-secondary);">Digite a senha de 4 números para abrir as opções.</div>
       <div class="pin-dots" id="pinDots">
         <span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span>
@@ -1396,7 +1339,85 @@
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>
         </button>
         <button class="key" onclick="pinPress('0')">0</button>
-        <button class="key" style="font-size:0.86rem; color:var(--text-secondary);" onclick="closePinModal()">Cancelar</button>
+        <button class="key" style="font-size:0.85rem; color:var(--text-secondary);" onclick="closePinModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: BAÚ SURPRESA (RECOMPENSA VARIÁVEL) -->
+  <div class="modal-bg" id="chestModal">
+    <div class="sheet-modal" id="chestSheet">
+      <div id="chestClosedView">
+        <div style="font-size:0.78rem; font-weight:800; color:var(--pink); letter-spacing:0.04em; text-transform:uppercase;">Missão Concluída! 🎉</div>
+        <h2 style="margin:4px 0 6px;">Baú Surpresa da Mariana</h2>
+        <div style="font-size:0.86rem; color:var(--text-secondary);">Você completou 10 contas! Toque no baú para descobrir o que veio dentro:</div>
+        <button class="chest-btn tactile-press anim-float" id="chestTapBtn" onclick="openSurpriseChest()" aria-label="Abrir Baú Surpresa">
+          <svg width="96" height="96" viewBox="0 0 100 100">
+            <rect x="14" y="42" width="72" height="44" rx="10" fill="#92400e" stroke="#451a03" stroke-width="3"/>
+            <path d="M14 44 C14 22, 86 22, 86 44 Z" fill="#b45309" stroke="#451a03" stroke-width="3"/>
+            <rect x="14" y="42" width="72" height="10" fill="#facc15" stroke="#451a03" stroke-width="2.5"/>
+            <rect x="26" y="25" width="10" height="61" fill="#facc15" opacity="0.9"/>
+            <rect x="64" y="25" width="10" height="61" fill="#facc15" opacity="0.9"/>
+            <rect x="42" y="40" width="16" height="18" rx="4" fill="#fef08a" stroke="#451a03" stroke-width="2.5"/>
+            <circle cx="50" cy="49" r="3" fill="#451a03"/>
+          </svg>
+        </button>
+        <div style="font-size:0.8rem; font-weight:700; color:var(--amber);">✨ Toque no baú para abrir!</div>
+      </div>
+
+      <div id="chestOpenedView" style="display:none;">
+        <span class="rarity-badge" id="chestRarity">Raro</span>
+        <h2 style="margin:2px 0 4px;" id="chestRewardTitle">Novo Item!</h2>
+        <div style="font-size:0.84rem; color:var(--text-secondary); margin-bottom:12px;" id="chestRewardDesc">Você desbloqueou um prêmio incrível!</div>
+        <div class="wardrobe-preview anim-celebrate" id="chestRewardPreview"></div>
+        <div style="display:flex; flex-direction:column; gap:8px; margin-top:12px;">
+          <button class="btn btn-gold tactile-press" id="chestEquipBtn" onclick="equipChestReward()">✨ Vestir Agora</button>
+          <button class="btn btn-primary tactile-press" onclick="closeChestModal(true)">Continuar Missão Bônus →</button>
+          <button class="btn btn-outline tactile-press" onclick="closeChestModal(false)">Voltar às Tabuadas</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: EVOLUÇÃO DO BICHINHO -->
+  <div class="modal-bg" id="evoModal">
+    <div class="sheet-modal">
+      <div style="font-size:0.78rem; font-weight:800; color:var(--gold); text-transform:uppercase; letter-spacing:0.04em;">✨ Evolução Desbloqueada!</div>
+      <h2 style="margin:4px 0 4px;" id="evoTitle">Pipoca evoluiu!</h2>
+      <div style="font-size:0.86rem; color:var(--text-secondary); margin-bottom:12px;" id="evoSubtitle">Novo estágio conquistado!</div>
+      <div class="wardrobe-preview anim-celebrate" id="evoPreview"></div>
+      <div style="display:flex; flex-direction:column; gap:8px; margin-top:12px;">
+        <button class="btn btn-gold tactile-press" onclick="shareEvolutionMoment()">💌 Copiar Conquista para a Família</button>
+        <button class="btn btn-primary tactile-press" onclick="closeEvoModal()">Continuar Jogando →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: GUARDA-ROUPA & LOJINHA DO BICHINHO -->
+  <div class="modal-bg" id="wardrobeModal" onclick="if(event.target===this) closeWardrobe()">
+    <div class="sheet-modal" style="max-width:440px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <div style="text-align:left;">
+          <h3 style="margin:0;" id="wdName">Pipoca</h3>
+          <div style="font-size:0.77rem; color:var(--text-secondary);" id="wdSub">Tabuada do 1 • Filhote</div>
+        </div>
+        <div class="pill pill-stars tabular">⭐ <span id="wdStars">0</span></div>
+      </div>
+
+      <div class="wardrobe-preview" id="wdPreview"></div>
+
+      <div style="font-size:0.74rem; font-weight:800; color:var(--text-secondary); text-align:left;">Jornada de Evolução (a cada 20%):</div>
+      <div class="evo-roadmap" id="wdRoadmap"></div>
+
+      <div style="font-size:0.76rem; font-weight:800; color:var(--text-secondary); text-align:left; margin-top:6px;">Acessórios (toque para vestir ou comprar):</div>
+      <div class="item-grid" id="wdAccessories"></div>
+
+      <div style="font-size:0.76rem; font-weight:800; color:var(--text-secondary); text-align:left;">Cenários de Fundo:</div>
+      <div class="item-grid" id="wdBackgrounds"></div>
+
+      <div style="display:flex; gap:8px; margin-top:8px;">
+        <button class="btn btn-primary tactile-press" onclick="studyFromWardrobe()">▶ Treinar com ele</button>
+        <button class="btn btn-outline tactile-press" onclick="closeWardrobe()">Fechar</button>
       </div>
     </div>
   </div>
@@ -1411,6 +1432,7 @@ const CLOUD_SYNC_URL = "https://script.google.com/macros/s/AKfycbyE-LGKiDiPeI5PN
 
 const PARENT_PIN = "4551";
 const STORAGE_KEY = "tabuada_mariana_v2_mult_div";
+const MISSION_SIZE = 10;
 
 const DEFAULT_CONFIG = {
   newPerDay: 9999,
@@ -1440,6 +1462,40 @@ const MASCOTS = [
   { n: 10, name: "Léo", species: "Leãozinho", bg: "#ffedd5", accent: "#ea580c", ear: "mane", color: "#fbbf24", cheek: "#fb7185" }
 ];
 
+// 6 Estágios (base + 5 evoluções a cada 20% até 100% Lendário)
+const EVO_STAGES = [
+  { idx: 0, minPct: 0,   name: "Filhote",    short: "0%",   badge: "🥚 Filhote",    cls: "st-0", scale: 0.86 },
+  { idx: 1, minPct: 20,  name: "Aprendiz",   short: "20%",  badge: "🌱 Aprendiz",   cls: "st-1", scale: 0.92 },
+  { idx: 2, minPct: 40,  name: "Explorador", short: "40%",  badge: "🧭 Explorador", cls: "st-2", scale: 0.97 },
+  { idx: 3, minPct: 60,  name: "Guardião",   short: "60%",  badge: "🛡️ Guardião",   cls: "st-3", scale: 1.02 },
+  { idx: 4, minPct: 80,  name: "Mestre",     short: "80%",  badge: "🔮 Mestre",     cls: "st-4", scale: 1.06 },
+  { idx: 5, minPct: 100, name: "Lendário",   short: "100%", badge: "👑 Lendário",   cls: "st-5", scale: 1.09 }
+];
+
+const ACCESSORIES = [
+  { id: "acc_none",       name: "Natural",       icon: "✨", price: 0,   rarity: "comum" },
+  { id: "acc_bow",        name: "Laço Rosa",     icon: "🎀", price: 25,  rarity: "comum" },
+  { id: "acc_sunglasses", name: "Óculos Star",   icon: "🕶️", price: 30,  rarity: "comum" },
+  { id: "acc_flower",     name: "Coroa Floral",  icon: "🌸", price: 35,  rarity: "comum" },
+  { id: "acc_headphones", name: "Fone Pop",      icon: "🎧", price: 45,  rarity: "raro" },
+  { id: "acc_wizard",     name: "Chapéu Mago",   icon: "🧙", price: 55,  rarity: "raro" },
+  { id: "acc_cape",       name: "Capa Herói",    icon: "🦸", price: 60,  rarity: "raro" },
+  { id: "acc_astro",      name: "Visor Espaço",  icon: "👩‍🚀", price: 75,  rarity: "epico" },
+  { id: "acc_wings",      name: "Asas Mágicas",  icon: "🦋", price: 85,  rarity: "epico" },
+  { id: "acc_pet_star",   name: "Mini Estrela",  icon: "🌟", price: 90,  rarity: "epico" },
+  { id: "acc_crown",      name: "Tiara Real",    icon: "👑", price: 100, rarity: "lendario" },
+  { id: "acc_halo",       name: "Arco-Íris",     icon: "🌈", price: 120, rarity: "lendario" }
+];
+
+const BACKGROUNDS = [
+  { id: "bg_default", name: "Padrão",     icon: "🎨", cls: "pet-bg-default", price: 0,  rarity: "comum" },
+  { id: "bg_sky",     name: "Céu Azul",   icon: "☁️", cls: "pet-bg-sky",     price: 30, rarity: "comum" },
+  { id: "bg_candy",   name: "Doce",       icon: "🍭", cls: "pet-bg-candy",   price: 40, rarity: "raro" },
+  { id: "bg_forest",  name: "Jardim",     icon: "🌿", cls: "pet-bg-forest",  price: 50, rarity: "raro" },
+  { id: "bg_space",   name: "Galáxia",    icon: "🌌", cls: "pet-bg-space",   price: 70, rarity: "epico" },
+  { id: "bg_gold",    name: "Ouro Real",  icon: "✨", cls: "pet-bg-gold",    price: 95, rarity: "lendario" }
+];
+
 const ICON_SOUND_ON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
 const ICON_SOUND_OFF = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
 
@@ -1447,8 +1503,195 @@ function haptic(ms = 8) {
   try { if (navigator.vibrate) navigator.vibrate(ms); } catch (_) {}
 }
 
-function renderMascotSVG(num, mood = "happy") {
+function getDeckMastery(deckNum) {
+  const cards = state.cards.filter(c => c.deck === deckNum);
+  if (!cards.length) return 0;
+  const firm = cards.filter(c => c.state === "review" && c.lastGrade === "good").length;
+  return Math.round((firm / cards.length) * 100);
+}
+
+function getEvoStage(pct) {
+  for (let i = EVO_STAGES.length - 1; i >= 0; i--) {
+    if (pct >= EVO_STAGES[i].minPct) return EVO_STAGES[i];
+  }
+  return EVO_STAGES[0];
+}
+
+function getEquip(deckNum) {
+  const eq = (state.equipped && state.equipped[deckNum]) || {};
+  return {
+    acc: eq.acc || "acc_none",
+    bg: eq.bg || "bg_default"
+  };
+}
+
+function getBgClass(deckNum) {
+  const eq = getEquip(deckNum);
+  const found = BACKGROUNDS.find(b => b.id === eq.bg);
+  return found ? found.cls : "pet-bg-default";
+}
+
+function renderAccessoryLayer(accId, position = "front") {
+  if (!accId || accId === "acc_none") return "";
+  if (position === "back") {
+    if (accId === "acc_cape") {
+      return `<path d="M22 64 L10 96 Q50 88 90 96 L78 64 Z" fill="#ef4444" stroke="#991b1b" stroke-width="2"/>`;
+    }
+    if (accId === "acc_wings") {
+      return `<g opacity="0.92">
+        <ellipse cx="17" cy="48" rx="14" ry="11" transform="rotate(-22 17 48)" fill="#f472b6" stroke="#db2777" stroke-width="1.8"/>
+        <ellipse cx="18" cy="64" rx="10" ry="8" transform="rotate(18 18 64)" fill="#c084fc" stroke="#9333ea" stroke-width="1.5"/>
+        <ellipse cx="83" cy="48" rx="14" ry="11" transform="rotate(22 83 48)" fill="#f472b6" stroke="#db2777" stroke-width="1.8"/>
+        <ellipse cx="82" cy="64" rx="10" ry="8" transform="rotate(-18 82 64)" fill="#c084fc" stroke="#9333ea" stroke-width="1.5"/>
+      </g>`;
+    }
+    if (accId === "acc_halo") {
+      return `<g fill="none" stroke-linecap="round">
+        <path d="M14 54 A36 36 0 0 1 86 54" stroke="#ef4444" stroke-width="4" opacity="0.7"/>
+        <path d="M18 54 A32 32 0 0 1 82 54" stroke="#facc15" stroke-width="4" opacity="0.75"/>
+        <path d="M22 54 A28 28 0 0 1 78 54" stroke="#38bdf8" stroke-width="4" opacity="0.75"/>
+      </g>`;
+    }
+    return "";
+  }
+
+  // Front overlays
+  if (accId === "acc_bow") {
+    return `<g transform="translate(50 24)">
+      <ellipse cx="-11" cy="0" rx="10" ry="6" fill="#ec4899" stroke="#9d174d" stroke-width="1.6"/>
+      <ellipse cx="11" cy="0" rx="10" ry="6" fill="#ec4899" stroke="#9d174d" stroke-width="1.6"/>
+      <circle cx="0" cy="0" r="4.5" fill="#fbcfe8" stroke="#9d174d" stroke-width="1.5"/>
+    </g>`;
+  }
+  if (accId === "acc_sunglasses") {
+    return `<g>
+      <rect x="25" y="42" width="21" height="14" rx="5" fill="#0f172a" stroke="#facc15" stroke-width="2"/>
+      <rect x="54" y="42" width="21" height="14" rx="5" fill="#0f172a" stroke="#facc15" stroke-width="2"/>
+      <line x1="46" y1="48" x2="54" y2="48" stroke="#facc15" stroke-width="2.5"/>
+      <line x1="29" y1="46" x2="35" y2="46" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+      <line x1="58" y1="46" x2="64" y2="46" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+    </g>`;
+  }
+  if (accId === "acc_flower") {
+    return `<g>
+      <path d="M28 29 Q50 21 72 29" fill="none" stroke="#22c55e" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="34" cy="26" r="5" fill="#f472b6"/><circle cx="34" cy="26" r="2" fill="#fef08a"/>
+      <circle cx="50" cy="23" r="6" fill="#fb7185"/><circle cx="50" cy="23" r="2.3" fill="#fef08a"/>
+      <circle cx="66" cy="26" r="5" fill="#c084fc"/><circle cx="66" cy="26" r="2" fill="#fef08a"/>
+    </g>`;
+  }
+  if (accId === "acc_headphones") {
+    return `<g>
+      <path d="M20 50 A30 30 0 0 1 80 50" fill="none" stroke="#2563eb" stroke-width="5" stroke-linecap="round"/>
+      <rect x="13" y="44" width="10" height="20" rx="5" fill="#3b82f6" stroke="#1e3a8a" stroke-width="1.8"/>
+      <rect x="77" y="44" width="10" height="20" rx="5" fill="#3b82f6" stroke="#1e3a8a" stroke-width="1.8"/>
+    </g>`;
+  }
+  if (accId === "acc_wizard") {
+    return `<g>
+      <ellipse cx="50" cy="27" rx="28" ry="6" fill="#4f46e5" stroke="#312e81" stroke-width="2"/>
+      <polygon points="32,26 52,2 68,26" fill="#6366f1" stroke="#312e81" stroke-width="2"/>
+      <polygon points="50,12 52,17 57,17 53,20 54,24 50,21 46,24 47,20 43,17 48,17" fill="#fde047"/>
+    </g>`;
+  }
+  if (accId === "acc_astro") {
+    return `<g>
+      <circle cx="50" cy="53" r="35" fill="rgba(186,230,253,0.22)" stroke="#38bdf8" stroke-width="3"/>
+      <path d="M26 35 A26 26 0 0 1 48 25" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" opacity="0.75"/>
+    </g>`;
+  }
+  if (accId === "acc_pet_star") {
+    return `<polygon points="84,18 87,25 94,25 88,30 90,37 84,33 78,37 80,30 74,25 81,25" fill="#facc15" stroke="#b45309" stroke-width="1.5"/>`;
+  }
+  if (accId === "acc_crown") {
+    return `<g>
+      <polygon points="32,27 36,11 45,20 50,8 55,20 64,11 68,27" fill="#facc15" stroke="#a16207" stroke-width="2" stroke-linejoin="round"/>
+      <circle cx="50" cy="20" r="3" fill="#38bdf8"/>
+      <circle cx="39" cy="22" r="2.2" fill="#ec4899"/>
+      <circle cx="61" cy="22" r="2.2" fill="#ec4899"/>
+    </g>`;
+  }
+  return "";
+}
+
+function renderEvolutionAura(stageIdx, position = "back") {
+  if (position === "back") {
+    if (stageIdx === 3) {
+      // Guardião (60%): manto prateado/índigo suave
+      return `<circle cx="50" cy="54" r="40" fill="rgba(99,102,241,0.12)" stroke="rgba(99,102,241,0.3)" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+    }
+    if (stageIdx === 4) {
+      // Mestre (80%): aura mística violeta-ouro
+      return `<g>
+        <circle cx="50" cy="54" r="43" fill="rgba(168,85,247,0.14)" stroke="#a855f7" stroke-width="2" stroke-dasharray="6 4"/>
+        <circle cx="18" cy="24" r="3" fill="#c084fc"/><circle cx="82" cy="24" r="3" fill="#facc15"/>
+      </g>`;
+    }
+    if (stageIdx >= 5) {
+      // LENDÁRIO (100%): Gigante do Conhecimento com asas de luz e aura radiante!
+      return `<g>
+        <circle cx="50" cy="52" r="46" fill="rgba(250,204,21,0.22)"/>
+        <circle cx="50" cy="52" r="42" fill="none" stroke="#eab308" stroke-width="2.2" stroke-dasharray="4 4"/>
+        <path d="M12 52 Q2 34 20 30 Q14 44 22 56 Z" fill="#fef08a" stroke="#eab308" stroke-width="1.4"/>
+        <path d="M88 52 Q98 34 80 30 Q86 44 78 56 Z" fill="#fef08a" stroke="#eab308" stroke-width="1.4"/>
+        <polygon points="15,18 17,22 21,22 18,25 19,29 15,26 11,29 12,25 9,22 13,22" fill="#facc15"/>
+        <polygon points="85,18 87,22 91,22 88,25 89,29 85,26 81,29 82,25 79,22 83,22" fill="#facc15"/>
+      </g>`;
+    }
+    return "";
+  }
+
+  // Detalhes frontais da evolução (a cada 20%)
+  if (stageIdx === 0) {
+    // Filhote (0%): babadorzinho bebê fofo
+    return `<path d="M36 78 Q50 88 64 78 Q50 82 36 78 Z" fill="#bae6fd" stroke="#38bdf8" stroke-width="1.2"/>`;
+  }
+  if (stageIdx === 1) {
+    // Aprendiz (20%): lenço azul de aprendiz
+    return `<path d="M30 76 Q50 87 70 76 L62 86 L50 82 L38 86 Z" fill="#38bdf8" stroke="#0284c7" stroke-width="1.4"/>`;
+  }
+  if (stageIdx === 2) {
+    // Explorador (40%): medalhão de bronze
+    return `<g>
+      <path d="M30 76 Q50 86 70 76" fill="none" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="50" cy="83" r="5.5" fill="#fb923c" stroke="#9a3412" stroke-width="1.4"/>
+      <circle cx="50" cy="83" r="2" fill="#fef08a"/>
+    </g>`;
+  }
+  if (stageIdx === 3) {
+    // Guardião (60%): escudo/emblema prateado
+    return `<g>
+      <path d="M28 76 Q50 88 72 76" fill="none" stroke="#6366f1" stroke-width="4.5" stroke-linecap="round"/>
+      <polygon points="50,76 57,80 55,89 50,92 45,89 43,80" fill="#e2e8f0" stroke="#475569" stroke-width="1.4"/>
+    </g>`;
+  }
+  if (stageIdx === 4) {
+    // Mestre (80%): colar místico com gema roxa
+    return `<g>
+      <path d="M27 76 Q50 89 73 76" fill="none" stroke="#9333ea" stroke-width="4.5" stroke-linecap="round"/>
+      <polygon points="50,76 56,83 50,91 44,83" fill="#c084fc" stroke="#6b21a8" stroke-width="1.5"/>
+    </g>`;
+  }
+  if (stageIdx >= 5) {
+    // LENDÁRIO (100%): medalhão dourado + mini coroa se não estiver com chapéu/tiara
+    return `<g>
+      <path d="M26 76 Q50 90 74 76" fill="none" stroke="#eab308" stroke-width="5" stroke-linecap="round"/>
+      <polygon points="50,75 57,83 50,92 43,83" fill="#38bdf8" stroke="#a16207" stroke-width="1.6"/>
+    </g>`;
+  }
+  return "";
+}
+
+function renderMascotSVG(num, mood = "happy", customStage = null, customAcc = null) {
   const m = MASCOTS[(num - 1) % 10];
+  const pct = getDeckMastery(m.n);
+  const stage = customStage !== null ? EVO_STAGES[customStage] : getEvoStage(pct);
+  const eq = getEquip(m.n);
+  const accId = customAcc !== null ? customAcc : eq.acc;
+
+  // Se for Lendário e não tiver chapéu equipado, ganha a coroa lendária automática!
+  const effectiveAcc = (stage.idx >= 5 && accId === "acc_none") ? "acc_crown" : accId;
+
   const mouth = mood === "cheer"
     ? `<path d="M40 62 Q50 74 60 62 Z" fill="#ef4444" stroke="#1e293b" stroke-width="2.5"/>`
     : mood === "encourage"
@@ -1464,7 +1707,7 @@ function renderMascotSVG(num, mood = "happy") {
   if (m.ear === "round") ears = `<circle cx="28" cy="29" r="11" fill="${m.color}"/><circle cx="72" cy="29" r="11" fill="${m.color}"/><circle cx="28" cy="29" r="6" fill="#fde68a"/><circle cx="72" cy="29" r="6" fill="#fde68a"/>`;
   if (m.ear === "tuft") ears = `<polygon points="24,36 28,18 40,28" fill="#0284c7"/><polygon points="76,36 72,18 60,28" fill="#0284c7"/>`;
   if (m.ear === "side") ears = `<circle cx="20" cy="50" r="10" fill="${m.color}"/><circle cx="80" cy="50" r="10" fill="${m.color}"/><circle cx="20" cy="50" r="5" fill="#fed7aa"/><circle cx="80" cy="50" r="5" fill="#fed7aa"/>`;
-  if (m.ear === "mane") ears = `<circle cx="50" cy="52" r="36" fill="#ea580c"/><circle cx="28" cy="28" r="9" fill="#fbbf24"/><circle cx="72" cy="28" r="9" fill="#fbbf24"/>`;
+  if (m.ear === "mane") ears = `<circle cx="50" cy="52" r="35" fill="#ea580c"/><circle cx="28" cy="28" r="9" fill="#fbbf24"/><circle cx="72" cy="28" r="9" fill="#fbbf24"/>`;
 
   const faceInner = m.n === 9
     ? `<ellipse cx="50" cy="58" rx="22" ry="22" fill="#ffffff"/>`
@@ -1478,32 +1721,54 @@ function renderMascotSVG(num, mood = "happy") {
     ? `<polygon points="45,54 55,54 50,61" fill="#f97316"/>`
     : `<ellipse cx="50" cy="56" rx="4.5" ry="3.2" fill="#1e293b"/>`;
 
+  const sc = stage.scale;
+  const tx = (50 * (1 - sc)).toFixed(1);
+  const ty = (54 * (1 - sc)).toFixed(1);
+
   return `<svg viewBox="0 0 100 100" width="100%" height="100%">
-    ${ears}
-    <circle cx="50" cy="54" r="29" fill="${m.color}" stroke="${m.n===2||m.n===4?'#cbd5e1':'rgba(0,0,0,0.08)'}" stroke-width="2"/>
-    ${faceInner}
-    <circle cx="38" cy="49" r="4" fill="${m.n===4?'#ffffff':'#1e293b'}"/>
-    <circle cx="62" cy="49" r="4" fill="${m.n===4?'#ffffff':'#1e293b'}"/>
-    <circle cx="39.5" cy="47.5" r="1.4" fill="#ffffff"/>
-    <circle cx="63.5" cy="47.5" r="1.4" fill="#ffffff"/>
-    <circle cx="30" cy="58" r="4.5" fill="${m.cheek}" opacity="0.55"/>
-    <circle cx="70" cy="58" r="4.5" fill="${m.cheek}" opacity="0.55"/>
-    ${nose}
-    ${mouth}
+    ${renderEvolutionAura(stage.idx, "back")}
+    <g transform="translate(${tx} ${ty}) scale(${sc})">
+      ${renderAccessoryLayer(effectiveAcc, "back")}
+      ${ears}
+      <circle cx="50" cy="54" r="28" fill="${m.color}" stroke="${m.n===2||m.n===4?'#cbd5e1':'rgba(0,0,0,0.08)'}" stroke-width="2"/>
+      ${faceInner}
+      <circle cx="38" cy="49" r="4" fill="${m.n===4?'#ffffff':'#1e293b'}"/>
+      <circle cx="62" cy="49" r="4" fill="${m.n===4?'#ffffff':'#1e293b'}"/>
+      <circle cx="39.5" cy="47.5" r="1.4" fill="#ffffff"/>
+      <circle cx="63.5" cy="47.5" r="1.4" fill="#ffffff"/>
+      <circle cx="30" cy="58" r="4.5" fill="${m.cheek}" opacity="0.55"/>
+      <circle cx="70" cy="58" r="4.5" fill="${m.cheek}" opacity="0.55"/>
+      ${nose}
+      ${mouth}
+      ${renderEvolutionAura(stage.idx, "front")}
+      ${renderAccessoryLayer(effectiveAcc, "front")}
+    </g>
+  </svg>`;
+}
+
+function renderFactTriangleSVG(deck, factor) {
+  const prod = deck * factor;
+  return `<svg class="fact-tri" viewBox="0 0 100 84">
+    <polygon points="50,8 92,76 8,76" fill="#eff6ff" stroke="#3b82f6" stroke-width="2.5" stroke-linejoin="round"/>
+    <circle cx="50" cy="20" r="14" fill="#2563eb"/>
+    <text x="50" y="24" text-anchor="middle" fill="#ffffff" font-size="11.5" font-weight="800">${prod}</text>
+    <circle cx="22" cy="67" r="12" fill="#ec4899"/>
+    <text x="22" y="71" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="800">${deck}</text>
+    <circle cx="78" cy="67" r="12" fill="#16a34a"/>
+    <text x="78" y="71" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="800">${factor}</text>
+    <text x="50" y="57" text-anchor="middle" fill="#475569" font-size="11" font-weight="800">×  ÷</text>
   </svg>`;
 }
 
 function buildHint(op, n, m) {
   const prod = n * m;
-  if (op === "div") {
-    return `Dica mágica: pense na multiplicação! ${n} × ${m} = ${prod}, então ${prod} ÷ ${n} = ${m}.`;
-  }
-  if (n === 1 || m === 1) return `Todo número multiplicado por 1 continua igual a ele mesmo: ${prod}.`;
-  if (n === 2 || m === 2) { const other = n === 2 ? m : n; return `Multiplicar por 2 é dobrar: ${other} + ${other} = ${prod}.`; }
-  if (n === 10 || m === 10) { const other = n === 10 ? m : n; return `Multiplicar por 10 é só colocar um zero no final: ${other} → ${prod}.`; }
-  if (n === 5 || m === 5) return `Na tabuada do 5, o resultado sempre termina em 0 ou 5: ${n} × ${m} = ${prod}.`;
-  if (n === 9 || m === 9) { const other = n === 9 ? m : n; return `Truque do 9: faça ${other} × 10 (${other*10}) e tire ${other} → ${prod}!`; }
-  return `Pense por partes: ${n} × ${m - 1} = ${n * (m - 1)}, mais ${n} dá ${prod}!`;
+  if (op === "div") return `Seu cérebro destravou um atalho: ${n} × ${m} = ${prod}, então ${prod} ÷ ${n} = ${m}!`;
+  if (n === 1 || m === 1) return `Qualquer número × 1 continua igual a ele mesmo: ${prod}!`;
+  if (n === 2 || m === 2) { const other = n === 2 ? m : n; return `Multiplicar por 2 é só dobrar: ${other} + ${other} = ${prod}!`; }
+  if (n === 10 || m === 10) { const other = n === 10 ? m : n; return `Truque do 10: coloque um zero no final de ${other} → ${prod}!`; }
+  if (n === 5 || m === 5) return `Na tabuada do 5, termina sempre em 0 ou 5: ${n} × ${m} = ${prod}!`;
+  if (n === 9 || m === 9) { const other = n === 9 ? m : n; return `Truque do 9: ${other} × 10 (${other*10}) menos ${other} dá ${prod}!`; }
+  return `Atalho por partes: ${n} × ${m - 1} = ${n * (m - 1)}, mais ${n} dá ${prod}!`;
 }
 
 function createInitialCards() {
@@ -1512,52 +1777,25 @@ function createInitialCards() {
   for (let n = 1; n <= 10; n++) {
     for (let m = 1; m <= 10; m++) {
       cards.push({
-        id: `mult_${n}_${m}`,
-        op: "mult",
-        deck: n,
-        factor: m,
-        order: order++,
-        q: `${n} × ${m}`,
-        a: n * m,
-        hint: buildHint("mult", n, m),
-        state: "new",
-        step: 0,
-        interval: 0,
-        lapseInterval: 1,
-        ease: 2.50,
-        due: 0,
-        reps: 0,
-        lapses: 0,
-        lastMs: 0,
-        lastGrade: ""
+        id: `mult_${n}_${m}`, op: "mult", deck: n, factor: m, order: order++,
+        q: `${n} × ${m}`, a: n * m, hint: buildHint("mult", n, m),
+        state: "new", step: 0, interval: 0, lapseInterval: 1, ease: 2.50, due: 0,
+        reps: 0, lapses: 0, lastMs: 0, lastGrade: ""
       });
       cards.push({
-        id: `div_${n}_${m}`,
-        op: "div",
-        deck: n,
-        factor: m,
-        order: order++,
-        q: `${n * m} ÷ ${n}`,
-        a: m,
-        hint: buildHint("div", n, m),
-        state: "new",
-        step: 0,
-        interval: 0,
-        lapseInterval: 1,
-        ease: 2.50,
-        due: 0,
-        reps: 0,
-        lapses: 0,
-        lastMs: 0,
-        lastGrade: ""
+        id: `div_${n}_${m}`, op: "div", deck: n, factor: m, order: order++,
+        q: `${n * m} ÷ ${n}`, a: m, hint: buildHint("div", n, m),
+        state: "new", step: 0, interval: 0, lapseInterval: 1, ease: 2.50, due: 0,
+        reps: 0, lapses: 0, lastMs: 0, lastGrade: ""
       });
     }
   }
   return cards;
 }
 
-function todayKey() {
+function todayKey(offsetDays = 0) {
   const d = new Date();
+  if (offsetDays) d.setDate(d.getDate() + offsetDays);
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
 
@@ -1571,7 +1809,7 @@ function dayStartTs(daysAhead) {
 
 function createFreshState() {
   return {
-    version: 2,
+    version: 3,
     updatedAt: Date.now(),
     soundOn: true,
     opMode: "mixed",
@@ -1579,10 +1817,44 @@ function createFreshState() {
     stars: 0,
     streak: 0,
     lastStudyDay: "",
+    iceShields: 1,
+    missionProgress: 0,
+    missionsCompleted: 0,
+    bestCombo: 0,
+    inventory: ["acc_none", "bg_default"],
+    equipped: {},
+    seenStages: {},
     dailyLog: { day: todayKey(), newDone: 0, revDone: 0, totalDone: 0 },
     config: { ...DEFAULT_CONFIG },
     cards: createInitialCards()
   };
+}
+
+function hydrateState(parsed) {
+  const fresh = createFreshState();
+  const s = { ...fresh, ...parsed };
+  s.config = { ...DEFAULT_CONFIG, ...(parsed.config || {}) };
+  if (CLOUD_SYNC_URL && !s.config.cloudUrl) s.config.cloudUrl = CLOUD_SYNC_URL;
+  s.iceShields = Number.isFinite(parsed.iceShields) ? parsed.iceShields : 1;
+  s.missionProgress = Number.isFinite(parsed.missionProgress) ? parsed.missionProgress : 0;
+  s.missionsCompleted = Number.isFinite(parsed.missionsCompleted) ? parsed.missionsCompleted : 0;
+  s.bestCombo = Number.isFinite(parsed.bestCombo) ? parsed.bestCombo : 0;
+  s.inventory = Array.isArray(parsed.inventory) ? Array.from(new Set(["acc_none", "bg_default", ...parsed.inventory])) : ["acc_none", "bg_default"];
+  s.equipped = (parsed.equipped && typeof parsed.equipped === "object") ? parsed.equipped : {};
+  s.seenStages = (parsed.seenStages && typeof parsed.seenStages === "object") ? parsed.seenStages : null;
+
+  // Se vier da v2 sem seenStages, marca estágios atuais para não disparar vários popups de uma vez
+  if (!s.seenStages) {
+    s.seenStages = {};
+    for (let n = 1; n <= 10; n++) {
+      const deckCards = s.cards.filter(c => c.deck === n);
+      const firm = deckCards.filter(c => c.state === "review" && c.lastGrade === "good").length;
+      const pct = Math.round((firm / deckCards.length) * 100);
+      s.seenStages[n] = getEvoStage(pct).idx;
+    }
+  }
+  s.version = 3;
+  return s;
 }
 
 let state = loadLocalState();
@@ -1592,6 +1864,11 @@ let currentCard = null;
 let typedAnswer = "";
 let questionStartMs = 0;
 let awaitingNext = false;
+let currentCombo = 0;
+let pendingChest = false;
+let pendingEvo = null;
+let lastChestReward = null;
+let wardrobeDeck = 1;
 let heatmapOp = "mult";
 let selectedHeatmapId = "";
 let parentsUnlocked = false;
@@ -1604,9 +1881,7 @@ function loadLocalState() {
     if (raw) {
       const parsed = JSON.parse(raw);
       if (parsed && Array.isArray(parsed.cards) && parsed.cards.length === 200) {
-        parsed.config = { ...DEFAULT_CONFIG, ...(parsed.config || {}) };
-        if (CLOUD_SYNC_URL && !parsed.config.cloudUrl) parsed.config.cloudUrl = CLOUD_SYNC_URL;
-        return parsed;
+        return hydrateState(parsed);
       }
     }
   } catch (_) {}
@@ -1651,15 +1926,14 @@ async function pullFromCloud() {
   setCloudBadge("sync", "Sincronizando...");
   try {
     const res = await fetch(`${url}${url.includes("?") ? "&" : "?"}t=${Date.now()}`, { method: "GET", redirect: "follow" });
-    const text = await res.text();
-    const data = JSON.parse(text);
+    const data = JSON.parse(await res.text());
     if (data && !data.empty && Array.isArray(data.cards) && data.cards.length === 200) {
       const localHasProgress = state.stars > 0 || state.cards.some(c => c.reps > 0);
       const cloudHasProgress = data.stars > 0 || data.cards.some(c => c.reps > 0);
       if ((data.updatedAt || 0) > (state.updatedAt || 0) || (!localHasProgress && cloudHasProgress)) {
         const savedUrl = getCloudUrl();
-        state = data;
-        state.config = { ...DEFAULT_CONFIG, ...(state.config || {}), cloudUrl: savedUrl };
+        state = hydrateState(data);
+        state.config.cloudUrl = savedUrl;
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
         renderAll();
         if (activeTab === "album") renderAlbumAndMap();
@@ -1694,8 +1968,8 @@ async function pushToCloud(forceCloud = false) {
     if (data && data.ok) {
       if (data.newerOnCloud && data.state && Array.isArray(data.state.cards)) {
         const savedUrl = getCloudUrl();
-        state = data.state;
-        state.config = { ...DEFAULT_CONFIG, ...(state.config || {}), cloudUrl: savedUrl };
+        state = hydrateState(data.state);
+        state.config.cloudUrl = savedUrl;
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
         renderAll();
       }
@@ -1710,25 +1984,38 @@ async function pushToCloud(forceCloud = false) {
   }
 }
 
-/* ==================== SOM SUAVE ==================== */
+/* ==================== ÁUDIO MUSICAL (COMBO CRESCENTE + FANFARRA) ==================== */
 let audioCtx = null;
-function playTone(type) {
+const COMBO_SCALE = [523.25, 587.33, 659.25, 783.99, 880.00, 1046.50]; // Pentatônica alegre
+
+function playTone(type, comboLevel = 1) {
   if (!state.soundOn) return;
   try {
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const now = audioCtx.currentTime;
-    const notes = type === "good" ? [523, 659, 784] : type === "hard" ? [440, 523] : [280, 220];
+    let notes = [];
+    if (type === "good") {
+      const idx = Math.min(COMBO_SCALE.length - 1, Math.max(0, comboLevel - 1));
+      const root = COMBO_SCALE[idx];
+      notes = [root, root * 1.25];
+    } else if (type === "hard") {
+      notes = [440, 523.25];
+    } else if (type === "again") {
+      notes = [311.13, 277.18]; // Suave, nunca punitivo
+    } else if (type === "fanfare") {
+      notes = [523.25, 659.25, 783.99, 1046.50];
+    }
     notes.forEach((freq, i) => {
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
-      osc.type = "sine";
+      osc.type = type === "fanfare" ? "triangle" : "sine";
       osc.frequency.value = freq;
-      gain.gain.setValueAtTime(0.08, now + i * 0.08);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.16);
+      gain.gain.setValueAtTime(0.08, now + i * 0.085);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.085 + 0.22);
       osc.connect(gain);
       gain.connect(audioCtx.destination);
-      osc.start(now + i * 0.08);
-      osc.stop(now + i * 0.08 + 0.17);
+      osc.start(now + i * 0.085);
+      osc.stop(now + i * 0.085 + 0.24);
     });
   } catch (_) {}
 }
@@ -1740,7 +2027,7 @@ function toggleSound() {
   document.getElementById("soundBtn").innerHTML = state.soundOn ? ICON_SOUND_ON : ICON_SOUND_OFF;
 }
 
-/* ==================== MOTOR SM-2 (CLONE ANKI) ==================== */
+/* ==================== MOTOR SM-2 (CLONE ANKI EXATO) ==================== */
 function filterCards(deckFilter, opFilter) {
   return state.cards.filter(c => {
     const deckOk = deckFilter === "all" ? state.unlockedDecks.includes(c.deck) : c.deck === deckFilter;
@@ -1761,11 +2048,7 @@ function getDeckCounts(deckFilter, opFilter = state.opMode) {
   const lrn = list.filter(c => (c.state === "learning" || c.state === "relearning") && c.due <= ahead).length;
   const rawRev = list.filter(c => c.state === "review" && c.due <= now).length;
 
-  return {
-    newCount: Math.min(rawNew, remNew),
-    lrnCount: lrn,
-    revCount: Math.min(rawRev, remRev)
-  };
+  return { newCount: Math.min(rawNew, remNew), lrnCount: lrn, revCount: Math.min(rawRev, remRev) };
 }
 
 function pickNextCard() {
@@ -1774,13 +2057,11 @@ function pickNextCard() {
   const ahead = now + (state.config.learnAheadMin || 20) * 60000;
   const list = filterCards(activeDeck, state.opMode);
 
-  const lrnDue = list.filter(c => (c.state === "learning" || c.state === "relearning") && c.due <= now)
-    .sort((a, b) => a.due - b.due);
+  const lrnDue = list.filter(c => (c.state === "learning" || c.state === "relearning") && c.due <= now).sort((a, b) => a.due - b.due);
   if (lrnDue.length) return lrnDue[0];
 
   if (state.dailyLog.revDone < state.config.reviewsPerDay) {
-    const revDue = list.filter(c => c.state === "review" && c.due <= now)
-      .sort((a, b) => a.due - b.due);
+    const revDue = list.filter(c => c.state === "review" && c.due <= now).sort((a, b) => a.due - b.due);
     if (revDue.length) return revDue[0];
   }
 
@@ -1789,8 +2070,7 @@ function pickNextCard() {
     if (news.length) return news[0];
   }
 
-  const lrnSoon = list.filter(c => (c.state === "learning" || c.state === "relearning") && c.due <= ahead)
-    .sort((a, b) => a.due - b.due);
+  const lrnSoon = list.filter(c => (c.state === "learning" || c.state === "relearning") && c.due <= ahead).sort((a, b) => a.due - b.due);
   if (lrnSoon.length) return lrnSoon[0];
 
   return null;
@@ -1806,11 +2086,20 @@ function applySM2(card, grade) {
   else if (card.state === "review") state.dailyLog.revDone++;
   state.dailyLog.totalDone++;
 
-  const today = todayKey();
+  // Ofensiva com proteção automática do Escudo de Gelo
+  const today = todayKey(0);
+  const yesterday = todayKey(-1);
+  const twoDaysAgo = todayKey(-2);
   if (state.lastStudyDay !== today) {
-    const y = new Date(); y.setDate(y.getDate() - 1);
-    const yKey = `${y.getFullYear()}-${String(y.getMonth()+1).padStart(2,'0')}-${String(y.getDate()).padStart(2,'0')}`;
-    state.streak = (state.lastStudyDay === yKey) ? (state.streak + 1) : 1;
+    if (state.lastStudyDay === yesterday) {
+      state.streak = (state.streak || 0) + 1;
+    } else if (state.lastStudyDay === twoDaysAgo && state.streak > 0 && state.iceShields > 0) {
+      state.iceShields--;
+      state.streak += 1;
+      showToast("❄️ Seu Escudo de Gelo salvou sua ofensiva!");
+    } else {
+      state.streak = 1;
+    }
     state.lastStudyDay = today;
   }
 
@@ -1881,22 +2170,46 @@ function applySM2(card, grade) {
     }
   }
 
-  if (grade === "good") state.stars += 2;
-  else if (grade === "hard") state.stars += 1;
+  // Estrelas + bônus de combo
+  if (grade === "good") {
+    currentCombo++;
+    if (currentCombo > state.bestCombo) state.bestCombo = currentCombo;
+    const bonus = currentCombo >= 5 ? 3 : 2;
+    state.stars += bonus;
+  } else if (grade === "hard") {
+    currentCombo = Math.max(1, currentCombo);
+    state.stars += 1;
+  } else {
+    currentCombo = 0;
+  }
+
+  // Missão curta de 10 contas -> Baú Surpresa!
+  state.missionProgress = (state.missionProgress || 0) + 1;
+  if (state.missionProgress >= MISSION_SIZE) {
+    state.missionProgress = 0;
+    state.missionsCompleted = (state.missionsCompleted || 0) + 1;
+    pendingChest = true;
+  }
+
+  // Verifica se o bichinho atingiu novo estágio de evolução (20%, 40%, 60%, 80%, 100%)
+  const newPct = getDeckMastery(card.deck);
+  const newStage = getEvoStage(newPct);
+  const prevStageIdx = Number(state.seenStages[card.deck] || 0);
+  if (newStage.idx > prevStageIdx) {
+    state.seenStages[card.deck] = newStage.idx;
+    pendingEvo = { deck: card.deck, stage: newStage, pct: newPct };
+  }
 
   saveState(true);
   return nextLabel;
 }
 
-/* ==================== SEGMENTED CONTROL & NAVEGAÇÃO ==================== */
+/* ==================== NAVEGAÇÃO & SEGMENTED CONTROL ==================== */
 function updateSegmentedThumb() {
   const thumb = document.getElementById("segThumb");
   const activeBtn = document.querySelector(`.seg-btn[data-tab="${activeTab}"]`);
   if (!thumb) return;
-  if (!activeBtn) {
-    thumb.classList.add("hidden");
-    return;
-  }
+  if (!activeBtn) { thumb.classList.add("hidden"); return; }
   thumb.classList.remove("hidden");
   thumb.style.width = `${activeBtn.offsetWidth}px`;
   thumb.style.transform = `translateX(${activeBtn.offsetLeft}px)`;
@@ -1904,10 +2217,7 @@ function updateSegmentedThumb() {
 
 function openTab(tabName) {
   haptic(5);
-  if (tabName === "opcoes" && !parentsUnlocked) {
-    openPinModal();
-    return;
-  }
+  if (tabName === "opcoes" && !parentsUnlocked) { openPinModal(); return; }
   if (tabName !== "opcoes") parentsUnlocked = false;
   activeTab = tabName;
 
@@ -1921,27 +2231,20 @@ function openTab(tabName) {
   if (tabName === "tabuadas") renderHome();
   if (tabName === "estudar") loadNextQuestion();
   if (tabName === "album") renderAlbumAndMap();
-  if (tabName === "opcoes") fillOptionsForm();
+  if (tabName === "opcoes") { fillOptionsForm(); renderParentReport(); }
 }
 
-/* ==================== MODAL PIN ==================== */
+/* ==================== PIN DOS PAIS ==================== */
 function openPinModal() {
   pinBuffer = "";
   document.getElementById("pinErr").textContent = "";
   updatePinDots();
   document.getElementById("pinModal").classList.add("open");
 }
-
-function closePinModal() {
-  document.getElementById("pinModal").classList.remove("open");
-}
-
+function closePinModal() { document.getElementById("pinModal").classList.remove("open"); }
 function updatePinDots() {
-  document.querySelectorAll("#pinDots .pin-dot").forEach((d, i) => {
-    d.classList.toggle("filled", i < pinBuffer.length);
-  });
+  document.querySelectorAll("#pinDots .pin-dot").forEach((d, i) => d.classList.toggle("filled", i < pinBuffer.length));
 }
-
 function pinPress(d) {
   haptic(7);
   if (pinBuffer.length >= 4) return;
@@ -1961,29 +2264,17 @@ function pinPress(d) {
     }
   }
 }
+function pinBack() { haptic(5); pinBuffer = pinBuffer.slice(0, -1); updatePinDots(); }
+function lockParentsAndExit() { parentsUnlocked = false; openTab("tabuadas"); showToast("Área dos Pais trancada!"); }
 
-function pinBack() {
-  haptic(5);
-  pinBuffer = pinBuffer.slice(0, -1);
-  updatePinDots();
-}
-
-function lockParentsAndExit() {
-  parentsUnlocked = false;
-  openTab("tabuadas");
-  showToast("Área dos Pais trancada!");
-}
-
-/* ==================== RENDERIZAÇÃO ==================== */
-function getDeckMastery(deckNum) {
-  const cards = state.cards.filter(c => c.deck === deckNum);
-  const firm = cards.filter(c => c.state === "review" && c.lastGrade === "good").length;
-  return Math.round((firm / cards.length) * 100);
-}
-
+/* ==================== RENDERIZAÇÃO HOME ==================== */
 function renderTop() {
-  document.getElementById("brandMascot").innerHTML = renderMascotSVG(1, "happy");
+  const brand = document.getElementById("brandMascot");
+  brand.className = `brand-icon ${getBgClass(1)}`;
+  brand.style.setProperty("--pet-bg", MASCOTS[0].bg);
+  brand.innerHTML = renderMascotSVG(1, "happy");
   document.getElementById("topStreak").textContent = state.streak;
+  document.getElementById("topShields").textContent = state.iceShields;
   document.getElementById("topStars").textContent = state.stars;
   document.getElementById("soundBtn").innerHTML = state.soundOn ? ICON_SOUND_ON : ICON_SOUND_OFF;
 }
@@ -1992,9 +2283,7 @@ function setOpMode(mode) {
   haptic(5);
   state.opMode = mode;
   saveState(false);
-  document.querySelectorAll(".mode-switcher .mode-chip[data-mode]").forEach(b => {
-    b.classList.toggle("active", b.dataset.mode === mode);
-  });
+  document.querySelectorAll(".mode-switcher .mode-chip[data-mode]").forEach(b => b.classList.toggle("active", b.dataset.mode === mode));
   renderHome();
 }
 
@@ -2002,8 +2291,25 @@ function renderHome() {
   ensureDailyLog();
   renderTop();
   const topDeck = Math.max(...state.unlockedDecks);
-  document.getElementById("heroMascot").innerHTML = renderMascotSVG(topDeck, "happy");
-  document.getElementById("heroChip").textContent = `${state.unlockedDecks.length} de 10 tabuadas liberadas • ${state.streak} dia${state.streak===1?"":"s"} seguido${state.streak===1?"":"s"}`;
+  const topMascot = MASCOTS[topDeck - 1];
+  const heroPet = document.getElementById("heroMascot");
+  heroPet.className = `hero-mascot tactile-press ${getBgClass(topDeck)}`;
+  heroPet.style.setProperty("--pet-bg", topMascot.bg);
+  heroPet.innerHTML = renderMascotSVG(topDeck, state.dailyLog.totalDone >= MISSION_SIZE ? "cheer" : "happy");
+
+  document.getElementById("heroChip").textContent = `${state.unlockedDecks.length}/10 tabuadas • ${state.streak} dia${state.streak===1?"":"s"}`;
+  const gotGreenLight = state.dailyLog.totalDone >= MISSION_SIZE;
+  document.getElementById("greenLightChip").style.display = gotGreenLight ? "inline-flex" : "none";
+
+  document.getElementById("heroTitle").textContent = gotGreenLight
+    ? `Mandou bem demais, Mariana! 🌟`
+    : `Oi, Mariana! ${topMascot.name} está te esperando!`;
+  document.getElementById("heroDesc").textContent = gotGreenLight
+    ? `Você já acendeu a Luz Verde de hoje! Quer fazer uma missão bônus para abrir outro Baú?`
+    : `Faltam só ${MISSION_SIZE - state.missionProgress} contas rapidinhas para abrir o próximo Baú Surpresa!`;
+
+  document.getElementById("heroMissionCount").textContent = `${state.missionProgress} / ${MISSION_SIZE} contas`;
+  document.getElementById("heroMissionFill").style.width = `${(state.missionProgress / MISSION_SIZE) * 100}%`;
 
   const allC = getDeckCounts("all", state.opMode);
   document.getElementById("heroNew").textContent = allC.newCount;
@@ -2011,8 +2317,8 @@ function renderHome() {
   document.getElementById("heroRev").textContent = allC.revCount;
 
   document.getElementById("todaySummary").innerHTML = state.dailyLog.totalDone > 0
-    ? `Hoje a Mariana já respondeu <b>${state.dailyLog.totalDone}</b> conta${state.dailyLog.totalDone>1?"s":""} e acumulou <b>${state.stars}</b> estrelinhas.`
-    : `Hoje a Mariana ainda não respondeu contas. Vamos começar?`;
+    ? `Hoje a Mariana já fez <b>${state.dailyLog.totalDone}</b> conta${state.dailyLog.totalDone>1?"s":""} • Toque em qualquer bichinho para abrir o Guarda-Roupa!`
+    : `Dica: complete 1 missão de 10 contas para abrir o Baú Surpresa e ganhar acessórios!`;
 
   const nextLocked = [1,2,3,4,5,6,7,8,9,10].find(n => !state.unlockedDecks.includes(n));
   const unlockBtn = document.getElementById("unlockNextBtn");
@@ -2023,27 +2329,36 @@ function renderHome() {
     unlockBtn.style.display = "none";
   }
 
-  document.querySelectorAll(".mode-switcher .mode-chip[data-mode]").forEach(b => {
-    b.classList.toggle("active", b.dataset.mode === state.opMode);
-  });
+  document.querySelectorAll(".mode-switcher .mode-chip[data-mode]").forEach(b => b.classList.toggle("active", b.dataset.mode === state.opMode));
 
   const grid = document.getElementById("deckGrid");
   grid.innerHTML = MASCOTS.map(m => {
     const unlocked = state.unlockedDecks.includes(m.n);
     const c = getDeckCounts(m.n, state.opMode);
     const pct = getDeckMastery(m.n);
+    const stage = getEvoStage(pct);
+    const bgCls = getBgClass(m.n);
+
+    // 5 segmentos de 20% cada
+    const segs = [0, 20, 40, 60, 80].map(start => {
+      const fill = Math.max(0, Math.min(100, ((pct - start) / 20) * 100));
+      return `<div class="evo-seg"><div class="evo-seg-fill ${pct>=100?'gold':''}" style="width:${fill}%"></div></div>`;
+    }).join("");
+
     return `
-      <div class="deck-card ${unlocked ? "unlocked" : "locked"}">
+      <div class="deck-card ${unlocked ? (pct>=100 ? "unlocked legendary-card" : "unlocked") : "locked"}">
         <div class="deck-top">
           <span class="deck-tag">Tabuada do ${m.n} (× e ÷)</span>
-          <span class="deck-pct tabular ${pct >= 100 ? "is-gold" : ""}">${unlocked ? (pct >= 100 ? "🥇 100% firme" : pct + "% firme") : "🔒 Bloqueada"}</span>
+          <span class="stage-chip ${unlocked ? stage.cls : "st-0"}">${unlocked ? stage.badge : "🔒 Bloqueada"}</span>
         </div>
         <div class="deck-body">
-          <div class="deck-avatar" style="background:${m.bg}">${renderMascotSVG(m.n, pct >= 70 ? "cheer" : "happy")}</div>
+          <div class="deck-avatar ${bgCls} tactile-press" style="--pet-bg:${m.bg}" onclick="${unlocked ? `openWardrobe(${m.n})` : `unlockDeck(${m.n})`}" title="${unlocked ? 'Vestir ' + m.name : 'Desbloquear'}">
+            ${renderMascotSVG(m.n, pct >= 60 ? "cheer" : "happy")}
+          </div>
           <div class="deck-info">
-            <div class="deck-name">${m.name}</div>
-            <div class="deck-species">${m.species}</div>
-            <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+            <div class="deck-name">${m.name} <span class="tabular" style="font-size:0.74rem; color:var(--text-secondary); font-weight:700;">${unlocked ? pct + "%" : ""}</span></div>
+            <div class="deck-species">${m.species} ${unlocked ? "• Toque p/ vestir" : ""}</div>
+            <div class="evo-segments">${segs}</div>
           </div>
         </div>
         ${unlocked ? `
@@ -2052,7 +2367,7 @@ function renderHome() {
             <div class="count-card c-lrn"><div class="count-num tabular">${c.lrnCount}</div><div class="count-lbl">Aprendendo</div></div>
             <div class="count-card c-rev"><div class="count-num tabular">${c.revCount}</div><div class="count-lbl">Revisar</div></div>
           </div>
-          <button class="btn btn-primary tactile-press" onclick="startStudy(${m.n})">▶ Estudar do ${m.n}</button>
+          <button class="btn btn-primary tactile-press" onclick="startStudy(${m.n})">▶ Treinar com ${m.name}</button>
         ` : `
           <button class="btn btn-soft-purple tactile-press" onclick="unlockDeck(${m.n})">🔓 Desbloquear do ${m.n}</button>
         `}
@@ -2067,7 +2382,7 @@ function unlockDeck(n) {
     state.unlockedDecks.push(n);
     state.unlockedDecks.sort((a, b) => a - b);
     saveState(true);
-    showToast(`Tabuada do ${n} (× e ÷) desbloqueada para a Mariana!`);
+    showToast(`Tabuada do ${n} (${MASCOTS[n-1].name}) desbloqueada!`);
     renderHome();
   }
 }
@@ -2079,19 +2394,25 @@ function unlockNextDeck(andStudy = false) {
   if (andStudy) startStudy(nextLocked);
 }
 
-/* ==================== ESTUDO ==================== */
+/* ==================== MISSÃO / ESTUDO ==================== */
 function startStudy(deckNum) {
   activeDeck = deckNum;
   openTab("estudar");
 }
 
+function updateMissionUI() {
+  const shown = pendingChest ? MISSION_SIZE : state.missionProgress;
+  document.getElementById("stMissionText").textContent = `${shown} / ${MISSION_SIZE}`;
+  document.getElementById("stMissionFill").style.width = `${(shown / MISSION_SIZE) * 100}%`;
+  const comboEl = document.getElementById("comboPill");
+  comboEl.textContent = currentCombo >= 5 ? `🔥 ${currentCombo}x TURBO` : `🔥 ${currentCombo}x`;
+  comboEl.classList.toggle("hot", currentCombo >= 3);
+}
+
 function resetAnkiStrip() {
-  const pA = document.getElementById("pillAgain");
-  const pH = document.getElementById("pillHard");
-  const pG = document.getElementById("pillGood");
-  pA.className = "anki-pill";
-  pH.className = "anki-pill";
-  pG.className = "anki-pill";
+  document.getElementById("pillAgain").className = "anki-pill";
+  document.getElementById("pillHard").className = "anki-pill";
+  document.getElementById("pillGood").className = "anki-pill";
   document.getElementById("pillAgainSub").textContent = "Se errar";
   document.getElementById("pillHardSub").textContent = `> ${Number(state.config.goodLimitSec || 5).toFixed(0)}s`;
   document.getElementById("pillGoodSub").textContent = `≤ ${Number(state.config.goodLimitSec || 5).toFixed(0)}s`;
@@ -2109,6 +2430,7 @@ function loadNextQuestion() {
   document.getElementById("stLrn").textContent = c.lrnCount;
   document.getElementById("stRev").textContent = c.revCount;
   document.getElementById("studyDeckTitle").textContent = activeDeck === "all" ? "Revisão Geral" : `Tabuada do ${activeDeck}`;
+  updateMissionUI();
 
   currentCard = pickNextCard();
   awaitingNext = false;
@@ -2120,7 +2442,10 @@ function loadNextQuestion() {
   if (!currentCard) {
     activeArea.style.display = "none";
     emptyArea.style.display = "block";
-    document.getElementById("doneMascot").innerHTML = renderMascotSVG(10, "cheer");
+    const doneEl = document.getElementById("doneMascot");
+    doneEl.className = getBgClass(10);
+    doneEl.style.setProperty("--pet-bg", MASCOTS[9].bg);
+    doneEl.innerHTML = renderMascotSVG(10, "cheer");
     const nextLocked = [1,2,3,4,5,6,7,8,9,10].find(n => !state.unlockedDecks.includes(n));
     document.getElementById("doneUnlockBtn").style.display = nextLocked ? "inline-flex" : "none";
     return;
@@ -2134,10 +2459,13 @@ function loadNextQuestion() {
   opBadge.textContent = currentCard.op === "mult" ? "Multiplicação ×" : "Divisão ÷";
   opBadge.className = "op-badge " + (currentCard.op === "mult" ? "op-mult" : "op-div");
 
-  document.getElementById("studyMascot").innerHTML = renderMascotSVG(currentCard.deck, "happy");
+  const stPet = document.getElementById("studyMascot");
+  stPet.className = `study-avatar ${getBgClass(currentCard.deck)}`;
+  stPet.style.setProperty("--pet-bg", m.bg);
+  stPet.innerHTML = renderMascotSVG(currentCard.deck, "happy");
   document.getElementById("studySpeech").textContent = currentCard.op === "mult"
     ? `${m.name}: Mariana, quanto é ${currentCard.q}?`
-    : `${m.name}: Mariana, vamos dividir! Quanto é ${currentCard.q}?`;
+    : `${m.name}: Vamos dividir! Quanto é ${currentCard.q}?`;
 
   document.getElementById("questionText").textContent = currentCard.q;
   triggerAnim(document.getElementById("questionBox"), "anim-swap");
@@ -2149,13 +2477,15 @@ function loadNextQuestion() {
   resetAnkiStrip();
   document.getElementById("keypadLayer").classList.remove("hidden-layer");
   document.getElementById("feedbackLayer").classList.add("hidden-layer");
+  const nextBtn = document.getElementById("nextActionBtn");
+  nextBtn.className = "btn btn-primary tactile-press";
+  nextBtn.textContent = "Próxima Conta →";
 
   questionStartMs = performance.now();
 }
 
 function pressDigit(d) {
-  if (awaitingNext || !currentCard) return;
-  if (typedAnswer.length >= 3) return;
+  if (awaitingNext || !currentCard || typedAnswer.length >= 3) return;
   haptic(6);
   typedAnswer += d;
   const disp = document.getElementById("answerDisplay");
@@ -2187,8 +2517,8 @@ function submitAnswer() {
 
   const nextWhen = applySM2(currentCard, grade);
   renderTop();
+  updateMissionUI();
 
-  // Atualiza contadores da sessão imediatamente
   const c = getDeckCounts(activeDeck, state.opMode);
   document.getElementById("stNew").textContent = c.newCount;
   document.getElementById("stLrn").textContent = c.lrnCount;
@@ -2204,37 +2534,57 @@ function submitAnswer() {
 
   if (grade === "good") {
     haptic(10);
-    playTone("good");
+    playTone("good", currentCombo);
     disp.className = "answer-display ok tabular";
     mascotEl.innerHTML = renderMascotSVG(currentCard.deck, "cheer");
     triggerAnim(mascotEl, "anim-celebrate");
-    document.getElementById("studySpeech").textContent = `${m.name}: Arrasou, Mariana! Super rápida! +2 ⭐`;
+    const gained = currentCombo >= 5 ? 3 : 2;
+    document.getElementById("studySpeech").textContent = currentCombo >= 5
+      ? `${m.name}: MODO TURBO ${currentCombo}x! Seu cérebro está voando, Mariana! +${gained} ⭐`
+      : `${m.name}: Incrível velocidade, Mariana! +${gained} ⭐`;
     document.getElementById("pillGood").classList.add("active-good");
     document.getElementById("pillGoodSub").textContent = nextWhen;
     fb.className = "feedback-card good";
-    fb.innerHTML = `<div class="feedback-title">✅ Bom! Resposta na ponta da língua</div><div class="tabular">${currentCard.q} = <b>${currentCard.a}</b> • Tempo: <b>${elapsedSec.toFixed(1)}s</b> • Próxima revisão: <b>${nextWhen}</b>.</div>`;
+    fb.innerHTML = `<div class="feedback-title">✅ Bom! Resposta super veloz (${elapsedSec.toFixed(1)}s)</div><div class="tabular">${currentCard.q} = <b>${currentCard.a}</b> • Próxima revisão em <b>${nextWhen}</b>.</div>`;
   } else if (grade === "hard") {
     haptic(8);
     playTone("hard");
     disp.className = "answer-display warn tabular";
     mascotEl.innerHTML = renderMascotSVG(currentCard.deck, "happy");
     triggerAnim(mascotEl, "anim-nudge");
-    document.getElementById("studySpeech").textContent = `${m.name}: Acertou, Mariana! Vamos treinar mais um pouco para ficar mais rápido! +1 ⭐`;
+    document.getElementById("studySpeech").textContent = `${m.name}: Acertou! Cada treino deixa seu cérebro mais rápido! +1 ⭐`;
     document.getElementById("pillHard").classList.add("active-hard");
     document.getElementById("pillHardSub").textContent = nextWhen;
     fb.className = "feedback-card hard";
-    fb.innerHTML = `<div class="feedback-title">👍 Difícil — acertou, mas pensou um pouquinho</div><div class="tabular">${currentCard.q} = <b>${currentCard.a}</b> • Tempo: <b>${elapsedSec.toFixed(1)}s</b> • Volta em <b>${nextWhen}</b>.</div>`;
+    fb.innerHTML = `<div class="feedback-title">👍 Difícil — acertou com calma (${elapsedSec.toFixed(1)}s)</div><div class="tabular">${currentCard.q} = <b>${currentCard.a}</b> • Volta em <b>${nextWhen}</b> para ficar automática.</div>`;
   } else {
-    haptic(25);
+    haptic(22);
     playTone("again");
     disp.className = "answer-display err tabular";
     mascotEl.innerHTML = renderMascotSVG(currentCard.deck, "encourage");
     triggerAnim(qBox, "anim-shake");
-    document.getElementById("studySpeech").textContent = `${m.name}: Quase, Mariana! Olha a dica aqui embaixo que já já ela volta!`;
+    document.getElementById("studySpeech").textContent = `${m.name}: Quase! Errar faz o cérebro crescer — olha o triângulo mágico aqui!`;
     document.getElementById("pillAgain").classList.add("active-again");
     document.getElementById("pillAgainSub").textContent = nextWhen;
     fb.className = "feedback-card again";
-    fb.innerHTML = `<div class="feedback-title">🔄 Novamente — a resposta certa é <b>${currentCard.a}</b></div><div class="hint-line">💡 ${currentCard.hint}</div>`;
+    fb.innerHTML = `
+      <div class="feedback-title">🔄 Novamente — a resposta certa é <b>${currentCard.a}</b></div>
+      <div class="fact-visual-row">
+        ${renderFactTriangleSVG(currentCard.deck, currentCard.factor)}
+        <div class="fact-hint-text">💡 ${currentCard.hint}</div>
+      </div>`;
+  }
+
+  const nextBtn = document.getElementById("nextActionBtn");
+  if (pendingEvo) {
+    nextBtn.className = "btn btn-gold tactile-press";
+    nextBtn.textContent = `✨ Ver Evolução de ${MASCOTS[pendingEvo.deck-1].name}!`;
+  } else if (pendingChest) {
+    nextBtn.className = "btn btn-gold tactile-press";
+    nextBtn.textContent = "🎁 Abrir Baú Surpresa!";
+  } else {
+    nextBtn.className = "btn btn-primary tactile-press";
+    nextBtn.textContent = "Próxima Conta →";
   }
 
   awaitingNext = true;
@@ -2244,10 +2594,248 @@ function submitAnswer() {
 
 function nextCard() {
   haptic(6);
+  if (pendingEvo) {
+    showEvoModal(pendingEvo);
+    return;
+  }
+  if (pendingChest) {
+    showChestModal();
+    return;
+  }
   loadNextQuestion();
 }
 
-/* ==================== ÁLBUM E MAPA 10x10 ==================== */
+/* ==================== MODAL EVOLUÇÃO ==================== */
+function showEvoModal(evo) {
+  playTone("fanfare");
+  const m = MASCOTS[evo.deck - 1];
+  document.getElementById("evoTitle").textContent = evo.stage.idx >= 5
+    ? `👑 ${m.name} virou LENDÁRIO!`
+    : `${m.name} evoluiu para ${evo.stage.name}!`;
+  document.getElementById("evoSubtitle").textContent = evo.stage.idx >= 5
+    ? `A Mariana dominou 100% da Tabuada do ${m.n} (× e ÷)! Gigante do Conhecimento desbloqueado!`
+    : `A Mariana chegou a ${evo.pct}% firme na Tabuada do ${m.n} e destravou uma nova fase!`;
+  const prev = document.getElementById("evoPreview");
+  prev.className = `wardrobe-preview anim-celebrate ${getBgClass(m.n)}`;
+  prev.style.setProperty("--pet-bg", m.bg);
+  prev.innerHTML = renderMascotSVG(m.n, "cheer", evo.stage.idx);
+  document.getElementById("evoModal").classList.add("open");
+}
+
+function shareEvolutionMoment() {
+  if (!pendingEvo) return;
+  const m = MASCOTS[pendingEvo.deck - 1];
+  const txt = `🎉 Conquista da Mariana na Tabuada!\n${m.name} (Tabuada do ${m.n}) acabou de evoluir para ${pendingEvo.stage.badge} (${pendingEvo.pct}% firme em × e ÷)!\n⭐ Total: ${state.stars} estrelinhas | 🔥 ${state.streak} dia(s) seguido(s).`;
+  navigator.clipboard.writeText(txt).then(() => showToast("Mensagem de conquista copiada para o WhatsApp!"));
+}
+
+function closeEvoModal() {
+  document.getElementById("evoModal").classList.remove("open");
+  pendingEvo = null;
+  if (pendingChest) {
+    showChestModal();
+  } else {
+    loadNextQuestion();
+  }
+}
+
+/* ==================== MODAL BAÚ SURPRESA ==================== */
+function showChestModal() {
+  document.getElementById("chestClosedView").style.display = "block";
+  document.getElementById("chestOpenedView").style.display = "none";
+  document.getElementById("chestModal").classList.add("open");
+}
+
+function openSurpriseChest() {
+  haptic(20);
+  const btn = document.getElementById("chestTapBtn");
+  btn.classList.remove("anim-float");
+  btn.classList.add("anim-wobble");
+
+  setTimeout(() => {
+    playTone("fanfare");
+    const lockedAcc = ACCESSORIES.filter(a => !state.inventory.includes(a.id));
+    const lockedBg = BACKGROUNDS.filter(b => !state.inventory.includes(b.id));
+    const pool = [...lockedAcc.map(x => ({ ...x, kind: "acc" })), ...lockedBg.map(x => ({ ...x, kind: "bg" }))];
+
+    const preview = document.getElementById("chestRewardPreview");
+    const targetDeck = currentCard ? currentCard.deck : Math.max(...state.unlockedDecks);
+    const m = MASCOTS[targetDeck - 1];
+    const equipBtn = document.getElementById("chestEquipBtn");
+
+    if (pool.length > 0) {
+      const picked = pool[Math.floor(Math.random() * pool.length)];
+      state.inventory.push(picked.id);
+      lastChestReward = { ...picked, deck: targetDeck };
+      saveState(true);
+
+      const rarMap = { comum: ["Comum", "rar-comum"], raro: ["Raro", "rar-raro"], epico: ["Épico", "rar-epico"], lendario: ["Lendário", "rar-lendario"] };
+      const [rarLabel, rarCls] = rarMap[picked.rarity] || ["Especial", "rar-raro"];
+      const rEl = document.getElementById("chestRarity");
+      rEl.textContent = `✨ ${rarLabel}`;
+      rEl.className = `rarity-badge ${rarCls}`;
+      document.getElementById("chestRewardTitle").textContent = `${picked.icon} ${picked.name}`;
+      document.getElementById("chestRewardDesc").textContent = picked.kind === "acc"
+        ? `Novo acessório desbloqueado! Você pode vestir em qualquer bichinho.`
+        : `Novo cenário de fundo desbloqueado para deixar seus bichinhos ainda mais bonitos!`;
+
+      preview.className = `wardrobe-preview anim-celebrate ${picked.kind === "bg" ? picked.cls : getBgClass(targetDeck)}`;
+      preview.style.setProperty("--pet-bg", m.bg);
+      preview.innerHTML = renderMascotSVG(targetDeck, "cheer", null, picked.kind === "acc" ? picked.id : null);
+      equipBtn.style.display = "inline-flex";
+      equipBtn.textContent = `✨ Colocar no ${m.name} Agora`;
+    } else {
+      state.stars += 25;
+      if (state.iceShields < 3) state.iceShields++;
+      lastChestReward = null;
+      saveState(true);
+      renderTop();
+
+      const rEl = document.getElementById("chestRarity");
+      rEl.textContent = "👑 Tesouro Extra";
+      rEl.className = "rarity-badge rar-lendario";
+      document.getElementById("chestRewardTitle").textContent = "+25 ⭐ e ❄️ Escudo!";
+      document.getElementById("chestRewardDesc").textContent = "Você já tem toda a coleção! Ganhou estrelas bônus e proteção de gelo!";
+      preview.className = `wardrobe-preview anim-celebrate ${getBgClass(targetDeck)}`;
+      preview.style.setProperty("--pet-bg", m.bg);
+      preview.innerHTML = renderMascotSVG(targetDeck, "cheer");
+      equipBtn.style.display = "none";
+    }
+
+    document.getElementById("chestClosedView").style.display = "none";
+    document.getElementById("chestOpenedView").style.display = "block";
+    btn.classList.remove("anim-wobble");
+    btn.classList.add("anim-float");
+  }, 420);
+}
+
+function equipChestReward() {
+  if (!lastChestReward) return;
+  haptic(10);
+  const d = lastChestReward.deck;
+  if (!state.equipped[d]) state.equipped[d] = { acc: "acc_none", bg: "bg_default" };
+  if (lastChestReward.kind === "acc") state.equipped[d].acc = lastChestReward.id;
+  else state.equipped[d].bg = lastChestReward.id;
+  saveState(true);
+  showToast(`${lastChestReward.name} equipado no ${MASCOTS[d-1].name}!`);
+  document.getElementById("chestEquipBtn").style.display = "none";
+}
+
+function closeChestModal(continueStudy) {
+  pendingChest = false;
+  document.getElementById("chestModal").classList.remove("open");
+  renderTop();
+  if (continueStudy) loadNextQuestion();
+  else openTab("tabuadas");
+}
+
+/* ==================== GUARDA-ROUPA & LOJINHA ==================== */
+function openWardrobe(deckNum) {
+  haptic(6);
+  wardrobeDeck = deckNum;
+  renderWardrobe();
+  document.getElementById("wardrobeModal").classList.add("open");
+}
+
+function closeWardrobe() {
+  document.getElementById("wardrobeModal").classList.remove("open");
+  renderTop();
+  if (activeTab === "tabuadas") renderHome();
+  if (activeTab === "album") renderAlbumAndMap();
+}
+
+function renderWardrobe() {
+  const m = MASCOTS[wardrobeDeck - 1];
+  const pct = getDeckMastery(wardrobeDeck);
+  const stage = getEvoStage(pct);
+  const eq = getEquip(wardrobeDeck);
+
+  document.getElementById("wdName").textContent = `${m.name} (${m.species})`;
+  document.getElementById("wdSub").textContent = `Tabuada do ${m.n} • ${stage.badge} (${pct}%)`;
+  document.getElementById("wdStars").textContent = state.stars;
+
+  const prev = document.getElementById("wdPreview");
+  prev.className = `wardrobe-preview ${getBgClass(wardrobeDeck)}`;
+  prev.style.setProperty("--pet-bg", m.bg);
+  prev.innerHTML = renderMascotSVG(wardrobeDeck, "cheer");
+
+  document.getElementById("wdRoadmap").innerHTML = EVO_STAGES.map(st => {
+    const cls = st.idx === stage.idx ? "current" : (st.idx < stage.idx ? "reached" : "");
+    return `<div class="evo-step ${cls}">${st.short}<br>${st.name.slice(0,6)}</div>`;
+  }).join("");
+
+  document.getElementById("wdAccessories").innerHTML = ACCESSORIES.map(item => {
+    const owned = state.inventory.includes(item.id);
+    const active = eq.acc === item.id;
+    return `
+      <div class="item-tile tactile-press ${active ? "equipped" : ""} ${owned ? "" : "locked-item"}" onclick="selectWardrobeItem('acc','${item.id}')">
+        <div style="font-size:1.35rem;">${item.icon}</div>
+        <div>${item.name}</div>
+        ${owned ? `<span style="font-size:0.65rem; color:${active?'var(--blue)':'var(--green)'};">${active ? "Vestido ✓" : "Usar"}</span>`
+                : `<span class="item-price tabular">${item.price} ⭐</span>`}
+      </div>
+    `;
+  }).join("");
+
+  document.getElementById("wdBackgrounds").innerHTML = BACKGROUNDS.map(item => {
+    const owned = state.inventory.includes(item.id);
+    const active = eq.bg === item.id;
+    return `
+      <div class="item-tile tactile-press ${active ? "equipped" : ""} ${owned ? "" : "locked-item"}" onclick="selectWardrobeItem('bg','${item.id}')">
+        <div style="font-size:1.35rem;">${item.icon}</div>
+        <div>${item.name}</div>
+        ${owned ? `<span style="font-size:0.65rem; color:${active?'var(--blue)':'var(--green)'};">${active ? "Ativo ✓" : "Usar"}</span>`
+                : `<span class="item-price tabular">${item.price} ⭐</span>`}
+      </div>
+    `;
+  }).join("");
+}
+
+function selectWardrobeItem(kind, itemId) {
+  haptic(8);
+  const list = kind === "acc" ? ACCESSORIES : BACKGROUNDS;
+  const item = list.find(x => x.id === itemId);
+  if (!item) return;
+
+  if (!state.inventory.includes(itemId)) {
+    if (state.stars < item.price) {
+      showToast(`Faltam ${item.price - state.stars} ⭐ — complete mais missões ou abra Baús!`);
+      return;
+    }
+    state.stars -= item.price;
+    state.inventory.push(itemId);
+    playTone("fanfare");
+    showToast(`🎉 ${item.name} comprado e equipado!`);
+  }
+
+  if (!state.equipped[wardrobeDeck]) state.equipped[wardrobeDeck] = { acc: "acc_none", bg: "bg_default" };
+  if (kind === "acc") state.equipped[wardrobeDeck].acc = itemId;
+  else state.equipped[wardrobeDeck].bg = itemId;
+
+  saveState(true);
+  renderTop();
+  renderWardrobe();
+}
+
+function studyFromWardrobe() {
+  closeWardrobe();
+  startStudy(wardrobeDeck);
+}
+
+function buyIceShield() {
+  haptic(8);
+  if (state.iceShields >= 3) { showToast("Você já tem o máximo de 3 Escudos de Gelo!"); return; }
+  if (state.stars < 40) { showToast(`Faltam ${40 - state.stars} ⭐ para comprar um Escudo.`); return; }
+  state.stars -= 40;
+  state.iceShields++;
+  playTone("good", 4);
+  saveState(true);
+  renderTop();
+  renderAlbumAndMap();
+  showToast("❄️ Escudo de Gelo adicionado!");
+}
+
+/* ==================== ÁLBUM & MAPA 10x10 ==================== */
 function setHeatmapOp(op) {
   haptic(5);
   heatmapOp = op;
@@ -2258,31 +2846,24 @@ function setHeatmapOp(op) {
   renderHeatmap();
 }
 
-function shineSticker(el) {
-  haptic(6);
-  el.classList.remove("shine");
-  void el.offsetWidth;
-  el.classList.add("shine");
-}
-
 function renderAlbumAndMap() {
+  document.getElementById("shopShieldCount").textContent = state.iceShields;
   const grid = document.getElementById("albumGrid");
   grid.innerHTML = MASCOTS.map(m => {
     const unlocked = state.unlockedDecks.includes(m.n);
     const pct = getDeckMastery(m.n);
-    let medal = "Sem medalha", cls = "", cardTier = "";
-    if (pct >= 100) { medal = "🥇 Ouro"; cls = "medal-ouro"; cardTier = "tier-gold"; }
-    else if (pct >= 70) { medal = "🥈 Prata"; cls = "medal-prata"; cardTier = "earned"; }
-    else if (pct >= 30) { medal = "🥉 Bronze"; cls = "medal-bronze"; cardTier = "earned"; }
+    const stage = getEvoStage(pct);
+    const cardTier = pct >= 100 ? "tier-gold" : (pct >= 20 ? "earned" : "");
+    const bgCls = getBgClass(m.n);
 
     return `
-      <div class="sticker tactile-press ${cardTier}" onclick="shineSticker(this)">
-        <div style="width:66px; height:66px; margin:0 auto 6px; ${unlocked ? "" : "filter:grayscale(1); opacity:.38;"}">
-          ${renderMascotSVG(m.n, pct >= 70 ? "cheer" : "happy")}
+      <div class="sticker tactile-press ${cardTier}" onclick="${unlocked ? `openWardrobe(${m.n})` : `showToast('Desbloqueie a Tabuada do ${m.n} primeiro!')`}">
+        <div class="sticker-avatar ${bgCls}" style="--pet-bg:${m.bg}; ${unlocked ? "" : "filter:grayscale(1); opacity:.38;"}">
+          ${renderMascotSVG(m.n, pct >= 60 ? "cheer" : "happy")}
         </div>
-        <div style="font-weight:800; font-size:0.95rem; letter-spacing:-0.015em;">${m.name}</div>
-        <div class="tabular" style="font-size:0.75rem; color:var(--text-secondary);">Tabuada do ${m.n} (${pct}%)</div>
-        <div class="medal-badge ${cls}">${medal}</div>
+        <div style="font-weight:800; font-size:0.94rem;">${m.name}</div>
+        <div class="tabular" style="font-size:0.73rem; color:var(--text-secondary);">Tabuada do ${m.n} (${pct}%)</div>
+        <div style="margin-top:6px;"><span class="stage-chip ${unlocked ? stage.cls : "st-0"}">${unlocked ? stage.badge : "🔒 Bloqueada"}</span></div>
       </div>
     `;
   }).join("");
@@ -2325,7 +2906,6 @@ function renderHeatmap() {
   let html = `<table class="heatmap tabular"><thead><tr><th>${heatmapOp === "mult" ? "×" : "÷"}</th>`;
   for (let m = 1; m <= 10; m++) html += `<th>${m}</th>`;
   html += `</tr></thead><tbody>`;
-
   for (let n = 1; n <= 10; n++) {
     const unlocked = state.unlockedDecks.includes(n);
     html += `<tr><th>${n}</th>`;
@@ -2342,7 +2922,46 @@ function renderHeatmap() {
   document.getElementById("heatmapContainer").innerHTML = html;
 }
 
-/* ==================== OPÇÕES (PAIS) ==================== */
+/* ==================== BOLETIM & OPÇÕES DOS PAIS ==================== */
+function getParentMetrics() {
+  const unlockedCards = state.cards.filter(c => state.unlockedDecks.includes(c.deck));
+  const firmCount = state.cards.filter(c => c.state === "review" && c.lastGrade === "good").length;
+  const timedCards = state.cards.filter(c => c.lastMs > 0);
+  const avgSec = timedCards.length ? (timedCards.reduce((acc, c) => acc + c.lastMs, 0) / timedCards.length / 1000) : 0;
+  const hardest = unlockedCards
+    .filter(c => c.lapses > 0 || c.lastGrade === "again" || c.lastGrade === "hard")
+    .sort((a, b) => (b.lapses * 10000 + b.lastMs) - (a.lapses * 10000 + a.lastMs))
+    .slice(0, 6);
+  const legendaryCount = MASCOTS.filter(m => getDeckMastery(m.n) >= 100).length;
+  return { firmCount, avgSec, hardest, legendaryCount };
+}
+
+function renderParentReport() {
+  const m = getParentMetrics();
+  document.getElementById("parentReportStats").innerHTML = `
+    <div class="report-stat"><div class="report-val">${m.firmCount}/200</div><div class="report-lbl">Contas firmes (× e ÷)</div></div>
+    <div class="report-stat"><div class="report-val">${m.avgSec ? m.avgSec.toFixed(1) + "s" : "—"}</div><div class="report-lbl">Tempo médio de reação</div></div>
+    <div class="report-stat"><div class="report-val">${m.legendaryCount}/10</div><div class="report-lbl">Bichinhos Lendários</div></div>
+    <div class="report-stat"><div class="report-val">${state.missionsCompleted}</div><div class="report-lbl">Missões / Baús abertos</div></div>
+  `;
+  const hl = document.getElementById("parentHardList");
+  hl.innerHTML = m.hardest.length
+    ? m.hardest.map(c => `<span class="hard-chip">${c.q} = ${c.a} (${c.lapses} erro${c.lapses===1?"":"s"})</span>`).join("")
+    : `<span style="font-size:0.82rem; color:var(--green); font-weight:700;">Nenhuma conta travando no momento! 🌟</span>`;
+}
+
+function copyParentReport() {
+  const m = getParentMetrics();
+  const hardTxt = m.hardest.length ? m.hardest.map(c => `${c.q}=${c.a}`).join(", ") : "nenhuma conta travada";
+  const text = `📊 Boletim da Tabuada da Mariana\n` +
+    `• Contas firmes (× e ÷): ${m.firmCount} de 200 (${Math.round(m.firmCount/2)}%)\n` +
+    `• Bichinhos Lendários: ${m.legendaryCount} de 10\n` +
+    `• Tempo médio de resposta: ${m.avgSec ? m.avgSec.toFixed(1) + "s" : "sem dados"}\n` +
+    `• Ofensiva: ${state.streak} dia(s) | Estrelas: ${state.stars} ⭐ | Baús: ${state.missionsCompleted}\n` +
+    `• Foco para reforçar: ${hardTxt}`;
+  navigator.clipboard.writeText(text).then(() => showToast("Boletim copiado para colar no WhatsApp!"));
+}
+
 function fillOptionsForm() {
   const c = state.config;
   document.getElementById("cfgNewPerDay").value = c.newPerDay;
@@ -2377,8 +2996,7 @@ function saveAnkiConfig() {
 
 async function saveAndTestCloud() {
   haptic(8);
-  const url = document.getElementById("cfgCloudUrl").value.trim();
-  state.config.cloudUrl = url;
+  state.config.cloudUrl = document.getElementById("cfgCloudUrl").value.trim();
   saveState(false);
   const diag = document.getElementById("cloudDiag");
   diag.style.color = "var(--text-secondary)";
@@ -2413,7 +3031,7 @@ function importBackup(ev) {
     try {
       const data = JSON.parse(reader.result);
       if (data && Array.isArray(data.cards)) {
-        state = data;
+        state = hydrateState(data);
         saveState(true, true);
         renderAll();
         showToast("Backup restaurado com sucesso!");
@@ -2428,7 +3046,7 @@ function unlockAllDecks() {
   state.unlockedDecks = [1,2,3,4,5,6,7,8,9,10];
   saveState(true);
   renderHome();
-  showToast("Todas as 10 tabuadas (× e ÷) foram desbloqueadas!");
+  showToast("Todas as 10 tabuadas (× e ÷) desbloqueadas!");
 }
 
 function resetProgress() {
@@ -2447,7 +3065,7 @@ function showToast(msg) {
   t.textContent = msg;
   t.classList.add("show");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2700);
 }
 
 /* ==================== RESPOSTA TÁTIL IMEDIATA (POINTERDOWN) ==================== */
@@ -2475,6 +3093,7 @@ document.addEventListener("keydown", e => {
     return;
   }
   if (activeTab !== "estudar") return;
+  if (document.getElementById("chestModal").classList.contains("open") || document.getElementById("evoModal").classList.contains("open")) return;
   if (/^[0-9]$/.test(e.key)) pressDigit(e.key);
   else if (e.key === "Backspace") pressBackspace();
   else if (e.key === "Enter") {
@@ -2491,7 +3110,6 @@ function renderAll() {
   requestAnimationFrame(updateSegmentedThumb);
 }
 
-/* ==================== INICIALIZAÇÃO ==================== */
 renderAll();
 pullFromCloud();
 </script>
