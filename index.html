@@ -2,224 +2,440 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Tabuada da Mariana — Multiplicação e Divisão</title>
   <style>
     :root {
-      --bg: #f4f9ff;
-      --card: #ffffff;
-      --text: #1e293b;
-      --muted: #64748b;
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --pink: #ec4899;
-      --purple: #7c3aed;
+      /* Superfícies & Hierarquia iOS */
+      --bg-page: #f2f4f8;
+      --surface: #ffffff;
+      --surface-subtle: #f8fafc;
+      --surface-recessed: rgba(118, 118, 128, 0.11);
+      --hairline: rgba(15, 23, 42, 0.08);
+      --hairline-strong: rgba(15, 23, 42, 0.14);
+
+      /* Tipografia */
+      --text: #0f172a;
+      --text-secondary: #475569;
+      --text-tertiary: #94a3b8;
+
+      /* Cores Semânticas */
+      --blue: #007aff;
+      --blue-soft: rgba(0, 122, 255, 0.11);
+      --pink: #e11d74;
+      --pink-soft: rgba(225, 29, 116, 0.10);
+      --indigo: #5856d6;
       --green: #16a34a;
-      --green-bg: #dcfce7;
+      --green-soft: rgba(22, 163, 74, 0.12);
       --amber: #d97706;
-      --amber-bg: #fef3c7;
+      --amber-soft: rgba(217, 119, 6, 0.13);
       --red: #dc2626;
-      --red-bg: #fee2e2;
-      --blue-bg: #dbeafe;
-      --border: #e2e8f0;
-      --shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
-      --radius: 20px;
-    }
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', 'Nunito', system-ui, -apple-system, sans-serif;
-      background: linear-gradient(180deg, #eff6ff 0%, #fdf4ff 50%, #f0fdf4 100%);
-      color: var(--text);
-      min-height: 100vh;
+      --red-soft: rgba(220, 38, 38, 0.12);
+      --gold: #ca8a04;
+
+      /* Sombras em camadas (Apple restraint) */
+      --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.05);
+      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.07), 0 2px 6px rgba(15, 23, 42, 0.04);
+      --shadow-lg: 0 20px 50px rgba(15, 23, 42, 0.18), 0 4px 12px rgba(15, 23, 42, 0.08);
+
+      /* Curvas de Mola (Emil Kowalski / iOS) */
+      --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+      --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-pop: cubic-bezier(0.34, 1.45, 0.64, 1);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
     }
 
-    /* TOPBAR */
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Rounded", "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background:
+        radial-gradient(900px 420px at 10% -10%, rgba(0, 122, 255, 0.08), transparent 60%),
+        radial-gradient(700px 380px at 95% 0%, rgba(225, 29, 116, 0.06), transparent 55%),
+        var(--bg-page);
+      color: var(--text);
+      min-height: 100vh;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    }
+
+    .tabular {
+      font-variant-numeric: tabular-nums;
+    }
+
+    button, .tactile {
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+      font-family: inherit;
+    }
+
+    .tactile-press {
+      transition: transform 220ms var(--ease-spring), background-color 180ms ease, box-shadow 220ms var(--ease-spring), opacity 180ms ease;
+      will-change: transform;
+    }
+    .tactile-press:active,
+    .tactile-press.is-pressed {
+      transform: scale(0.96) !important;
+    }
+
+    /* ==================== TOPBAR ==================== */
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 50;
-      background: rgba(255,255,255,0.94);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-      padding: 10px 14px;
+      z-index: 60;
+      background: rgba(248, 250, 252, 0.84);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--hairline);
     }
+
     .topbar-inner {
-      max-width: 1080px;
+      max-width: 1040px;
       margin: 0 auto;
+      padding: 10px 14px;
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .topbar-row-1 {
+      display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
     }
+
     .brand {
       display: flex;
       align-items: center;
       gap: 10px;
-      min-width: fit-content;
+      min-width: 0;
     }
     .brand-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
       background: #fef9c3;
-      border: 2px solid #fde047;
+      border: 1px solid rgba(202, 138, 4, 0.24);
+      box-shadow: var(--shadow-xs);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      padding: 2px;
     }
     .brand-title {
-      font-size: 1.08rem;
+      font-size: 1.02rem;
       font-weight: 800;
+      letter-spacing: -0.02em;
       line-height: 1.15;
       white-space: nowrap;
     }
     .brand-title span { color: var(--pink); }
     .brand-sub {
       font-size: 0.72rem;
-      color: var(--primary);
+      color: var(--text-secondary);
       font-weight: 600;
     }
 
-    .nav-tabs {
-      display: flex;
-      gap: 6px;
-      background: #f1f5f9;
-      padding: 4px;
+    .parent-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      height: 32px;
+      padding: 0 11px;
       border-radius: 999px;
-      border: 1px solid var(--border);
-      flex-wrap: wrap;
-    }
-    .nav-btn {
-      border: none;
-      background: transparent;
-      color: var(--muted);
+      border: 1px solid var(--hairline-strong);
+      background: rgba(255, 255, 255, 0.85);
+      color: var(--text-secondary);
+      font-size: 0.76rem;
       font-weight: 700;
-      font-size: 0.85rem;
-      padding: 7px 13px;
-      border-radius: 999px;
       cursor: pointer;
-      transition: all .15s;
-      white-space: nowrap;
+      box-shadow: var(--shadow-xs);
+      flex-shrink: 0;
     }
-    .nav-btn.active {
-      background: #ffffff;
-      color: var(--pink);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    .parent-trigger.active {
+      background: var(--text);
+      color: #ffffff;
+      border-color: var(--text);
     }
 
-    .status-bar {
+    .topbar-row-2 {
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
+      gap: 10px;
       flex-wrap: wrap;
+    }
+
+    /* iOS Segmented Control com indicador deslizante */
+    .segmented {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: var(--surface-recessed);
+      padding: 3px;
+      border-radius: 13px;
+      flex: 1 1 280px;
+      max-width: 420px;
+      isolation: isolate;
+    }
+    .seg-thumb {
+      position: absolute;
+      top: 3px;
+      bottom: 3px;
+      left: 0;
+      border-radius: 10px;
+      background: #ffffff;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.10), 0 1px 1px rgba(15, 23, 42, 0.05);
+      transition: transform 340ms var(--ease-spring), width 340ms var(--ease-spring), opacity 200ms ease;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .seg-thumb.hidden { opacity: 0; }
+    .seg-btn {
+      position: relative;
+      z-index: 1;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.83rem;
+      height: 32px;
+      padding: 0 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 200ms ease;
+    }
+    .seg-btn.active { color: var(--text); }
+
+    /* Status Strip Padronizado */
+    .status-strip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: nowrap;
     }
     .pill {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
-      padding: 6px 11px;
+      height: 32px;
+      padding: 0 10px;
       border-radius: 999px;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 700;
-      background: #f8fafc;
-      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--hairline);
+      color: var(--text-secondary);
       white-space: nowrap;
+      box-shadow: var(--shadow-xs);
     }
     .pill-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: #94a3b8;
+      flex-shrink: 0;
     }
-    .pill.cloud-ok { background: #ecfdf5; border-color: #86efac; color: #166534; }
+    .pill.cloud-ok { background: #ecfdf5; border-color: rgba(22, 163, 74, 0.25); color: #166534; }
     .pill.cloud-ok .pill-dot { background: #16a34a; }
-    .pill.cloud-sync { background: #eff6ff; border-color: #93c5fd; color: #1d4ed8; }
-    .pill.cloud-sync .pill-dot { background: #2563eb; animation: pulse 1s infinite; }
-    .pill.cloud-err { background: #fef2f2; border-color: #fca5a5; color: #b91c1c; }
-    .pill.cloud-err .pill-dot { background: #dc2626; }
-    .pill-streak { background: #fff7ed; border-color: #fdba74; color: #c2410c; }
-    .pill-stars { background: #fefce8; border-color: #fde047; color: #a16207; }
+    .pill.cloud-sync { background: #eff6ff; border-color: rgba(0, 122, 255, 0.25); color: #005ecb; }
+    .pill.cloud-sync .pill-dot { background: var(--blue); animation: pulse 1s infinite; }
+    .pill.cloud-err { background: #fef2f2; border-color: rgba(220, 38, 38, 0.25); color: #b91c1c; }
+    .pill.cloud-err .pill-dot { background: var(--red); }
+
+    .pill-streak { background: #fff7ed; border-color: rgba(234, 88, 12, 0.22); color: #c2410c; }
+    .pill-stars { background: #fefce8; border-color: rgba(202, 138, 4, 0.24); color: #a16207; }
+
     .sound-btn {
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      border: 1px solid #bae6fd;
-      background: #f0f9ff;
-      color: var(--primary);
-      font-size: 1rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid var(--hairline);
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--blue);
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
+      box-shadow: var(--shadow-xs);
+      flex-shrink: 0;
+      padding: 0;
     }
 
-    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
-    @keyframes pop { 0% { transform: scale(.92); } 60% { transform: scale(1.04); } 100% { transform: scale(1); } }
-    @keyframes shake {
-      0%,100% { transform: translateX(0); }
-      20% { transform: translateX(-8px); }
-      40% { transform: translateX(8px); }
-      60% { transform: translateX(-6px); }
-      80% { transform: translateX(6px); }
+    @media (min-width: 820px) {
+      .topbar-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+      .topbar-row-1 { flex: 0 0 auto; gap: 14px; }
+      .topbar-row-2 { flex: 1 1 auto; justify-content: flex-end; flex-wrap: nowrap; }
+      .parent-trigger { order: 3; }
     }
-    .shake { animation: shake .35s ease; }
 
-    /* MAIN CONTAINER */
+    @media (max-width: 520px) {
+      .topbar-row-2 { gap: 8px; }
+      .segmented { max-width: none; width: 100%; flex-basis: 100%; }
+      .status-strip { width: 100%; justify-content: space-between; }
+      .status-strip .pill:first-child { flex: 1; justify-content: flex-start; }
+    }
+
+    /* ==================== ANIMAÇÕES ==================== */
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+    @keyframes viewEnter {
+      from { opacity: 0; transform: translateY(8px) scale(0.992); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes mascotCelebrate {
+      0% { transform: scale(1) translateY(0); }
+      35% { transform: scale(1.12) translateY(-6px) rotate(-4deg); }
+      70% { transform: scale(0.97) translateY(1px) rotate(2deg); }
+      100% { transform: scale(1) translateY(0) rotate(0); }
+    }
+
+    @keyframes mascotNudge {
+      0% { transform: scale(1); }
+      45% { transform: scale(1.06) translateY(-2px); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes iosShake {
+      0%, 100% { transform: translateX(0); }
+      18% { transform: translateX(-7px); }
+      36% { transform: translateX(6px); }
+      54% { transform: translateX(-4px); }
+      72% { transform: translateX(3px); }
+      88% { transform: translateX(-1px); }
+    }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.92); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes cardSwap {
+      0% { opacity: 0; transform: translateY(6px) scale(0.985); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes sheenSweep {
+      0% { transform: translateX(-130%) skewX(-22deg); opacity: 0; }
+      30% { opacity: 0.7; }
+      100% { transform: translateX(230%) skewX(-22deg); opacity: 0; }
+    }
+
+    .anim-celebrate { animation: mascotCelebrate 460ms var(--ease-pop); }
+    .anim-nudge { animation: mascotNudge 320ms var(--ease-spring); }
+    .anim-shake { animation: iosShake 380ms var(--ease-out-quint); }
+    .anim-swap { animation: cardSwap 260ms var(--ease-spring); }
+
+    /* ==================== CONTAINER & VIEWS ==================== */
     .container {
-      max-width: 1080px;
+      max-width: 1040px;
       margin: 0 auto;
-      padding: 16px 14px 40px;
+      padding: 16px 14px 48px;
     }
-    .view { display: none; }
-    .view.active { display: block; }
 
-    /* HERO */
+    .view { display: none; }
+    .view.active {
+      display: block;
+      animation: viewEnter 280ms var(--ease-spring);
+    }
+
+    /* ==================== BOTÕES ==================== */
+    .btn {
+      border: none;
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      box-shadow: var(--shadow-xs);
+    }
+    .btn-primary { background: var(--blue); color: #ffffff; width: 100%; box-shadow: 0 4px 12px rgba(0, 122, 255, 0.26); }
+    .btn-green { background: #16a34a; color: #ffffff; width: 100%; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.26); }
+    .btn-soft-purple { background: rgba(88, 86, 214, 0.11); color: #4338ca; width: 100%; box-shadow: none; }
+    .btn-gold { background: linear-gradient(180deg, #fde047, #facc15); color: #422006; border: 1px solid rgba(202, 138, 4, 0.25); }
+    .btn-outline { background: #ffffff; color: var(--text); border: 1px solid var(--hairline-strong); }
+    .btn-danger { background: var(--red-soft); color: var(--red); border: 1px solid rgba(220, 38, 38, 0.2); box-shadow: none; }
+
+    /* ==================== HERO ==================== */
     .hero {
-      background: linear-gradient(125deg, #2563eb 0%, #6366f1 55%, #ec4899 100%);
-      color: #fff;
+      background: linear-gradient(135deg, #1d4ed8 0%, #4f46e5 52%, #db2777 100%);
+      color: #ffffff;
       border-radius: 26px;
       padding: 20px;
-      box-shadow: var(--shadow);
+      box-shadow: 0 14px 32px rgba(79, 70, 229, 0.22);
       display: grid;
-      grid-template-columns: 1.35fr 1fr;
+      grid-template-columns: 1.3fr 1fr;
       gap: 18px;
       align-items: center;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
-    .hero-left { display: flex; align-items: center; gap: 16px; }
+    .hero-left { display: flex; align-items: center; gap: 15px; }
     .hero-mascot {
-      width: 84px;
-      height: 84px;
+      width: 78px;
+      height: 78px;
       border-radius: 22px;
-      background: #fffbeb;
-      border: 3px solid #fde047;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.16);
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 4px;
     }
     .hero-chip {
       display: inline-block;
-      background: rgba(255,255,255,0.2);
-      padding: 4px 12px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      padding: 4px 11px;
       border-radius: 999px;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 700;
       margin-bottom: 6px;
     }
-    .hero h1 { margin: 0 0 6px; font-size: 1.55rem; line-height: 1.15; }
-    .hero p { margin: 0; font-size: 0.9rem; opacity: 0.94; }
+    .hero h1 {
+      margin: 0 0 5px;
+      font-size: 1.48rem;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+    }
+    .hero p { margin: 0; font-size: 0.88rem; opacity: 0.92; line-height: 1.38; }
 
     .hero-box {
-      background: #fff;
+      background: rgba(255, 255, 255, 0.96);
       color: var(--text);
       border-radius: 20px;
       padding: 14px;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.14);
     }
+
     .counts-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -229,131 +445,138 @@
     .count-card {
       text-align: center;
       padding: 8px 6px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
+      border-radius: 13px;
+      border: 1px solid transparent;
     }
-    .count-card.c-new { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
-    .count-card.c-lrn { background: #fef2f2; border-color: #fecaca; color: #dc2626; }
-    .count-card.c-rev { background: #f0fdf4; border-color: #bbf7d0; color: #15803d; }
-    .count-num { font-size: 1.35rem; font-weight: 900; line-height: 1; }
-    .count-lbl { font-size: 0.72rem; font-weight: 700; margin-top: 3px; }
+    .count-card.c-new { background: var(--blue-soft); color: #005ecb; }
+    .count-card.c-lrn { background: var(--red-soft); color: #b91c1c; }
+    .count-card.c-rev { background: var(--green-soft); color: #15803d; }
+    .count-num { font-size: 1.28rem; font-weight: 800; line-height: 1.05; }
+    .count-lbl { font-size: 0.7rem; font-weight: 700; opacity: 0.85; margin-top: 2px; }
 
-    .btn {
-      border: none;
-      border-radius: 14px;
-      padding: 12px 16px;
-      font-weight: 800;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: transform .1s, filter .15s;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-    .btn:active { transform: scale(0.97); }
-    .btn-green { background: linear-gradient(180deg, #22c55e, #16a34a); color: #fff; width: 100%; box-shadow: 0 4px 0 #15803d; }
-    .btn-blue { background: linear-gradient(180deg, #38bdf8, #0284c7); color: #fff; width: 100%; box-shadow: 0 4px 0 #0369a1; }
-    .btn-purple { background: linear-gradient(180deg, #a855f7, #7c3aed); color: #fff; width: 100%; box-shadow: 0 4px 0 #6d28d9; }
-    .btn-gold { background: linear-gradient(180deg, #facc15, #eab308); color: #422006; box-shadow: 0 4px 0 #ca8a04; }
-    .btn-outline { background: #fff; color: var(--text); border: 2px solid var(--border); }
-    .btn-danger { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
-
-    /* FILTER & HEADER BAR */
+    /* ==================== SECTION HEADER & MODE SWITCH ==================== */
     .section-head {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin: 14px 0;
+      margin: 16px 0 14px;
     }
-    .section-head h2 { margin: 0; font-size: 1.25rem; }
-    .section-sub { font-size: 0.86rem; color: var(--muted); margin-top: 2px; }
+    .section-head h2 { margin: 0; font-size: 1.2rem; letter-spacing: -0.02em; }
+    .section-sub { font-size: 0.84rem; color: var(--text-secondary); margin-top: 2px; }
 
     .mode-switcher {
       display: inline-flex;
-      background: #fff;
-      padding: 4px;
-      border-radius: 14px;
-      border: 2px solid var(--border);
-      gap: 4px;
-      flex-wrap: wrap;
+      background: var(--surface-recessed);
+      padding: 3px;
+      border-radius: 12px;
+      gap: 2px;
     }
     .mode-chip {
       border: none;
       background: transparent;
       padding: 7px 12px;
-      border-radius: 10px;
-      font-weight: 800;
-      font-size: 0.82rem;
-      color: var(--muted);
+      border-radius: 9px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
       cursor: pointer;
+      transition: all 220ms var(--ease-spring);
     }
     .mode-chip.active {
-      background: #2563eb;
-      color: #fff;
+      background: #ffffff;
+      color: var(--text);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.09);
     }
 
-    /* DECK GRID */
+    /* ==================== DECK GRID ==================== */
     .deck-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
       gap: 14px;
     }
     .deck-card {
-      background: var(--card);
-      border-radius: var(--radius);
+      background: var(--surface);
+      border-radius: var(--radius-lg);
       padding: 16px;
-      border: 2px solid var(--border);
-      box-shadow: var(--shadow);
+      border: 1px solid var(--hairline);
+      box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 13px;
+      transition: transform 260ms var(--ease-spring), box-shadow 260ms var(--ease-spring);
     }
-    .deck-card.unlocked { border-color: #fde047; }
-    .deck-card.locked { opacity: 0.82; border-style: dashed; background: #f8fafc; }
-    .deck-top { display: flex; justify-content: space-between; align-items: center; }
+    .deck-card.unlocked:hover {
+      box-shadow: var(--shadow-md);
+    }
+    .deck-card.locked {
+      background: rgba(255, 255, 255, 0.62);
+      border-color: var(--hairline);
+      box-shadow: none;
+    }
+    .deck-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
     .deck-tag {
-      font-size: 0.78rem;
-      font-weight: 800;
+      font-size: 0.74rem;
+      font-weight: 700;
       padding: 4px 10px;
       border-radius: 999px;
-      background: #fef3c7;
-      color: #92400e;
+      background: var(--surface-subtle);
+      border: 1px solid var(--hairline);
+      color: var(--text-secondary);
     }
-    .deck-card.locked .deck-tag { background: #e2e8f0; color: #475569; }
-    .deck-pct { font-size: 0.78rem; font-weight: 700; color: var(--muted); }
-    .deck-body { display: flex; align-items: center; gap: 12px; }
+    .deck-card.unlocked .deck-tag {
+      background: #fef9c3;
+      border-color: rgba(202, 138, 4, 0.22);
+      color: #854d0e;
+    }
+    .deck-pct { font-size: 0.76rem; font-weight: 700; color: var(--text-secondary); }
+    .deck-pct.is-gold { color: #a16207; }
+
+    .deck-body { display: flex; align-items: center; gap: 13px; }
     .deck-avatar {
-      width: 66px;
-      height: 66px;
+      width: 62px;
+      height: 62px;
       border-radius: 18px;
-      background: #fffbeb;
-      border: 2px solid #fde68a;
+      border: 1px solid var(--hairline);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      padding: 3px;
     }
-    .deck-card.locked .deck-avatar { filter: grayscale(0.85); opacity: 0.65; background: #f1f5f9; border-color: #cbd5e1; }
-    .deck-info { flex: 1; }
-    .deck-name { font-size: 1.05rem; font-weight: 800; }
-    .deck-species { font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; }
-    .progress-bar { height: 8px; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
-    .progress-fill { height: 100%; background: linear-gradient(90deg, #22c55e, #10b981); border-radius: 999px; transition: width .3s; }
+    .deck-card.locked .deck-avatar {
+      filter: grayscale(0.9);
+      opacity: 0.55;
+      background: #f1f5f9 !important;
+    }
+    .deck-info { flex: 1; min-width: 0; }
+    .deck-name { font-size: 1.04rem; font-weight: 800; letter-spacing: -0.015em; }
+    .deck-species { font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 7px; }
+    .progress-bar {
+      height: 6px;
+      background: rgba(15, 23, 42, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #22c55e, #10b981);
+      border-radius: 999px;
+      transition: width 480ms var(--ease-spring);
+    }
 
-    /* STUDY SCREEN (Compact for mobile vertical) */
+    /* ==================== TELA DE ESTUDO (ZERO LAYOUT SHIFT) ==================== */
     .study-wrap {
-      max-width: 500px;
+      max-width: 460px;
       margin: 0 auto;
     }
     .study-card {
-      background: #fff;
-      border-radius: 26px;
+      background: var(--surface);
+      border-radius: 28px;
       padding: 16px;
-      border: 2px solid #dbeafe;
-      box-shadow: var(--shadow);
+      border: 1px solid var(--hairline);
+      box-shadow: var(--shadow-md);
     }
     .study-header {
       display: flex;
@@ -361,259 +584,530 @@
       align-items: center;
       gap: 8px;
       margin-bottom: 10px;
-      font-size: 0.8rem;
+    }
+    .back-pill {
+      border: 1px solid var(--hairline-strong);
+      background: var(--surface-subtle);
+      color: var(--text);
+      font-size: 0.78rem;
       font-weight: 700;
+      height: 30px;
+      padding: 0 11px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .study-deck-title {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-secondary);
     }
     .op-badge {
       padding: 4px 10px;
       border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 800;
+      font-size: 0.73rem;
+      font-weight: 700;
     }
-    .op-mult { background: #dbeafe; color: #1d4ed8; }
-    .op-div { background: #fce7f3; color: #be185d; }
+    .op-mult { background: var(--blue-soft); color: #005ecb; }
+    .op-div { background: var(--pink-soft); color: #be185d; }
 
     .study-mascot-row {
       display: flex;
       align-items: center;
-      gap: 12px;
-      background: #f8fafc;
+      gap: 11px;
+      background: var(--surface-subtle);
       border-radius: 16px;
       padding: 8px 12px;
-      margin-bottom: 12px;
-      border: 1px solid var(--border);
+      margin-bottom: 10px;
+      border: 1px solid var(--hairline);
+      min-height: 64px;
     }
-    .study-avatar { width: 54px; height: 54px; flex-shrink: 0; }
+    .study-avatar {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      will-change: transform;
+    }
     .speech {
-      font-size: 0.86rem;
-      font-weight: 700;
+      font-size: 0.84rem;
+      font-weight: 600;
       color: var(--text);
-      line-height: 1.25;
+      line-height: 1.3;
     }
 
     .question-box {
       text-align: center;
-      padding: 12px 10px;
+      padding: 14px 12px 12px;
       border-radius: 20px;
-      background: linear-gradient(180deg, #f8fafc, #eff6ff);
-      border: 2px solid #bfdbfe;
-      margin-bottom: 12px;
+      background: linear-gradient(180deg, #fafcff 0%, #f1f6ff 100%);
+      border: 1px solid rgba(0, 122, 255, 0.14);
+      margin-bottom: 10px;
+      will-change: transform;
     }
     .question-text {
-      font-size: 2.55rem;
-      font-weight: 900;
-      letter-spacing: 1px;
-      color: #0f172a;
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
       line-height: 1.1;
     }
     .answer-display {
       margin: 10px auto 0;
-      max-width: 190px;
-      height: 52px;
+      max-width: 176px;
+      height: 50px;
       border-radius: 14px;
-      background: #fff;
-      border: 3px solid #93c5fd;
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--primary);
+      background: #ffffff;
+      border: 2px solid rgba(0, 122, 255, 0.28);
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--blue);
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease, transform 240ms var(--ease-spring);
     }
-    .answer-display.ok { border-color: #22c55e; background: #f0fdf4; color: #15803d; }
+    .answer-display.placeholder { color: #cbd5e1; }
+    .answer-display.ok { border-color: var(--green); background: #f0fdf4; color: #15803d; }
     .answer-display.warn { border-color: #f59e0b; background: #fffbeb; color: #b45309; }
-    .answer-display.err { border-color: #ef4444; background: #fef2f2; color: #b91c1c; }
+    .answer-display.err { border-color: var(--red); background: #fef2f2; color: #b91c1c; }
 
-    .feedback-box {
-      display: none;
-      border-radius: 16px;
-      padding: 12px;
-      margin-bottom: 12px;
-      font-size: 0.88rem;
-      font-weight: 700;
-      line-height: 1.35;
-      animation: pop .2s ease;
+    /* Barra fixa dos 3 níveis Anki (zero layout shift) */
+    .anki-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 10px;
     }
-    .feedback-box.show { display: block; }
-    .feedback-box.good { background: var(--green-bg); color: #166534; border: 1px solid #86efac; }
-    .feedback-box.hard { background: var(--amber-bg); color: #92400e; border: 1px solid #fcd34d; }
-    .feedback-box.again { background: var(--red-bg); color: #991b1b; border: 1px solid #fca5a5; }
-    .hint-line { margin-top: 6px; font-weight: 600; font-size: 0.84rem; background: rgba(255,255,255,0.7); padding: 7px 9px; border-radius: 10px; }
+    .anki-pill {
+      border-radius: 12px;
+      padding: 6px 6px;
+      text-align: center;
+      background: var(--surface-subtle);
+      border: 1px solid var(--hairline);
+      color: var(--text-tertiary);
+      transition: all 260ms var(--ease-spring);
+    }
+    .anki-pill-title { font-size: 0.72rem; font-weight: 800; line-height: 1.1; }
+    .anki-pill-sub { font-size: 0.67rem; font-weight: 600; margin-top: 2px; min-height: 13px; }
+    .anki-pill.active-again {
+      background: #fef2f2;
+      border-color: rgba(220, 38, 38, 0.35);
+      color: #b91c1c;
+      transform: scale(1.03);
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.12);
+    }
+    .anki-pill.active-hard {
+      background: #fffbeb;
+      border-color: rgba(217, 119, 6, 0.35);
+      color: #b45309;
+      transform: scale(1.03);
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.12);
+    }
+    .anki-pill.active-good {
+      background: #f0fdf4;
+      border-color: rgba(22, 163, 74, 0.35);
+      color: #15803d;
+      transform: scale(1.03);
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.14);
+    }
 
+    /* Palco de altura fixa: alterna Teclado <-> Feedback sem pular a tela */
+    .input-stage {
+      position: relative;
+      height: 242px;
+    }
+    .stage-layer {
+      position: absolute;
+      inset: 0;
+      transition: opacity 220ms var(--ease-spring), transform 280ms var(--ease-spring);
+      will-change: transform, opacity;
+    }
+    .stage-layer.hidden-layer {
+      opacity: 0;
+      transform: scale(0.96);
+      pointer-events: none;
+    }
+
+    /* Teclado Numérico Nativo iOS */
     .keypad {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(4, 1fr);
       gap: 8px;
+      height: 100%;
     }
     .key {
-      height: 52px;
+      height: 100%;
       border-radius: 14px;
-      border: 2px solid var(--border);
-      background: #fff;
-      font-size: 1.45rem;
-      font-weight: 900;
+      border: 1px solid var(--hairline-strong);
+      background: #ffffff;
+      font-size: 1.42rem;
+      font-weight: 700;
       color: var(--text);
       cursor: pointer;
-      box-shadow: 0 3px 0 #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 0 rgba(15, 23, 42, 0.10), 0 2px 5px rgba(15, 23, 42, 0.04);
+      transition: transform 150ms var(--ease-spring), background-color 120ms ease, box-shadow 150ms ease;
     }
-    .key:active { transform: translateY(2px); box-shadow: none; }
-    .key-del { background: #fff1f2; border-color: #fecdd3; color: #be123c; font-size: 1.05rem; }
-    .key-ok { background: linear-gradient(180deg, #22c55e, #16a34a); border-color: #16a34a; color: #fff; font-size: 1.08rem; box-shadow: 0 3px 0 #15803d; }
+    .key:active,
+    .key.is-pressed {
+      transform: scale(0.94);
+      background: #eef2f7;
+      box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.08);
+    }
+    .key-del {
+      background: #f8fafc;
+      color: var(--text-secondary);
+      border-color: var(--hairline);
+    }
+    .key-del:active,
+    .key-del.is-pressed {
+      background: #fee2e2;
+      color: var(--red);
+    }
+    .key-ok {
+      background: var(--blue);
+      border-color: transparent;
+      color: #ffffff;
+      font-size: 1.02rem;
+      font-weight: 800;
+      gap: 5px;
+      box-shadow: 0 3px 10px rgba(0, 122, 255, 0.28);
+    }
+    .key-ok:active,
+    .key-ok.is-pressed {
+      background: #0066d6;
+      color: #ffffff;
+      transform: scale(0.94);
+    }
 
-    /* ALBUM & HEATMAP */
+    /* Feedback Dock dentro do mesmo palco de 242px */
+    .feedback-dock {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      height: 100%;
+    }
+    .feedback-card {
+      flex: 1;
+      border-radius: 18px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      line-height: 1.38;
+      border: 1px solid transparent;
+    }
+    .feedback-card.good { background: #f0fdf4; border-color: rgba(22, 163, 74, 0.24); color: #166534; }
+    .feedback-card.hard { background: #fffbeb; border-color: rgba(217, 119, 6, 0.26); color: #92400e; }
+    .feedback-card.again { background: #fef2f2; border-color: rgba(220, 38, 38, 0.24); color: #991b1b; }
+    .feedback-title { font-size: 0.96rem; font-weight: 800; }
+    .hint-line {
+      font-size: 0.83rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.78);
+      padding: 8px 10px;
+      border-radius: 12px;
+      color: var(--text);
+    }
+
+    /* ==================== ÁLBUM & MAPA 10x10 ==================== */
     .panel {
-      background: #fff;
-      border-radius: 22px;
+      background: var(--surface);
+      border-radius: 24px;
       padding: 18px;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
+      border: 1px solid var(--hairline);
+      box-shadow: var(--shadow-sm);
       margin-bottom: 18px;
     }
+
     .album-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(156px, 1fr));
       gap: 12px;
     }
     .sticker {
-      border: 2px solid var(--border);
-      border-radius: 18px;
-      padding: 12px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--hairline);
+      border-radius: 20px;
+      padding: 14px 12px;
       text-align: center;
-      background: #f8fafc;
+      background: var(--surface-subtle);
+      cursor: pointer;
     }
-    .sticker.earned { background: #fffbeb; border-color: #fde047; }
+    .sticker.earned {
+      background: linear-gradient(180deg, #ffffff 0%, #fffdf2 100%);
+      border-color: rgba(202, 138, 4, 0.22);
+      box-shadow: var(--shadow-xs);
+    }
+    .sticker.tier-gold {
+      background: linear-gradient(155deg, #fffdf0 0%, #fef3c7 52%, #fffbeb 100%);
+      border-color: rgba(202, 138, 4, 0.42);
+      box-shadow: 0 8px 20px rgba(202, 138, 4, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+    .sticker::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 55%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.72), transparent);
+      transform: translateX(-140%) skewX(-22deg);
+      pointer-events: none;
+    }
+    .sticker.shine::after {
+      animation: sheenSweep 680ms var(--ease-out-quint);
+    }
+
     .medal-badge {
-      display: inline-block;
-      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      margin-top: 8px;
       font-size: 0.72rem;
       font-weight: 800;
-      padding: 3px 9px;
+      padding: 4px 10px;
       border-radius: 999px;
-      background: #e2e8f0;
-      color: #475569;
+      background: rgba(15, 23, 42, 0.06);
+      color: var(--text-secondary);
     }
-    .medal-bronze { background: #fed7aa; color: #9a3412; }
-    .medal-prata { background: #e2e8f0; color: #334155; }
-    .medal-ouro { background: #fef08a; color: #854d0e; }
+    .medal-bronze { background: #ffedd5; color: #9a3412; border: 1px solid rgba(154, 52, 18, 0.16); }
+    .medal-prata { background: linear-gradient(180deg, #f8fafc, #e2e8f0); color: #334155; border: 1px solid rgba(51, 65, 85, 0.18); }
+    .medal-ouro {
+      background: linear-gradient(180deg, #fef08a, #facc15);
+      color: #713f12;
+      border: 1px solid rgba(161, 98, 7, 0.30);
+      box-shadow: 0 2px 6px rgba(202, 138, 4, 0.22);
+    }
 
-    .heatmap-wrap { overflow-x: auto; }
+    /* Mapa de Calor 10x10 CORRIGIDO */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin: 10px 0 12px;
+    }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .legend i { width: 12px; height: 12px; border-radius: 4px; display: inline-block; border: 1px solid rgba(15, 23, 42, 0.08); }
+
+    .hm-inspector {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--hairline);
+      margin-bottom: 12px;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      min-height: 44px;
+    }
+
+    .heatmap-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+    }
     .heatmap {
       width: 100%;
-      min-width: 480px;
+      min-width: 490px;
       border-collapse: separate;
       border-spacing: 4px;
       text-align: center;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+    .heatmap th {
+      padding: 6px 4px;
+      color: var(--text-tertiary);
       font-weight: 800;
+      font-size: 0.74rem;
     }
-    .heatmap th { padding: 6px; color: var(--muted); }
-    .heatmap td {
-      padding: 7px 4px;
+    .heatmap tbody th {
+      position: sticky;
+      left: 0;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(6px);
+      z-index: 2;
       border-radius: 8px;
-      background: #f1f5f9;
-      color: #64748b;
     }
-    .hm-locked { background: #f1f5f9; color: #94a3b8; }
-    .hm-new { background: #dbeafe; color: #1e40af; }
-    .hm-bad { background: #fee2e2; color: #991b1b; }
-    .hm-mid { background: #fef3c7; color: #92400e; }
-    .hm-good { background: #bbf7d0; color: #166534; }
-    .legend { display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.78rem; font-weight: 700; margin: 10px 0; }
-    .legend span { display: inline-flex; align-items: center; gap: 5px; }
-    .legend i { width: 12px; height: 12px; border-radius: 4px; display: inline-block; }
+    .heatmap td {
+      padding: 8px 4px;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: transform 180ms var(--ease-spring), box-shadow 180ms ease;
+    }
+    .heatmap td:active { transform: scale(0.92); }
+    .heatmap td.hm-selected {
+      box-shadow: 0 0 0 2px var(--text);
+    }
 
-    /* OPTIONS & PIN */
+    /* Especificidade correta (.heatmap td.hm-*) */
+    .heatmap td.hm-locked { background: #f1f5f9; color: #94a3b8; }
+    .heatmap td.hm-new { background: #dbeafe; color: #1d4ed8; }
+    .heatmap td.hm-bad { background: #fee2e2; color: #b91c1c; }
+    .heatmap td.hm-mid { background: #fef3c7; color: #b45309; }
+    .heatmap td.hm-good { background: #bbf7d0; color: #15803d; }
+
+    /* ==================== OPÇÕES (PAIS) ==================== */
     .form-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
       gap: 12px;
-      margin: 12px 0;
+      margin: 14px 0;
     }
-    .field label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--muted); margin-bottom: 4px; }
-    .field input, .field textarea {
+    .field label {
+      display: block;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+    }
+    .field input {
       width: 100%;
       padding: 10px 12px;
       border-radius: 12px;
-      border: 2px solid var(--border);
-      font-size: 0.92rem;
+      border: 1px solid var(--hairline-strong);
+      background: var(--surface-subtle);
+      font-size: 0.9rem;
       font-weight: 700;
+      color: var(--text);
       font-family: inherit;
+      transition: border-color 150ms ease, background-color 150ms ease;
     }
-    .code-box {
-      background: #0f172a;
-      color: #e2e8f0;
-      padding: 12px;
-      border-radius: 14px;
-      font-family: Consolas, monospace;
-      font-size: 0.76rem;
-      max-height: 180px;
-      overflow: auto;
-      white-space: pre;
-      margin: 8px 0;
+    .field input:focus {
+      outline: none;
+      background: #ffffff;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.14);
     }
 
-    /* PIN MODAL */
+    /* ==================== MODAL PIN (iOS SHEET) ==================== */
     .modal-bg {
       position: fixed;
       inset: 0;
-      background: rgba(15,23,42,0.55);
-      backdrop-filter: blur(4px);
-      display: none;
+      background: rgba(15, 23, 42, 0.42);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
       align-items: center;
       justify-content: center;
       z-index: 200;
       padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 260ms var(--ease-spring);
     }
-    .modal-bg.open { display: flex; }
+    .modal-bg.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
     .pin-modal {
-      background: #fff;
-      border-radius: 24px;
-      padding: 22px;
+      background: var(--surface);
+      border-radius: 28px;
+      padding: 22px 20px 20px;
       width: 100%;
       max-width: 340px;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--hairline);
+      transform: translateY(24px) scale(0.95);
+      transition: transform 340ms var(--ease-spring);
+    }
+    .modal-bg.open .pin-modal {
+      transform: translateY(0) scale(1);
     }
     .pin-dots {
       display: flex;
       justify-content: center;
-      gap: 12px;
-      margin: 14px 0;
+      gap: 14px;
+      margin: 16px 0 10px;
     }
     .pin-dot {
-      width: 18px;
-      height: 18px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
-      border: 2px solid #94a3b8;
+      border: 2px solid #cbd5e1;
       background: transparent;
+      transition: transform 200ms var(--ease-pop), background-color 160ms ease, border-color 160ms ease;
     }
-    .pin-dot.filled { background: var(--primary); border-color: var(--primary); }
-    .pin-err { color: var(--red); font-size: 0.82rem; font-weight: 700; min-height: 18px; margin-bottom: 8px; }
+    .pin-dot.filled {
+      background: var(--blue);
+      border-color: var(--blue);
+      transform: scale(1.15);
+    }
+    .pin-err {
+      color: var(--red);
+      font-size: 0.8rem;
+      font-weight: 700;
+      min-height: 18px;
+      margin-bottom: 10px;
+    }
+    .pin-keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .pin-keypad .key { height: 52px; }
 
+    /* ==================== TOAST ==================== */
     .toast {
       position: fixed;
-      bottom: 18px;
+      bottom: max(20px, env(safe-area-inset-bottom));
       left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: #0f172a;
-      color: #fff;
-      padding: 10px 18px;
+      transform: translateX(-50%) translateY(18px) scale(0.96);
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      color: #ffffff;
+      padding: 10px 16px;
       border-radius: 999px;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 700;
+      box-shadow: var(--shadow-md);
       opacity: 0;
       pointer-events: none;
-      transition: all .25s;
+      transition: opacity 240ms var(--ease-spring), transform 300ms var(--ease-spring);
       z-index: 300;
+      white-space: nowrap;
+      max-width: calc(100vw - 32px);
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
 
-    @media (max-width: 760px) {
+    @media (max-width: 720px) {
       .hero { grid-template-columns: 1fr; padding: 16px; }
-      .hero h1 { font-size: 1.3rem; }
-      .hero-mascot { width: 66px; height: 66px; }
-      .question-text { font-size: 2.2rem; }
-      .key { height: 48px; font-size: 1.3rem; }
+      .hero h1 { font-size: 1.28rem; }
+      .hero-mascot { width: 64px; height: 64px; border-radius: 18px; }
+      .question-text { font-size: 2.25rem; }
+      .modal-bg { align-items: flex-end; padding: 10px; }
+      .pin-modal {
+        max-width: 100%;
+        border-radius: 26px;
+        transform: translateY(48px);
+      }
+      .modal-bg.open .pin-modal { transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
@@ -621,29 +1115,38 @@
 
   <header class="topbar">
     <div class="topbar-inner">
-      <div class="brand">
-        <div class="brand-icon" id="brandMascot"></div>
-        <div>
-          <div class="brand-title">Tabuada da <span>Mariana</span></div>
-          <div class="brand-sub">Multiplicação (×) e Divisão (÷)</div>
+      <div class="topbar-row-1">
+        <div class="brand">
+          <div class="brand-icon" id="brandMascot"></div>
+          <div>
+            <div class="brand-title">Tabuada da <span>Mariana</span></div>
+            <div class="brand-sub">Multiplicação (×) e Divisão (÷)</div>
+          </div>
         </div>
+
+        <button class="parent-trigger tactile-press" id="parentNavBtn" onclick="openTab('opcoes')" aria-label="Abrir Opções dos Pais">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Pais</span>
+        </button>
       </div>
 
-      <nav class="nav-tabs">
-        <button class="nav-btn active" data-tab="tabuadas" onclick="openTab('tabuadas')">Tabuadas</button>
-        <button class="nav-btn" data-tab="estudar" onclick="openTab('estudar')">Estudar</button>
-        <button class="nav-btn" data-tab="album" onclick="openTab('album')">Álbum & Mapa</button>
-        <button class="nav-btn" data-tab="opcoes" onclick="openTab('opcoes')">🔒 Opções (Pais)</button>
-      </nav>
+      <div class="topbar-row-2">
+        <nav class="segmented" id="mainSegmented" role="tablist" aria-label="Navegação principal">
+          <div class="seg-thumb" id="segThumb"></div>
+          <button class="seg-btn active" role="tab" data-tab="tabuadas" onclick="openTab('tabuadas')">Tabuadas</button>
+          <button class="seg-btn" role="tab" data-tab="estudar" onclick="openTab('estudar')">Estudar</button>
+          <button class="seg-btn" role="tab" data-tab="album" onclick="openTab('album')">Álbum & Mapa</button>
+        </nav>
 
-      <div class="status-bar">
-        <div class="pill" id="cloudBadge" title="Status da sincronização na nuvem">
-          <span class="pill-dot"></span>
-          <span id="cloudText">Sem nuvem</span>
+        <div class="status-strip">
+          <div class="pill" id="cloudBadge" title="Status da sincronização na nuvem">
+            <span class="pill-dot"></span>
+            <span id="cloudText">Sem nuvem</span>
+          </div>
+          <div class="pill pill-streak tabular" title="Dias seguidos estudando">🔥 <span id="topStreak">0</span></div>
+          <div class="pill pill-stars tabular" title="Estrelinhas conquistadas">⭐ <span id="topStars">0</span></div>
+          <button class="sound-btn tactile-press" id="soundBtn" onclick="toggleSound()" title="Ligar/Desligar som" aria-label="Ligar ou desligar som"></button>
         </div>
-        <div class="pill pill-streak" title="Dias seguidos estudando">🔥 <span id="topStreak">0</span></div>
-        <div class="pill pill-stars" title="Estrelinhas conquistadas">⭐ <span id="topStars">0</span></div>
-        <button class="sound-btn" id="soundBtn" onclick="toggleSound()" title="Ligar/Desligar som">🔊</button>
       </div>
     </div>
   </header>
@@ -655,26 +1158,26 @@
         <div class="hero-left">
           <div class="hero-mascot" id="heroMascot"></div>
           <div>
-            <div class="hero-chip" id="heroChip">1 de 10 tabuadas liberadas • 0 dias seguidos</div>
+            <div class="hero-chip tabular" id="heroChip">1 de 10 tabuadas liberadas • 0 dias seguidos</div>
             <h1>Oi, Mariana! Vamos treinar a tabuada?</h1>
-            <p>Os bichinhos misturam contas de multiplicar (×) e dividir (÷) para você ficar craque rapidinho!</p>
+            <p>Os bichinhos misturam contas de multiplicar (×) e dividir (÷) para você ficar craque rapidinho.</p>
           </div>
         </div>
 
         <div class="hero-box">
           <div class="counts-row">
-            <div class="count-card c-new"><div class="count-num" id="heroNew">0</div><div class="count-lbl">Novos</div></div>
-            <div class="count-card c-lrn"><div class="count-num" id="heroLrn">0</div><div class="count-lbl">Aprendendo</div></div>
-            <div class="count-card c-rev"><div class="count-num" id="heroRev">0</div><div class="count-lbl">Revisar</div></div>
+            <div class="count-card c-new"><div class="count-num tabular" id="heroNew">0</div><div class="count-lbl">Novos</div></div>
+            <div class="count-card c-lrn"><div class="count-num tabular" id="heroLrn">0</div><div class="count-lbl">Aprendendo</div></div>
+            <div class="count-card c-rev"><div class="count-num tabular" id="heroRev">0</div><div class="count-lbl">Revisar</div></div>
           </div>
-          <button class="btn btn-green" onclick="startStudy('all')">▶ Estudar Todas (× e ÷ Mesclado)</button>
+          <button class="btn btn-green tactile-press" onclick="startStudy('all')">▶ Estudar Todas (× e ÷)</button>
         </div>
       </div>
 
       <div class="section-head">
         <div>
           <h2>Tabuadas da Mariana (1 ao 10)</h2>
-          <div class="section-sub" id="todaySummary">Hoje a Mariana ainda não respondeu contas. Vamos começar?</div>
+          <div class="section-sub tabular" id="todaySummary">Hoje a Mariana ainda não respondeu contas. Vamos começar?</div>
         </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
           <div class="mode-switcher">
@@ -682,7 +1185,7 @@
             <button class="mode-chip" data-mode="mult" onclick="setOpMode('mult')">Só ×</button>
             <button class="mode-chip" data-mode="div" onclick="setOpMode('div')">Só ÷</button>
           </div>
-          <button class="btn btn-gold" id="unlockNextBtn" onclick="unlockNextDeck()">🔓 Desbloquear Próxima</button>
+          <button class="btn btn-gold tactile-press" id="unlockNextBtn" onclick="unlockNextDeck()">🔓 Desbloquear Próxima</button>
         </div>
       </div>
 
@@ -694,15 +1197,15 @@
       <div class="study-wrap">
         <div class="study-card" id="studyCard">
           <div class="study-header">
-            <button class="btn btn-outline" style="padding:6px 12px; font-size:0.8rem;" onclick="openTab('tabuadas')">← Voltar</button>
-            <span id="studyDeckTitle">Revisão Geral</span>
+            <button class="back-pill tactile-press" onclick="openTab('tabuadas')">← Voltar</button>
+            <span class="study-deck-title" id="studyDeckTitle">Revisão Geral</span>
             <span class="op-badge op-mult" id="studyOpBadge">Multiplicação ×</span>
           </div>
 
           <div class="counts-row" style="margin-bottom:10px;">
-            <div class="count-card c-new"><div class="count-num" id="stNew">0</div><div class="count-lbl">Novos</div></div>
-            <div class="count-card c-lrn"><div class="count-num" id="stLrn">0</div><div class="count-lbl">Aprendendo</div></div>
-            <div class="count-card c-rev"><div class="count-num" id="stRev">0</div><div class="count-lbl">Revisar</div></div>
+            <div class="count-card c-new"><div class="count-num tabular" id="stNew">0</div><div class="count-lbl">Novos</div></div>
+            <div class="count-card c-lrn"><div class="count-num tabular" id="stLrn">0</div><div class="count-lbl">Aprendendo</div></div>
+            <div class="count-card c-rev"><div class="count-num tabular" id="stRev">0</div><div class="count-lbl">Revisar</div></div>
           </div>
 
           <div id="studyActiveArea">
@@ -711,40 +1214,67 @@
               <div class="speech" id="studySpeech">Vamos lá, Mariana! Você consegue!</div>
             </div>
 
-            <div class="question-box">
-              <div class="question-text" id="questionText">1 × 1</div>
-              <div class="answer-display" id="answerDisplay">?</div>
+            <div class="question-box" id="questionBox">
+              <div class="question-text tabular" id="questionText">1 × 1</div>
+              <div class="answer-display placeholder tabular" id="answerDisplay">?</div>
             </div>
 
-            <div class="feedback-box" id="feedbackBox"></div>
-
-            <div id="nextBtnWrap" style="display:none; margin-bottom:10px;">
-              <button class="btn btn-blue" onclick="nextCard()">Próxima Conta ➜</button>
+            <!-- Indicadores Anki (Novamente / Difícil / Bom) sem salto de layout -->
+            <div class="anki-strip" aria-live="polite">
+              <div class="anki-pill" id="pillAgain">
+                <div class="anki-pill-title">Novamente</div>
+                <div class="anki-pill-sub tabular" id="pillAgainSub">Se errar</div>
+              </div>
+              <div class="anki-pill" id="pillHard">
+                <div class="anki-pill-title">Difícil</div>
+                <div class="anki-pill-sub tabular" id="pillHardSub">Devagar</div>
+              </div>
+              <div class="anki-pill" id="pillGood">
+                <div class="anki-pill-title">Bom</div>
+                <div class="anki-pill-sub tabular" id="pillGoodSub">Rápido</div>
+              </div>
             </div>
 
-            <div class="keypad" id="keypad">
-              <button class="key" onclick="pressDigit('1')">1</button>
-              <button class="key" onclick="pressDigit('2')">2</button>
-              <button class="key" onclick="pressDigit('3')">3</button>
-              <button class="key" onclick="pressDigit('4')">4</button>
-              <button class="key" onclick="pressDigit('5')">5</button>
-              <button class="key" onclick="pressDigit('6')">6</button>
-              <button class="key" onclick="pressDigit('7')">7</button>
-              <button class="key" onclick="pressDigit('8')">8</button>
-              <button class="key" onclick="pressDigit('9')">9</button>
-              <button class="key key-del" onclick="pressBackspace()">⌫ Apagar</button>
-              <button class="key" onclick="pressDigit('0')">0</button>
-              <button class="key key-ok" onclick="submitAnswer()">OK ✓</button>
+            <!-- Palco de altura fixa (zero layout shift) -->
+            <div class="input-stage">
+              <div class="stage-layer" id="keypadLayer">
+                <div class="keypad">
+                  <button class="key" data-digit="1" onclick="pressDigit('1')">1</button>
+                  <button class="key" data-digit="2" onclick="pressDigit('2')">2</button>
+                  <button class="key" data-digit="3" onclick="pressDigit('3')">3</button>
+                  <button class="key" data-digit="4" onclick="pressDigit('4')">4</button>
+                  <button class="key" data-digit="5" onclick="pressDigit('5')">5</button>
+                  <button class="key" data-digit="6" onclick="pressDigit('6')">6</button>
+                  <button class="key" data-digit="7" onclick="pressDigit('7')">7</button>
+                  <button class="key" data-digit="8" onclick="pressDigit('8')">8</button>
+                  <button class="key" data-digit="9" onclick="pressDigit('9')">9</button>
+                  <button class="key key-del" onclick="pressBackspace()" aria-label="Apagar dígito">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>
+                  </button>
+                  <button class="key" data-digit="0" onclick="pressDigit('0')">0</button>
+                  <button class="key key-ok" onclick="submitAnswer()" aria-label="Confirmar resposta">
+                    <span>OK</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="stage-layer hidden-layer" id="feedbackLayer">
+                <div class="feedback-dock">
+                  <div class="feedback-card" id="feedbackBox"></div>
+                  <button class="btn btn-primary tactile-press" style="height:52px;" onclick="nextCard()">Próxima Conta →</button>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div id="studyEmptyArea" style="display:none; text-align:center; padding:24px 10px;">
-            <div style="width:90px; height:90px; margin:0 auto 10px;" id="doneMascot"></div>
+          <div id="studyEmptyArea" style="display:none; text-align:center; padding:26px 10px;">
+            <div style="width:88px; height:88px; margin:0 auto 10px;" id="doneMascot"></div>
             <h2 style="margin:0 0 6px;">Parabéns, Mariana! 🎉</h2>
-            <p id="doneMsg" style="color:var(--muted); margin:0 0 16px;">Você concluiu todas as contas disponíveis agora!</p>
+            <p id="doneMsg" style="color:var(--text-secondary); margin:0 0 18px; font-size:0.9rem;">Você concluiu todas as contas disponíveis agora!</p>
             <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-              <button class="btn btn-gold" id="doneUnlockBtn" onclick="unlockNextDeck(true)">🔓 Desbloquear Próxima Tabuada</button>
-              <button class="btn btn-outline" onclick="openTab('tabuadas')">Voltar às Tabuadas</button>
+              <button class="btn btn-gold tactile-press" id="doneUnlockBtn" onclick="unlockNextDeck(true)">🔓 Desbloquear Próxima Tabuada</button>
+              <button class="btn btn-outline tactile-press" onclick="openTab('tabuadas')">Voltar às Tabuadas</button>
             </div>
           </div>
         </div>
@@ -755,7 +1285,7 @@
     <section id="view-album" class="view">
       <div class="panel">
         <h2 style="margin:0 0 4px;">Álbum dos Bichinhos da Mariana</h2>
-        <div class="section-sub" style="margin-bottom:14px;">Cada bichinho ganha medalha de Bronze (30%), Prata (70%) e Ouro (100% firme em × e ÷)!</div>
+        <div class="section-sub" style="margin-bottom:14px;">Cada bichinho ganha medalha de Bronze (30%), Prata (70%) e Ouro (100% firme em × e ÷). Toque em um bichinho para ver o brilho!</div>
         <div class="album-grid" id="albumGrid"></div>
       </div>
 
@@ -763,7 +1293,7 @@
         <div class="section-head" style="margin-top:0;">
           <div>
             <h2>Mapa de Calor 10×10</h2>
-            <div class="section-sub">Veja quais contas já estão na ponta da língua.</div>
+            <div class="section-sub">Toque em qualquer conta para ver detalhes de domínio e próxima revisão.</div>
           </div>
           <div class="mode-switcher">
             <button class="mode-chip active" id="hmBtnMult" onclick="setHeatmapOp('mult')">Multiplicação (×)</button>
@@ -779,6 +1309,10 @@
           <span><i style="background:#bbf7d0;"></i> Firme / Automática</span>
         </div>
 
+        <div class="hm-inspector tabular" id="hmInspector">
+          <span>Toque em um quadradinho abaixo para inspecionar o progresso daquela conta.</span>
+        </div>
+
         <div class="heatmap-wrap" id="heatmapContainer"></div>
       </div>
     </section>
@@ -791,22 +1325,22 @@
             <h2>Área dos Pais — Configurações do Anki</h2>
             <div class="section-sub">Padrão Mário Vergara (9999 / 1m 10m / 0.50 / sem botão Fácil) com avaliação por tempo oculto.</div>
           </div>
-          <button class="btn btn-outline" onclick="lockParentsAndExit()">🔒 Sair e Trancar</button>
+          <button class="btn btn-outline tactile-press" onclick="lockParentsAndExit()">🔒 Sair e Trancar</button>
         </div>
 
         <div class="form-grid">
-          <div class="field"><label>Novos cartões/dia</label><input type="number" id="cfgNewPerDay"></div>
-          <div class="field"><label>Revisões máximas/dia</label><input type="number" id="cfgRevPerDay"></div>
-          <div class="field"><label>Etapas de aprendizagem (min)</label><input type="text" id="cfgSteps" placeholder="1 10"></div>
-          <div class="field"><label>Intervalo de graduação (dias)</label><input type="number" id="cfgGrad"></div>
-          <div class="field"><label>Facilidade inicial</label><input type="number" step="0.05" id="cfgEase"></div>
-          <div class="field"><label>Modificador de intervalo</label><input type="number" step="0.05" id="cfgMod"></div>
-          <div class="field"><label>Intervalo árduo (Difícil)</label><input type="number" step="0.05" id="cfgHard"></div>
-          <div class="field"><label>Novo intervalo após erro</label><input type="number" step="0.05" id="cfgLapse"></div>
-          <div class="field"><label>Intervalo máximo (dias)</label><input type="number" id="cfgMaxInt"></div>
-          <div class="field"><label>Tempo máximo para "Bom" (segundos)</label><input type="number" step="0.5" id="cfgGoodSec"></div>
+          <div class="field"><label>Novos cartões/dia</label><input class="tabular" type="number" id="cfgNewPerDay"></div>
+          <div class="field"><label>Revisões máximas/dia</label><input class="tabular" type="number" id="cfgRevPerDay"></div>
+          <div class="field"><label>Etapas de aprendizagem (min)</label><input class="tabular" type="text" id="cfgSteps" placeholder="1 10"></div>
+          <div class="field"><label>Intervalo de graduação (dias)</label><input class="tabular" type="number" id="cfgGrad"></div>
+          <div class="field"><label>Facilidade inicial</label><input class="tabular" type="number" step="0.05" id="cfgEase"></div>
+          <div class="field"><label>Modificador de intervalo</label><input class="tabular" type="number" step="0.05" id="cfgMod"></div>
+          <div class="field"><label>Intervalo árduo (Difícil)</label><input class="tabular" type="number" step="0.05" id="cfgHard"></div>
+          <div class="field"><label>Novo intervalo após erro</label><input class="tabular" type="number" step="0.05" id="cfgLapse"></div>
+          <div class="field"><label>Intervalo máximo (dias)</label><input class="tabular" type="number" id="cfgMaxInt"></div>
+          <div class="field"><label>Tempo máximo para "Bom" (segundos)</label><input class="tabular" type="number" step="0.5" id="cfgGoodSec"></div>
         </div>
-        <button class="btn btn-green" style="width:auto;" onclick="saveAnkiConfig()">💾 Salvar Parâmetros</button>
+        <button class="btn btn-green tactile-press" style="width:auto;" onclick="saveAnkiConfig()">💾 Salvar Parâmetros</button>
       </div>
 
       <div class="panel">
@@ -817,36 +1351,38 @@
           <input type="url" id="cfgCloudUrl" placeholder="https://script.google.com/macros/s/.../exec">
         </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
-          <button class="btn btn-blue" style="width:auto;" onclick="saveAndTestCloud()">☁️ Salvar, Testar e Sincronizar Agora</button>
-          <button class="btn btn-outline" onclick="copyGasCode()">📋 Copiar Código do Apps Script</button>
+          <button class="btn btn-primary tactile-press" style="width:auto;" onclick="saveAndTestCloud()">☁️ Salvar, Testar e Sincronizar Agora</button>
+          <button class="btn btn-outline tactile-press" onclick="copyGasCode()">📋 Copiar Código do Apps Script</button>
         </div>
-        <div id="cloudDiag" style="font-size:0.84rem; font-weight:700; color:var(--muted);"></div>
+        <div id="cloudDiag" style="font-size:0.84rem; font-weight:700; color:var(--text-secondary);"></div>
       </div>
 
       <div class="panel">
-        <h2 style="margin:0 0 8px;">Backup e Manutenção</h2>
+        <h2 style="margin:0 0 10px;">Backup e Manutenção</h2>
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="btn btn-outline" onclick="exportBackup()">⬇ Exportar Backup JSON</button>
-          <button class="btn btn-outline" onclick="document.getElementById('importFile').click()">⬆ Importar Backup JSON</button>
+          <button class="btn btn-outline tactile-press" onclick="exportBackup()">⬇ Exportar Backup JSON</button>
+          <button class="btn btn-outline tactile-press" onclick="document.getElementById('importFile').click()">⬆ Importar Backup JSON</button>
           <input type="file" id="importFile" accept=".json" style="display:none" onchange="importBackup(event)">
-          <button class="btn btn-outline" onclick="unlockAllDecks()">🔓 Desbloquear Todas (1 a 10)</button>
-          <button class="btn btn-danger" onclick="resetProgress()">🗑 Zerar Progresso da Mariana</button>
+          <button class="btn btn-outline tactile-press" onclick="unlockAllDecks()">🔓 Desbloquear Todas (1 a 10)</button>
+          <button class="btn btn-danger tactile-press" onclick="resetProgress()">🗑 Zerar Progresso da Mariana</button>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- MODAL DE SENHA DOS PAIS -->
-  <div class="modal-bg" id="pinModal">
+  <!-- MODAL DE SENHA DOS PAIS (iOS SHEET) -->
+  <div class="modal-bg" id="pinModal" onclick="if(event.target===this) closePinModal()">
     <div class="pin-modal" id="pinCard">
-      <div style="font-size:2rem; margin-bottom:4px;">🔒</div>
-      <h3 style="margin:0 0 4px;">Área dos Pais</h3>
-      <div style="font-size:0.84rem; color:var(--muted);">Digite a senha de 4 números para abrir as opções.</div>
+      <div style="width:44px; height:44px; margin:0 auto 8px; border-radius:14px; background:var(--blue-soft); color:var(--blue); display:flex; align-items:center; justify-content:center;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h3 style="margin:0 0 4px; letter-spacing:-0.02em;">Área dos Pais</h3>
+      <div style="font-size:0.83rem; color:var(--text-secondary);">Digite a senha de 4 números para abrir as opções.</div>
       <div class="pin-dots" id="pinDots">
         <span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span>
       </div>
       <div class="pin-err" id="pinErr"></div>
-      <div class="keypad">
+      <div class="pin-keypad">
         <button class="key" onclick="pinPress('1')">1</button>
         <button class="key" onclick="pinPress('2')">2</button>
         <button class="key" onclick="pinPress('3')">3</button>
@@ -856,14 +1392,16 @@
         <button class="key" onclick="pinPress('7')">7</button>
         <button class="key" onclick="pinPress('8')">8</button>
         <button class="key" onclick="pinPress('9')">9</button>
-        <button class="key key-del" onclick="pinBack()">⌫</button>
+        <button class="key key-del" onclick="pinBack()" aria-label="Apagar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>
+        </button>
         <button class="key" onclick="pinPress('0')">0</button>
-        <button class="key" style="font-size:0.95rem;" onclick="closePinModal()">Sair</button>
+        <button class="key" style="font-size:0.86rem; color:var(--text-secondary);" onclick="closePinModal()">Cancelar</button>
       </div>
     </div>
   </div>
 
-  <div class="toast" id="toast"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 /* =====================================================================
@@ -901,6 +1439,13 @@ const MASCOTS = [
   { n: 9, name: "Pingo", species: "Pinguim", bg: "#e0e7ff", accent: "#6366f1", ear: "none", color: "#334155", cheek: "#fb7185" },
   { n: 10, name: "Léo", species: "Leãozinho", bg: "#ffedd5", accent: "#ea580c", ear: "mane", color: "#fbbf24", cheek: "#fb7185" }
 ];
+
+const ICON_SOUND_ON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
+const ICON_SOUND_OFF = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
+
+function haptic(ms = 8) {
+  try { if (navigator.vibrate) navigator.vibrate(ms); } catch (_) {}
+}
 
 function renderMascotSVG(num, mood = "happy") {
   const m = MASCOTS[(num - 1) % 10];
@@ -966,7 +1511,6 @@ function createInitialCards() {
   let order = 1;
   for (let n = 1; n <= 10; n++) {
     for (let m = 1; m <= 10; m++) {
-      // Intercala multiplicação e divisão da mesma família de fatos
       cards.push({
         id: `mult_${n}_${m}`,
         op: "mult",
@@ -976,7 +1520,7 @@ function createInitialCards() {
         q: `${n} × ${m}`,
         a: n * m,
         hint: buildHint("mult", n, m),
-        state: "new", // new, learning, review, relearning
+        state: "new",
         step: 0,
         interval: 0,
         lapseInterval: 1,
@@ -1042,12 +1586,14 @@ function createFreshState() {
 }
 
 let state = loadLocalState();
+let activeTab = "tabuadas";
 let activeDeck = "all";
 let currentCard = null;
 let typedAnswer = "";
 let questionStartMs = 0;
 let awaitingNext = false;
 let heatmapOp = "mult";
+let selectedHeatmapId = "";
 let parentsUnlocked = false;
 let pinBuffer = "";
 let syncTimer = null;
@@ -1116,6 +1662,7 @@ async function pullFromCloud() {
         state.config = { ...DEFAULT_CONFIG, ...(state.config || {}), cloudUrl: savedUrl };
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
         renderAll();
+        if (activeTab === "album") renderAlbumAndMap();
       } else if ((state.updatedAt || 0) > (data.updatedAt || 0) && localHasProgress) {
         await pushToCloud(false);
       }
@@ -1187,9 +1734,10 @@ function playTone(type) {
 }
 
 function toggleSound() {
+  haptic(6);
   state.soundOn = !state.soundOn;
   saveState(false);
-  document.getElementById("soundBtn").textContent = state.soundOn ? "🔊" : "🔇";
+  document.getElementById("soundBtn").innerHTML = state.soundOn ? ICON_SOUND_ON : ICON_SOUND_OFF;
 }
 
 /* ==================== MOTOR SM-2 (CLONE ANKI) ==================== */
@@ -1226,25 +1774,21 @@ function pickNextCard() {
   const ahead = now + (state.config.learnAheadMin || 20) * 60000;
   const list = filterCards(activeDeck, state.opMode);
 
-  // 1. Aprendizagem / reaprendizagem vencida agora
   const lrnDue = list.filter(c => (c.state === "learning" || c.state === "relearning") && c.due <= now)
     .sort((a, b) => a.due - b.due);
   if (lrnDue.length) return lrnDue[0];
 
-  // 2. Revisões vencidas (se dentro do limite 9999)
   if (state.dailyLog.revDone < state.config.reviewsPerDay) {
     const revDue = list.filter(c => c.state === "review" && c.due <= now)
       .sort((a, b) => a.due - b.due);
     if (revDue.length) return revDue[0];
   }
 
-  // 3. Cartões novos em ordem sequencial (intercalando × e ÷)
   if (state.dailyLog.newDone < state.config.newPerDay) {
     const news = list.filter(c => c.state === "new").sort((a, b) => a.order - b.order);
     if (news.length) return news[0];
   }
 
-  // 4. Learn Ahead (etapas de 1m/10m dentro da janela de 20 min)
   const lrnSoon = list.filter(c => (c.state === "learning" || c.state === "relearning") && c.due <= ahead)
     .sort((a, b) => a.due - b.due);
   if (lrnSoon.length) return lrnSoon[0];
@@ -1262,7 +1806,6 @@ function applySM2(card, grade) {
   else if (card.state === "review") state.dailyLog.revDone++;
   state.dailyLog.totalDone++;
 
-  // Atualiza ofensiva (streak)
   const today = todayKey();
   if (state.lastStudyDay !== today) {
     const y = new Date(); y.setDate(y.getDate() - 1);
@@ -1286,7 +1829,7 @@ function applySM2(card, grade) {
       const minWait = card.step === 0 && steps.length > 1 ? ((steps[0] + steps[1]) / 2) : steps[Math.min(card.step, steps.length - 1)];
       card.due = now + minWait * 60000;
       nextLabel = `${minWait} min`;
-    } else { // good
+    } else {
       const nextStep = card.state === "new" ? 1 : card.step + 1;
       if (nextStep < steps.length) {
         card.state = "learning";
@@ -1317,7 +1860,7 @@ function applySM2(card, grade) {
       card.due = dayStartTs(card.interval);
       nextLabel = `${card.interval} dia${card.interval > 1 ? "s" : ""}`;
     }
-  } else { // review
+  } else {
     if (grade === "again") {
       card.state = "relearning";
       card.lapses++;
@@ -1325,13 +1868,13 @@ function applySM2(card, grade) {
       card.lapseInterval = Math.max(1, Math.round(card.interval * cfg.newIntervalLapse));
       const relearnMin = steps[steps.length - 1] || 10;
       card.due = now + relearnMin * 60000;
-      nextLabel = `${relearnMin} min (depois ${card.lapseInterval}d)`;
+      nextLabel = `${relearnMin} min`;
     } else if (grade === "hard") {
       card.ease = Math.max(1.30, +(card.ease - 0.15).toFixed(2));
       card.interval = Math.min(cfg.maxInterval, Math.max(card.interval + 1, Math.round(card.interval * cfg.hardInterval * cfg.intervalModifier)));
       card.due = dayStartTs(card.interval);
       nextLabel = `${card.interval} dia${card.interval > 1 ? "s" : ""}`;
-    } else { // good
+    } else {
       card.interval = Math.min(cfg.maxInterval, Math.max(card.interval + 1, Math.round(card.interval * card.ease * cfg.intervalModifier)));
       card.due = dayStartTs(card.interval);
       nextLabel = `${card.interval} dia${card.interval > 1 ? "s" : ""}`;
@@ -1345,17 +1888,35 @@ function applySM2(card, grade) {
   return nextLabel;
 }
 
-/* ==================== NAVEGAÇÃO & PIN ==================== */
+/* ==================== SEGMENTED CONTROL & NAVEGAÇÃO ==================== */
+function updateSegmentedThumb() {
+  const thumb = document.getElementById("segThumb");
+  const activeBtn = document.querySelector(`.seg-btn[data-tab="${activeTab}"]`);
+  if (!thumb) return;
+  if (!activeBtn) {
+    thumb.classList.add("hidden");
+    return;
+  }
+  thumb.classList.remove("hidden");
+  thumb.style.width = `${activeBtn.offsetWidth}px`;
+  thumb.style.transform = `translateX(${activeBtn.offsetLeft}px)`;
+}
+
 function openTab(tabName) {
+  haptic(5);
   if (tabName === "opcoes" && !parentsUnlocked) {
     openPinModal();
     return;
   }
   if (tabName !== "opcoes") parentsUnlocked = false;
+  activeTab = tabName;
 
   document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
-  document.querySelectorAll(".nav-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tabName));
+  document.querySelectorAll(".seg-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tabName));
+  document.getElementById("parentNavBtn").classList.toggle("active", tabName === "opcoes");
   document.getElementById(`view-${tabName}`).classList.add("active");
+
+  requestAnimationFrame(updateSegmentedThumb);
 
   if (tabName === "tabuadas") renderHome();
   if (tabName === "estudar") loadNextQuestion();
@@ -1363,6 +1924,7 @@ function openTab(tabName) {
   if (tabName === "opcoes") fillOptionsForm();
 }
 
+/* ==================== MODAL PIN ==================== */
 function openPinModal() {
   pinBuffer = "";
   document.getElementById("pinErr").textContent = "";
@@ -1381,6 +1943,7 @@ function updatePinDots() {
 }
 
 function pinPress(d) {
+  haptic(7);
   if (pinBuffer.length >= 4) return;
   pinBuffer += d;
   updatePinDots();
@@ -1390,15 +1953,17 @@ function pinPress(d) {
       closePinModal();
       openTab("opcoes");
     } else {
+      haptic(25);
       document.getElementById("pinErr").textContent = "Senha incorreta! Tente novamente.";
       const card = document.getElementById("pinCard");
-      card.classList.remove("shake"); void card.offsetWidth; card.classList.add("shake");
-      setTimeout(() => { pinBuffer = ""; updatePinDots(); }, 350);
+      card.classList.remove("anim-shake"); void card.offsetWidth; card.classList.add("anim-shake");
+      setTimeout(() => { pinBuffer = ""; updatePinDots(); }, 360);
     }
   }
 }
 
 function pinBack() {
+  haptic(5);
   pinBuffer = pinBuffer.slice(0, -1);
   updatePinDots();
 }
@@ -1420,10 +1985,11 @@ function renderTop() {
   document.getElementById("brandMascot").innerHTML = renderMascotSVG(1, "happy");
   document.getElementById("topStreak").textContent = state.streak;
   document.getElementById("topStars").textContent = state.stars;
-  document.getElementById("soundBtn").textContent = state.soundOn ? "🔊" : "🔇";
+  document.getElementById("soundBtn").innerHTML = state.soundOn ? ICON_SOUND_ON : ICON_SOUND_OFF;
 }
 
 function setOpMode(mode) {
+  haptic(5);
   state.opMode = mode;
   saveState(false);
   document.querySelectorAll(".mode-switcher .mode-chip[data-mode]").forEach(b => {
@@ -1445,14 +2011,14 @@ function renderHome() {
   document.getElementById("heroRev").textContent = allC.revCount;
 
   document.getElementById("todaySummary").innerHTML = state.dailyLog.totalDone > 0
-    ? `Hoje a Mariana já respondeu <b>${state.dailyLog.totalDone}</b> conta${state.dailyLog.totalDone>1?"s":""} e acumulou <b>${state.stars}</b> estrelinhas!`
+    ? `Hoje a Mariana já respondeu <b>${state.dailyLog.totalDone}</b> conta${state.dailyLog.totalDone>1?"s":""} e acumulou <b>${state.stars}</b> estrelinhas.`
     : `Hoje a Mariana ainda não respondeu contas. Vamos começar?`;
 
   const nextLocked = [1,2,3,4,5,6,7,8,9,10].find(n => !state.unlockedDecks.includes(n));
   const unlockBtn = document.getElementById("unlockNextBtn");
   if (nextLocked) {
     unlockBtn.style.display = "inline-flex";
-    unlockBtn.textContent = `🔓 Desbloquear Próxima (Tabuada do ${nextLocked})`;
+    unlockBtn.textContent = `🔓 Liberar Tabuada do ${nextLocked}`;
   } else {
     unlockBtn.style.display = "none";
   }
@@ -1470,7 +2036,7 @@ function renderHome() {
       <div class="deck-card ${unlocked ? "unlocked" : "locked"}">
         <div class="deck-top">
           <span class="deck-tag">Tabuada do ${m.n} (× e ÷)</span>
-          <span class="deck-pct">${unlocked ? pct + "% firme" : "🔒 Bloqueada"}</span>
+          <span class="deck-pct tabular ${pct >= 100 ? "is-gold" : ""}">${unlocked ? (pct >= 100 ? "🥇 100% firme" : pct + "% firme") : "🔒 Bloqueada"}</span>
         </div>
         <div class="deck-body">
           <div class="deck-avatar" style="background:${m.bg}">${renderMascotSVG(m.n, pct >= 70 ? "cheer" : "happy")}</div>
@@ -1482,13 +2048,13 @@ function renderHome() {
         </div>
         ${unlocked ? `
           <div class="counts-row" style="margin-bottom:0;">
-            <div class="count-card c-new"><div class="count-num">${c.newCount}</div><div class="count-lbl">Novos</div></div>
-            <div class="count-card c-lrn"><div class="count-num">${c.lrnCount}</div><div class="count-lbl">Aprendendo</div></div>
-            <div class="count-card c-rev"><div class="count-num">${c.revCount}</div><div class="count-lbl">Revisar</div></div>
+            <div class="count-card c-new"><div class="count-num tabular">${c.newCount}</div><div class="count-lbl">Novos</div></div>
+            <div class="count-card c-lrn"><div class="count-num tabular">${c.lrnCount}</div><div class="count-lbl">Aprendendo</div></div>
+            <div class="count-card c-rev"><div class="count-num tabular">${c.revCount}</div><div class="count-lbl">Revisar</div></div>
           </div>
-          <button class="btn btn-blue" onclick="startStudy(${m.n})">▶ Estudar do ${m.n}</button>
+          <button class="btn btn-primary tactile-press" onclick="startStudy(${m.n})">▶ Estudar do ${m.n}</button>
         ` : `
-          <button class="btn btn-purple" onclick="unlockDeck(${m.n})">🔓 Desbloquear do ${m.n}</button>
+          <button class="btn btn-soft-purple tactile-press" onclick="unlockDeck(${m.n})">🔓 Desbloquear do ${m.n}</button>
         `}
       </div>
     `;
@@ -1496,6 +2062,7 @@ function renderHome() {
 }
 
 function unlockDeck(n) {
+  haptic(10);
   if (!state.unlockedDecks.includes(n)) {
     state.unlockedDecks.push(n);
     state.unlockedDecks.sort((a, b) => a - b);
@@ -1516,6 +2083,24 @@ function unlockNextDeck(andStudy = false) {
 function startStudy(deckNum) {
   activeDeck = deckNum;
   openTab("estudar");
+}
+
+function resetAnkiStrip() {
+  const pA = document.getElementById("pillAgain");
+  const pH = document.getElementById("pillHard");
+  const pG = document.getElementById("pillGood");
+  pA.className = "anki-pill";
+  pH.className = "anki-pill";
+  pG.className = "anki-pill";
+  document.getElementById("pillAgainSub").textContent = "Se errar";
+  document.getElementById("pillHardSub").textContent = `> ${Number(state.config.goodLimitSec || 5).toFixed(0)}s`;
+  document.getElementById("pillGoodSub").textContent = `≤ ${Number(state.config.goodLimitSec || 5).toFixed(0)}s`;
+}
+
+function triggerAnim(el, cls) {
+  el.classList.remove("anim-celebrate", "anim-nudge", "anim-shake", "anim-swap");
+  void el.offsetWidth;
+  el.classList.add(cls);
 }
 
 function loadNextQuestion() {
@@ -1555,15 +2140,15 @@ function loadNextQuestion() {
     : `${m.name}: Mariana, vamos dividir! Quanto é ${currentCard.q}?`;
 
   document.getElementById("questionText").textContent = currentCard.q;
+  triggerAnim(document.getElementById("questionBox"), "anim-swap");
+
   const disp = document.getElementById("answerDisplay");
   disp.textContent = "?";
-  disp.className = "answer-display";
+  disp.className = "answer-display placeholder tabular";
 
-  const fb = document.getElementById("feedbackBox");
-  fb.className = "feedback-box";
-  fb.innerHTML = "";
-  document.getElementById("nextBtnWrap").style.display = "none";
-  document.getElementById("keypad").style.display = "grid";
+  resetAnkiStrip();
+  document.getElementById("keypadLayer").classList.remove("hidden-layer");
+  document.getElementById("feedbackLayer").classList.add("hidden-layer");
 
   questionStartMs = performance.now();
 }
@@ -1571,14 +2156,20 @@ function loadNextQuestion() {
 function pressDigit(d) {
   if (awaitingNext || !currentCard) return;
   if (typedAnswer.length >= 3) return;
+  haptic(6);
   typedAnswer += d;
-  document.getElementById("answerDisplay").textContent = typedAnswer;
+  const disp = document.getElementById("answerDisplay");
+  disp.textContent = typedAnswer;
+  disp.classList.remove("placeholder");
 }
 
 function pressBackspace() {
   if (awaitingNext || !currentCard) return;
+  haptic(5);
   typedAnswer = typedAnswer.slice(0, -1);
-  document.getElementById("answerDisplay").textContent = typedAnswer || "?";
+  const disp = document.getElementById("answerDisplay");
+  disp.textContent = typedAnswer || "?";
+  disp.classList.toggle("placeholder", !typedAnswer);
 }
 
 function submitAnswer() {
@@ -1597,48 +2188,81 @@ function submitAnswer() {
   const nextWhen = applySM2(currentCard, grade);
   renderTop();
 
+  // Atualiza contadores da sessão imediatamente
+  const c = getDeckCounts(activeDeck, state.opMode);
+  document.getElementById("stNew").textContent = c.newCount;
+  document.getElementById("stLrn").textContent = c.lrnCount;
+  document.getElementById("stRev").textContent = c.revCount;
+
   const disp = document.getElementById("answerDisplay");
   const fb = document.getElementById("feedbackBox");
+  const mascotEl = document.getElementById("studyMascot");
+  const qBox = document.getElementById("questionBox");
   const m = MASCOTS[currentCard.deck - 1];
 
+  resetAnkiStrip();
+
   if (grade === "good") {
+    haptic(10);
     playTone("good");
-    disp.className = "answer-display ok";
-    document.getElementById("studyMascot").innerHTML = renderMascotSVG(currentCard.deck, "cheer");
+    disp.className = "answer-display ok tabular";
+    mascotEl.innerHTML = renderMascotSVG(currentCard.deck, "cheer");
+    triggerAnim(mascotEl, "anim-celebrate");
     document.getElementById("studySpeech").textContent = `${m.name}: Arrasou, Mariana! Super rápida! +2 ⭐`;
-    fb.className = "feedback-box show good";
-    fb.innerHTML = `✅ <b>Bom!</b> ${currentCard.q} = <b>${currentCard.a}</b> (${elapsedSec.toFixed(1)}s) • Volta em <b>${nextWhen}</b>.`;
+    document.getElementById("pillGood").classList.add("active-good");
+    document.getElementById("pillGoodSub").textContent = nextWhen;
+    fb.className = "feedback-card good";
+    fb.innerHTML = `<div class="feedback-title">✅ Bom! Resposta na ponta da língua</div><div class="tabular">${currentCard.q} = <b>${currentCard.a}</b> • Tempo: <b>${elapsedSec.toFixed(1)}s</b> • Próxima revisão: <b>${nextWhen}</b>.</div>`;
   } else if (grade === "hard") {
+    haptic(8);
     playTone("hard");
-    disp.className = "answer-display warn";
-    document.getElementById("studyMascot").innerHTML = renderMascotSVG(currentCard.deck, "happy");
-    document.getElementById("studySpeech").textContent = `${m.name}: Acertou, Mariana! Vamos treinar mais um pouquinho para ficar rapidinho! +1 ⭐`;
-    fb.className = "feedback-box show hard";
-    fb.innerHTML = `👍 <b>Difícil (acertou devagar):</b> ${currentCard.q} = <b>${currentCard.a}</b> (${elapsedSec.toFixed(1)}s) • Volta em <b>${nextWhen}</b>.`;
+    disp.className = "answer-display warn tabular";
+    mascotEl.innerHTML = renderMascotSVG(currentCard.deck, "happy");
+    triggerAnim(mascotEl, "anim-nudge");
+    document.getElementById("studySpeech").textContent = `${m.name}: Acertou, Mariana! Vamos treinar mais um pouco para ficar mais rápido! +1 ⭐`;
+    document.getElementById("pillHard").classList.add("active-hard");
+    document.getElementById("pillHardSub").textContent = nextWhen;
+    fb.className = "feedback-card hard";
+    fb.innerHTML = `<div class="feedback-title">👍 Difícil — acertou, mas pensou um pouquinho</div><div class="tabular">${currentCard.q} = <b>${currentCard.a}</b> • Tempo: <b>${elapsedSec.toFixed(1)}s</b> • Volta em <b>${nextWhen}</b>.</div>`;
   } else {
+    haptic(25);
     playTone("again");
-    disp.className = "answer-display err";
-    document.getElementById("studyMascot").innerHTML = renderMascotSVG(currentCard.deck, "encourage");
-    document.getElementById("studySpeech").textContent = `${m.name}: Quase, Mariana! Olha a resposta certa aqui embaixo que já já ela volta!`;
-    fb.className = "feedback-box show again";
-    fb.innerHTML = `🔄 <b>Novamente:</b> a resposta certa de ${currentCard.q} é <b>${currentCard.a}</b> • Volta em <b>${nextWhen}</b>.<div class="hint-line">💡 ${currentCard.hint}</div>`;
+    disp.className = "answer-display err tabular";
+    mascotEl.innerHTML = renderMascotSVG(currentCard.deck, "encourage");
+    triggerAnim(qBox, "anim-shake");
+    document.getElementById("studySpeech").textContent = `${m.name}: Quase, Mariana! Olha a dica aqui embaixo que já já ela volta!`;
+    document.getElementById("pillAgain").classList.add("active-again");
+    document.getElementById("pillAgainSub").textContent = nextWhen;
+    fb.className = "feedback-card again";
+    fb.innerHTML = `<div class="feedback-title">🔄 Novamente — a resposta certa é <b>${currentCard.a}</b></div><div class="hint-line">💡 ${currentCard.hint}</div>`;
   }
 
   awaitingNext = true;
-  document.getElementById("keypad").style.display = "none";
-  document.getElementById("nextBtnWrap").style.display = "block";
+  document.getElementById("keypadLayer").classList.add("hidden-layer");
+  document.getElementById("feedbackLayer").classList.remove("hidden-layer");
 }
 
 function nextCard() {
+  haptic(6);
   loadNextQuestion();
 }
 
-/* ==================== ÁLBUM E MAPA ==================== */
+/* ==================== ÁLBUM E MAPA 10x10 ==================== */
 function setHeatmapOp(op) {
+  haptic(5);
   heatmapOp = op;
+  selectedHeatmapId = "";
   document.getElementById("hmBtnMult").classList.toggle("active", op === "mult");
   document.getElementById("hmBtnDiv").classList.toggle("active", op === "div");
+  document.getElementById("hmInspector").innerHTML = `<span>Toque em um quadradinho abaixo para inspecionar o progresso daquela conta.</span>`;
   renderHeatmap();
+}
+
+function shineSticker(el) {
+  haptic(6);
+  el.classList.remove("shine");
+  void el.offsetWidth;
+  el.classList.add("shine");
 }
 
 function renderAlbumAndMap() {
@@ -1646,18 +2270,18 @@ function renderAlbumAndMap() {
   grid.innerHTML = MASCOTS.map(m => {
     const unlocked = state.unlockedDecks.includes(m.n);
     const pct = getDeckMastery(m.n);
-    let medal = "Sem medalha", cls = "";
-    if (pct >= 100) { medal = "🥇 Ouro"; cls = "medal-ouro"; }
-    else if (pct >= 70) { medal = "🥈 Prata"; cls = "medal-prata"; }
-    else if (pct >= 30) { medal = "🥉 Bronze"; cls = "medal-bronze"; }
+    let medal = "Sem medalha", cls = "", cardTier = "";
+    if (pct >= 100) { medal = "🥇 Ouro"; cls = "medal-ouro"; cardTier = "tier-gold"; }
+    else if (pct >= 70) { medal = "🥈 Prata"; cls = "medal-prata"; cardTier = "earned"; }
+    else if (pct >= 30) { medal = "🥉 Bronze"; cls = "medal-bronze"; cardTier = "earned"; }
 
     return `
-      <div class="sticker ${pct >= 30 ? "earned" : ""}">
-        <div style="width:68px; height:68px; margin:0 auto 6px; ${unlocked ? "" : "filter:grayscale(1); opacity:.4;"}">
+      <div class="sticker tactile-press ${cardTier}" onclick="shineSticker(this)">
+        <div style="width:66px; height:66px; margin:0 auto 6px; ${unlocked ? "" : "filter:grayscale(1); opacity:.38;"}">
           ${renderMascotSVG(m.n, pct >= 70 ? "cheer" : "happy")}
         </div>
-        <div style="font-weight:800; font-size:0.95rem;">${m.name}</div>
-        <div style="font-size:0.75rem; color:var(--muted);">Tabuada do ${m.n} (${pct}%)</div>
+        <div style="font-weight:800; font-size:0.95rem; letter-spacing:-0.015em;">${m.name}</div>
+        <div class="tabular" style="font-size:0.75rem; color:var(--text-secondary);">Tabuada do ${m.n} (${pct}%)</div>
         <div class="medal-badge ${cls}">${medal}</div>
       </div>
     `;
@@ -1665,8 +2289,40 @@ function renderAlbumAndMap() {
   renderHeatmap();
 }
 
+function getHeatmapCellStatus(card, unlocked) {
+  if (!unlocked || !card) return { cls: "hm-locked", label: "Bloqueada" };
+  if (card.state === "new" && card.reps === 0) return { cls: "hm-new", label: "Nova (ainda não vista)" };
+  if (card.lastGrade === "again") return { cls: "hm-bad", label: "Precisa treinar" };
+  if (card.state === "review" && card.lastGrade === "good") return { cls: "hm-good", label: "Firme / Automática" };
+  return { cls: "hm-mid", label: card.state === "learning" || card.state === "relearning" ? "Em aprendizagem (1m/10m)" : "Acertando devagar" };
+}
+
+function formatDueText(card) {
+  if (!card || card.state === "new") return "Na fila de novos";
+  const diffMin = Math.round((card.due - Date.now()) / 60000);
+  if (diffMin <= 0) return "Pronta para revisar agora";
+  if (diffMin < 60) return `Volta em ${diffMin} min`;
+  const diffDays = Math.max(1, Math.round(diffMin / 1440));
+  return `Volta em ${diffDays} dia${diffDays > 1 ? "s" : ""}`;
+}
+
+function inspectHeatmapCell(cardId) {
+  haptic(5);
+  selectedHeatmapId = cardId;
+  const card = state.cards.find(c => c.id === cardId);
+  if (!card) return;
+  const unlocked = state.unlockedDecks.includes(card.deck);
+  const st = getHeatmapCellStatus(card, unlocked);
+  const timeStr = card.lastMs ? `${(card.lastMs / 1000).toFixed(1)}s` : "—";
+  document.getElementById("hmInspector").innerHTML = `
+    <div><b>${card.q} = ${card.a}</b> • ${st.label}</div>
+    <div>Último tempo: <b>${timeStr}</b> • ${unlocked ? formatDueText(card) : "Desbloqueie a tabuada do " + card.deck}</div>
+  `;
+  renderHeatmap();
+}
+
 function renderHeatmap() {
-  let html = `<table class="heatmap"><thead><tr><th>${heatmapOp === "mult" ? "×" : "÷"}</th>`;
+  let html = `<table class="heatmap tabular"><thead><tr><th>${heatmapOp === "mult" ? "×" : "÷"}</th>`;
   for (let m = 1; m <= 10; m++) html += `<th>${m}</th>`;
   html += `</tr></thead><tbody>`;
 
@@ -1675,15 +2331,10 @@ function renderHeatmap() {
     html += `<tr><th>${n}</th>`;
     for (let m = 1; m <= 10; m++) {
       const card = state.cards.find(c => c.op === heatmapOp && c.deck === n && c.factor === m);
-      let cls = "hm-locked";
-      if (unlocked && card) {
-        if (card.state === "new") cls = "hm-new";
-        else if (card.lastGrade === "again") cls = "hm-bad";
-        else if (card.state === "review" && card.lastGrade === "good") cls = "hm-good";
-        else cls = "hm-mid";
-      }
+      const st = getHeatmapCellStatus(card, unlocked);
+      const sel = card && card.id === selectedHeatmapId ? " hm-selected" : "";
       const label = heatmapOp === "mult" ? `${n}×${m}` : `${n*m}÷${n}`;
-      html += `<td class="${cls}" title="${label} = ${card ? card.a : ""}">${label}</td>`;
+      html += `<td class="${st.cls}${sel}" onclick="inspectHeatmapCell('${card ? card.id : ""}')" title="${label} = ${card ? card.a : ""} (${st.label})">${label}</td>`;
     }
     html += `</tr>`;
   }
@@ -1708,6 +2359,7 @@ function fillOptionsForm() {
 }
 
 function saveAnkiConfig() {
+  haptic(8);
   const steps = document.getElementById("cfgSteps").value.trim().split(/\s+/).map(Number).filter(n => n > 0);
   state.config.newPerDay = Math.max(1, Number(document.getElementById("cfgNewPerDay").value) || 9999);
   state.config.reviewsPerDay = Math.max(1, Number(document.getElementById("cfgRevPerDay").value) || 9999);
@@ -1724,10 +2376,12 @@ function saveAnkiConfig() {
 }
 
 async function saveAndTestCloud() {
+  haptic(8);
   const url = document.getElementById("cfgCloudUrl").value.trim();
   state.config.cloudUrl = url;
   saveState(false);
   const diag = document.getElementById("cloudDiag");
+  diag.style.color = "var(--text-secondary)";
   diag.textContent = "Testando conexão com o Google Drive...";
   const res = await pullFromCloud();
   diag.style.color = res.ok ? "#166534" : "#b91c1c";
@@ -1735,6 +2389,7 @@ async function saveAndTestCloud() {
 }
 
 function copyGasCode() {
+  haptic(6);
   const code = `const FILE_NAME = 'tabuada_mariana_dados.json';
 function getOrCreateFile(){const f=DriveApp.getFilesByName(FILE_NAME);return f.hasNext()?f.next():DriveApp.createFile(FILE_NAME,'{"empty":true}',MimeType.PLAIN_TEXT);}
 function doGet(){try{return ContentService.createTextOutput(getOrCreateFile().getBlob().getDataAsString()||'{"empty":true}').setMimeType(ContentService.MimeType.JSON);}catch(e){return ContentService.createTextOutput(JSON.stringify({ok:false,error:e.message})).setMimeType(ContentService.MimeType.JSON);}}
@@ -1769,6 +2424,7 @@ function importBackup(ev) {
 }
 
 function unlockAllDecks() {
+  haptic(10);
   state.unlockedDecks = [1,2,3,4,5,6,7,8,9,10];
   saveState(true);
   renderHome();
@@ -1785,12 +2441,30 @@ function resetProgress() {
   showToast("Progresso zerado!");
 }
 
+let toastTimer = null;
 function showToast(msg) {
   const t = document.getElementById("toast");
   t.textContent = msg;
   t.classList.add("show");
-  setTimeout(() => t.classList.remove("show"), 2600);
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
 }
+
+/* ==================== RESPOSTA TÁTIL IMEDIATA (POINTERDOWN) ==================== */
+document.addEventListener("pointerdown", e => {
+  const target = e.target.closest(".key, .tactile-press");
+  if (!target) return;
+  target.classList.add("is-pressed");
+  const clear = () => {
+    target.classList.remove("is-pressed");
+    window.removeEventListener("pointerup", clear);
+    window.removeEventListener("pointercancel", clear);
+    target.removeEventListener("pointerleave", clear);
+  };
+  window.addEventListener("pointerup", clear, { once: true });
+  window.addEventListener("pointercancel", clear, { once: true });
+  target.addEventListener("pointerleave", clear, { once: true });
+}, { passive: true });
 
 /* ==================== TECLADO FÍSICO ==================== */
 document.addEventListener("keydown", e => {
@@ -1800,7 +2474,7 @@ document.addEventListener("keydown", e => {
     else if (e.key === "Escape") closePinModal();
     return;
   }
-  if (!document.getElementById("view-estudar").classList.contains("active")) return;
+  if (activeTab !== "estudar") return;
   if (/^[0-9]$/.test(e.key)) pressDigit(e.key);
   else if (e.key === "Backspace") pressBackspace();
   else if (e.key === "Enter") {
@@ -1809,9 +2483,12 @@ document.addEventListener("keydown", e => {
   }
 });
 
+window.addEventListener("resize", () => requestAnimationFrame(updateSegmentedThumb));
+
 function renderAll() {
   renderTop();
   renderHome();
+  requestAnimationFrame(updateSegmentedThumb);
 }
 
 /* ==================== INICIALIZAÇÃO ==================== */
